@@ -1,0 +1,9 @@
+﻿@startuml "OniDefense"
+
+class Oni {
+    + health : int
+}
+
+class 
+
+@enduml "OniDefense"
