@@ -11,7 +11,7 @@ public class WaveManagerScript : MonoBehaviour
     public Transform objectivePoint;
     public float timeBetweenWaves = 10f;
     private float countdown = 5f;
-    private int waveNumber = 1;
+    private int waveIndex = 0;
     private int nbEnemies;
     // Start is called before the first frame update
     void Start()
@@ -23,20 +23,21 @@ public class WaveManagerScript : MonoBehaviour
     void Update()
     {
         if(countdown < 0f){
-            SpawnWave(waveNumber);
+            StartCoroutine(SpawnWave(waveIndex));
             countdown = timeBetweenWaves;
-            waveNumber ++;
+            waveIndex ++;
         }
 
         countdown -= Time.deltaTime;
     }
 
-    void SpawnWave(int waveNumber){
+    IEnumerator SpawnWave(int waveNumber){
         Debug.Log("Wave incoming");
         nbEnemies = waveNumber*waveNumber+1;
 
         for(int i = 0; i < nbEnemies; i++){
             SpawnEnemy();
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
