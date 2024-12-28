@@ -79,10 +79,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb319202fae04d38ad841471eaa4ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 15
+  maximumRange: 25
+  minimumRange: 8
   EnemyTag: zombie
   movingPart: {fileID: 6188985188440626524}
-  turningSpeed: 10
+  turningSpeed: 7
 --- !u!1001 &3807275659266691120
 PrefabInstance:
   m_ObjectHideFlags: 0

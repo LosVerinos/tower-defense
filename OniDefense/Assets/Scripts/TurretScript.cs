@@ -7,14 +7,17 @@ public class TurretScript : MonoBehaviour
 {
 
     private Transform target;
-    public float range = 15f;
+    public float maximumRange = 15f;
+    public float minimumRange = 0f;
     public string EnemyTag = "zombie";
     public Transform movingPart;
     public float turningSpeed = 10f;
+    private Quaternion defaultRotation;
 
     // Start is called before the first frame update
     void Start()
     {
+        defaultRotation = movingPart.rotation;
         InvokeRepeating("UpdateTarget", 0f, 0.25f);    
     }
 
@@ -23,19 +26,19 @@ public class TurretScript : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyTag);
 
         float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
+        GameObject nearestEnemyInRange = null;
 
         foreach (GameObject enemy in enemies){
             float distanceToTarget = Vector3.Distance (transform.position, enemy.transform.position);
 
-            if(distanceToTarget < shortestDistance){
+            if(distanceToTarget >= minimumRange && distanceToTarget < shortestDistance){
                 shortestDistance = distanceToTarget;
-                nearestEnemy = enemy;
+                nearestEnemyInRange = enemy;
             }
         }
 
-        if(nearestEnemy != null && shortestDistance <= range){
-            target = nearestEnemy.transform;
+        if(nearestEnemyInRange != null && shortestDistance <= maximumRange && shortestDistance >= minimumRange){
+            target = nearestEnemyInRange.transform;
         }
         else{
             target = null;
@@ -47,18 +50,21 @@ public class TurretScript : MonoBehaviour
     void Update()
     {
         if(target == null){
+            Vector3 rotation = Quaternion.Lerp(movingPart.rotation, defaultRotation, Time.deltaTime * turningSpeed).eulerAngles;
+            movingPart.rotation = Quaternion.Euler(rotation);
             return;
         }
-
-
-        Vector3 direction = target.position - movingPart.position;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        Vector3 rotation = Quaternion.Lerp(movingPart.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
-        movingPart.rotation = Quaternion.Euler(rotation.x, rotation.y, 0f);
+        else{
+            Vector3 direction = new Vector3(target.position.x, target.position.y + 2.5f, target.position.z) - movingPart.position;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            Vector3 rotation = Quaternion.Lerp(movingPart.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
+            movingPart.rotation = Quaternion.Euler(rotation.x, rotation.y, 0f);
+        }
     }
 
     void OnDrawGizmosSelected(){
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(transform.position, maximumRange);
+        Gizmos.DrawWireSphere(transform.position, minimumRange);
     }
 }
