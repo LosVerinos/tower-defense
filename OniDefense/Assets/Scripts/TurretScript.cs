@@ -7,11 +7,20 @@ public class TurretScript : MonoBehaviour
 {
 
     private Transform target;
+
+    [Header("Parametres tourelle")]
     public float maximumRange = 15f;
     public float minimumRange = 0f;
+    public float turningSpeed = 10f;
+    public float fireRate;
+    private float fireCountdown;
+
+    [Header("Parametres Unity")]
     public string EnemyTag = "zombie";
     public Transform movingPart;
-    public float turningSpeed = 10f;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    
     private Quaternion defaultRotation;
 
     // Start is called before the first frame update
@@ -60,11 +69,30 @@ public class TurretScript : MonoBehaviour
             Vector3 rotation = Quaternion.Lerp(movingPart.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
             movingPart.rotation = Quaternion.Euler(rotation.x, rotation.y, 0f);
         }
+
+
+        if(fireCountdown <= 0){
+            Shoot();
+            fireCountdown = 1f / fireRate;
+        }
+
+        fireCountdown -= Time.deltaTime;
     }
 
     void OnDrawGizmosSelected(){
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, maximumRange);
         Gizmos.DrawWireSphere(transform.position, minimumRange);
+    }
+
+    void Shoot(){
+        Debug.Log("Shooting !");
+
+        GameObject bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        BulletScript bulletScript = bulletGameObject.GetComponent<BulletScript>();
+
+        if(bulletScript != null){
+            bulletScript.Find(target);
+        }
     }
 }
