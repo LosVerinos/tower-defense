@@ -20,6 +20,7 @@ public class TurretScript : MonoBehaviour
     public Transform movingPart;
     public GameObject bulletPrefab;
     public Transform firePoint;
+    public GameObject muzzleFlash;
     
     private Quaternion defaultRotation;
 
@@ -88,6 +89,8 @@ public class TurretScript : MonoBehaviour
     void Shoot(){
         Debug.Log("Shooting !");
 
+        GameObject flash = Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
+        Destroy(flash, 0.2f);
         GameObject bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         BulletScript bulletScript = bulletGameObject.GetComponent<BulletScript>();
 

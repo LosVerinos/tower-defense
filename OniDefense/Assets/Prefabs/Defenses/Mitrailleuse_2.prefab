@@ -118,6 +118,7 @@ MonoBehaviour:
   movingPart: {fileID: 6316145704111543363}
   bulletPrefab: {fileID: 7995256546523920823, guid: a5df3e93d7e914b4bbcd1fca229403a8, type: 3}
   firePoint: {fileID: 4727517668223876724}
+  muzzleFlash: {fileID: 1570680698082651596, guid: 62e75545398b94d749b26573e9206cba, type: 3}
 --- !u!1001 &1908434480042304899
 PrefabInstance:
   m_ObjectHideFlags: 0
