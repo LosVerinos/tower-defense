@@ -116,7 +116,8 @@ MonoBehaviour:
   turningSpeed: 7
   fireRate: 5
   EnemyTag: zombie
-  movingPart: {fileID: 6188985188440626524}
+  movingPartY: {fileID: 6188985188440626524}
+  movingPartX: {fileID: 6188985188440626524}
   bulletPrefab: {fileID: 7995256546523920823, guid: a5df3e93d7e914b4bbcd1fca229403a8, type: 3}
   firePoint: {fileID: 7471656642807751523}
   muzzleFlash: {fileID: 1570680698082651596, guid: 62e75545398b94d749b26573e9206cba, type: 3}

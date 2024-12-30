@@ -33,7 +33,7 @@ public class WaveManagerScript : MonoBehaviour
 
     IEnumerator SpawnWave(int waveNumber){
         Debug.Log("Wave incoming");
-        nbEnemies = waveNumber*waveNumber+1;
+        nbEnemies = waveNumber+1;
 
         for(int i = 0; i < nbEnemies; i++){
             SpawnEnemy();

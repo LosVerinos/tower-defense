@@ -17,17 +17,20 @@ public class TurretScript : MonoBehaviour
 
     [Header("Parametres Unity")]
     public string EnemyTag = "zombie";
-    public Transform movingPart;
+    public Transform movingPartY;
+    public Transform movingPartX;
     public GameObject bulletPrefab;
     public Transform firePoint;
     public GameObject muzzleFlash;
     
-    private Quaternion defaultRotation;
+    private Quaternion defaultRotationX;
+    private Quaternion defaultRotationY;
 
     // Start is called before the first frame update
     void Start()
     {
-        defaultRotation = movingPart.rotation;
+        defaultRotationX = movingPartX.rotation;
+        defaultRotationY = movingPartY.rotation;
         InvokeRepeating("UpdateTarget", 0f, 0.25f);    
     }
 
@@ -60,15 +63,26 @@ public class TurretScript : MonoBehaviour
     void Update()
     {
         if(target == null){
-            Vector3 rotation = Quaternion.Lerp(movingPart.rotation, defaultRotation, Time.deltaTime * turningSpeed).eulerAngles;
-            movingPart.rotation = Quaternion.Euler(rotation);
+            Vector3 rotationX = Quaternion.Lerp(movingPartX.rotation, defaultRotationX, Time.deltaTime * turningSpeed).eulerAngles;
+            Vector3 rotationY = Quaternion.Lerp(movingPartY.rotation, defaultRotationY, Time.deltaTime * turningSpeed).eulerAngles;
+            movingPartX.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
+            movingPartY.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
             return;
         }
         else{
-            Vector3 direction = new Vector3(target.position.x, target.position.y + 2.5f, target.position.z) - movingPart.position;
+            Vector3 direction = new Vector3(target.position.x, target.position.y + 2.5f, target.position.z) - movingPartY.position;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            Vector3 rotation = Quaternion.Lerp(movingPart.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
-            movingPart.rotation = Quaternion.Euler(rotation.x, rotation.y, 0f);
+            Vector3 rotationY = Quaternion.Lerp(movingPartY.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
+            Vector3 rotationX = Quaternion.Lerp(movingPartX.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
+            movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
+            movingPartX.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
+
+
+            /* //No need 
+            if(movingPartX.name != movingPartY.name){
+                movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
+            }
+            */
         }
 
 
