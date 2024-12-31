@@ -12,6 +12,7 @@ public class TurretScript : MonoBehaviour
     public float maximumRange = 15f;
     public float minimumRange = 0f;
     public float turningSpeed = 10f;
+    public float damages;
     public float fireRate;
     private float fireCountdown;
 
@@ -107,6 +108,7 @@ public class TurretScript : MonoBehaviour
         Destroy(flash, 0.2f);
         GameObject bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         BulletScript bulletScript = bulletGameObject.GetComponent<BulletScript>();
+        bulletScript.SetDamage(damages);
 
         if(bulletScript != null){
             bulletScript.Find(target);

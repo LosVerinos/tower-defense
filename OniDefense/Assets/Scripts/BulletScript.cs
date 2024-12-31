@@ -8,10 +8,15 @@ public class BulletScript : MonoBehaviour
     private Transform target;
     public float speed = 70f;
     public GameObject bulletImpact;
+    private float damages;
     // Start is called before the first frame update
     public void Find(Transform _target)
     {
         target = _target;
+    }
+
+    public void SetDamage(float _damages){
+        damages = _damages;
     }
 
     // Update is called once per frame
@@ -35,7 +40,10 @@ public class BulletScript : MonoBehaviour
     }
 
     void HitTarget(){
-        Debug.Log("Hit !");
+        EnemyScript e = target.GetComponent<EnemyScript>();
+        if(e != null){
+            e.TakeDamages(damages);
+        }
         GameObject effect = Instantiate(bulletImpact, transform.position, transform.rotation);
         Destroy(effect, 2f);
         Destroy(gameObject);
