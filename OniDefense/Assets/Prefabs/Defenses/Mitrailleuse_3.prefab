@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 4393709490243191145}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.45, y: 6.2, z: 0.1}
+  m_LocalPosition: {x: 0.45, y: 5.9, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -114,8 +114,8 @@ MonoBehaviour:
   maximumRange: 25
   minimumRange: 8
   turningSpeed: 7
-  damages: 5
-  fireRate: 5
+  damages: 25
+  fireRate: 10
   EnemyTag: zombie
   movingPartY: {fileID: 6188985188440626524}
   movingPartX: {fileID: 6188985188440626524}
@@ -242,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ad49964b0e9a4855abcdd7f5450371b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ad49964b0e9a4855abcdd7f5450371b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -328,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bc5393f922f44376a4458eee0680bad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.8
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bc5393f922f44376a4458eee0680bad, type: 3}
       propertyPath: m_LocalPosition.z

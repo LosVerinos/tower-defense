@@ -36,7 +36,7 @@ public class TurretScript : MonoBehaviour
     }
 
 
-    void UpdateTarget(){
+    bool UpdateTarget(){
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyTag);
 
         float shortestDistance = Mathf.Infinity;
@@ -56,18 +56,20 @@ public class TurretScript : MonoBehaviour
         }
         else{
             target = null;
+            return false; 
         }
+        return true;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if(target == null){
+        if(target == null && !UpdateTarget()){
             Vector3 rotationX = Quaternion.Lerp(movingPartX.rotation, defaultRotationX, Time.deltaTime * turningSpeed).eulerAngles;
             Vector3 rotationY = Quaternion.Lerp(movingPartY.rotation, defaultRotationY, Time.deltaTime * turningSpeed).eulerAngles;
             movingPartX.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
-            movingPartY.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
+            movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
             return;
         }
         else{
