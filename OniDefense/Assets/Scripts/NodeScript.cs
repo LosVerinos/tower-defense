@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class NodeScript : MonoBehaviour
 {
     private Renderer rend;
     public Material hoverMaterial;
     private Material defaultMaterial;
-    private GameObject defense;
-    private GameObject tempDefense;
-    private Vector3 positionOffset = new Vector3(0f, -0.3f, 0f);
+    [DoNotSerialize]public GameObject defense;
+    [DoNotSerialize]public GameObject tempDefense;
+    public Vector3 positionOffset = new Vector3(0f, -0.3f, 0f);
     BuildManager buildManager;
 
 
@@ -29,11 +31,15 @@ public class NodeScript : MonoBehaviour
     }
 
     void OnMouseEnter(){
+        if(EventSystem.current.IsPointerOverGameObject())
+            return;
+
         rend.material = hoverMaterial;
+
         if(defense == null){
-            GameObject defenseToBuild = buildManager.GetDefenseToBuild();
-            if(defenseToBuild != null)
-                tempDefense = Instantiate(defenseToBuild, transform.position + positionOffset, transform.rotation);
+            //GameObject defenseToBuild = buildManager.GetDefenseToBuild();
+            if(buildManager.CanBuild)
+                buildManager.BuildDefenseOn(this, false);
         }
     }
 
@@ -43,8 +49,10 @@ public class NodeScript : MonoBehaviour
     }
 
     void OnMouseDown(){
+        if(EventSystem.current.IsPointerOverGameObject())
+            return;
         
-        if(buildManager.GetDefenseToBuild() == null)
+        if(!buildManager.CanBuild)
             return;
 
         if(defense != null){
@@ -55,12 +63,8 @@ public class NodeScript : MonoBehaviour
         }
         else{
             Destroy(tempDefense);
-            //TODO: Choix de la défense
-            GameObject defenseToBuild = buildManager.GetDefenseToBuild();
-            defense = Instantiate(defenseToBuild, transform.position + positionOffset, transform.rotation);
-            TurretScript defenseScript = defense.GetComponent<TurretScript>();
-            defenseScript.SetActive(true);
-            buildManager.SetDefenseToBuild(null);
+            buildManager.BuildDefenseOn(this, true);
+            buildManager.SelectDefenseToBuild(null);
             tempDefense = null;
         }
     }

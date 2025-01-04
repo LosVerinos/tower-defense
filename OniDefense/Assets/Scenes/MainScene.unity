@@ -488,6 +488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada72d36d61c24214bd79e48caa0a05f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standartDefense:
+    prefab: {fileID: 3186223316820800590, guid: dfed8afe0ff184c4bbc91fc7839e9009, type: 3}
+    cost: 100
+  sniperDefense:
+    prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
+    cost: 200
 --- !u!1001 &155729606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3203,6 +3209,7 @@ GameObject:
   - component: {fileID: 851428409}
   - component: {fileID: 851428408}
   - component: {fileID: 851428410}
+  - component: {fileID: 851428411}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3253,8 +3260,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74454393606d14c9eb89a6a3c2d37e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standartDefense: {fileID: 3186223316820800590, guid: dfed8afe0ff184c4bbc91fc7839e9009, type: 3}
-  sniperDefense: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
+--- !u!114 &851428411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851428407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94075a7080c364cc7b24d55f0101c963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMoney: 400
 --- !u!1001 &862274501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5979,7 +5997,7 @@ PrefabInstance:
       objectReference: {fileID: 139026474}
     - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PurschaseSniper
+      value: SelectSniper
       objectReference: {fileID: 0}
     - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -8717,7 +8735,7 @@ PrefabInstance:
       objectReference: {fileID: 139026474}
     - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PurschaseMitrailleuse
+      value: SelectMitrailleuse
       objectReference: {fileID: 0}
     - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

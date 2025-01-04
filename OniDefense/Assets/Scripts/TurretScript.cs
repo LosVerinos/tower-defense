@@ -112,8 +112,6 @@ public class TurretScript : MonoBehaviour
 
     void Shoot(){
         if(active){
-            Debug.Log("Shooting !");
-
             GameObject flash = Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
             Destroy(flash, 0.2f);
             GameObject bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
