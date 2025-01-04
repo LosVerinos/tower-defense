@@ -14,15 +14,20 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    public GameObject standartDefense;
+    [SerializeField] public GameObject standartDefense;
+    [SerializeField] public GameObject sniperDefense;
+    private GameObject defenseToBuild;
 
     void Start(){
-        defenseToBuild = standartDefense;
+        defenseToBuild = null;
     }
-
-    private GameObject defenseToBuild;
 
     public GameObject GetDefenseToBuild(){
         return defenseToBuild;
     }
+
+    public void SetDefenseToBuild(GameObject _defense){
+        defenseToBuild = _defense;
+    }
+
 }
