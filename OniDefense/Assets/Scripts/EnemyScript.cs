@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
 
-    public float health;
+    [SerializeField]private float health;
+    [SerializeField]private int reward;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TakeDamages(float damages){
@@ -26,5 +27,7 @@ public class EnemyScript : MonoBehaviour
 
     void Die(){
         Destroy(gameObject);
+        PlayerStats.Money += reward;
+        Debug.Log("Zombie tué ! +10$ ! Monnaie actuelle : " + PlayerStats.Money);
     }
 }
