@@ -1,61 +1,120 @@
-﻿@startuml "OniDefense"
+﻿@startuml "TowerDefense"
 
 package "System" {
     class GameManager {
-        + map : Map
-        + towerList : List<Tower>
-        + oniList : List<Oni>
-        - Awake()
-        + NotifyTowers()
+        + waveNumber : int
+        + lives : int
+        + gold : int
+        + leaderboard : Leaderboard
+        + StartGame()
+        + EndGame()
+        + UpdateWave()
+        + AddGold(amount : int)
+        + LoseLife()
     }
 
-    GameManager --> GameManager : Instance <<static>>
+    class Leaderboard {
+        + scores : List<Score>
+        + AddScore(playerName : string, waveNumber : int)
+        + GetTopScores() : List<Score>
+    }
+
+    class Score {
+        + playerName : string
+        + wave : int
+    }
+
+    GameManager --> Leaderboard
 }
 
-
-
-package Building {
-
-    
-
-    package AttackStrategies {
+package "Building" {
+    package "AttackStrategies" {
         interface IAttackStrategy {
-        + ExecuteAttack(tower : Tower, enemy : Oni)
+            + ExecuteAttack(tower : Tower, enemies : List<Oni>)
         }
+
         class SingleTargetStrategy implements IAttackStrategy {
-            + ExecuteAttack(tower : Tower, enemy : Oni)
+            + ExecuteAttack(tower : Tower, enemies : List<Oni>)
         }
+
         class AoeStrategy implements IAttackStrategy {
-            + ExecuteAttack(tower : Tower, enemy : Oni)
+            + ExecuteAttack(tower : Tower, enemies : List<Oni>)
         }
     }
 
     class Tower {
-        {abstract} Attack()
-        + OnEnemyDetected()
+        + position : Vector3
+        + range : float
+        + damage : float
+        + level : int
+        + cost : int
+        + effect : EffectType
+        + attackStrategy : IAttackStrategy
+        + Upgrade()
+        + Attack(enemies : List<Oni>)
+    }
+
+    class FireTower extends Tower {
+        + Attack(enemies : List<Oni>)
+    }
+
+    class IceTower extends Tower {
+        + Attack(enemies : List<Oni>)
+    }
+
+    enum EffectType {
+        Ralenti,
+        Brulure
     }
 
     Tower --* AttackStrategies.IAttackStrategy : Strategy
-
-
-    class SamouraiTower extends Tower {
-        + Attack()
-    }
-
 }
 
-package Enemy {
+package "Enemy" {
     abstract class Oni {
         + health : float
         + speed : float
-        {abstract} Move()
+        + type : EnemyType
+        + position : Vector3
+        + TakeDamage(amount : float)
+        + ApplyEffect(effect : EffectType)
+        + Move()
+    }
+
+    class FireOni extends Oni {}
+    class IceOni extends Oni {}
+
+    enum EnemyType {
+        Feu,
+        Glace
     }
 
     class EnemySpawner {
-        + prefab : UnityEngine.GameObject
-        + SpawnEnemy(position : Vector3)
+        + waveCount : int
+        + SpawnWave(waveNumber : int) : List<Oni>
     }
 }
 
+package "Map" {
+    class Map {
+        + tiles : List<Tile>
+        + GetPath(start : Vector3, end : Vector3) : List<Vector3>
+        + IsValidPosition(position : Vector3) : bool
+        + PlaceTower(position : Vector3, tower : Tower)
+    }
 
-@enduml "OniDefense"
+    class Tile {
+        + position : Vector3
+        + isWalkable : bool
+    }
+
+    Map --> Tile
+}
+
+GameManager --> "1..*" Building.Tower
+GameManager --> "1..*" Enemy.Oni
+GameManager --> "1" Map.Map
+
+Building.Tower --> Map.Map : Uses
+Enemy.Oni --> Map.Map : Uses
+EnemySpawner --> Enemy.Oni : Creates
