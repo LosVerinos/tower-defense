@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class WaveManagerScript : MonoBehaviour
 {
-
-    public GameObject normalZombie;
     public Transform spawnPoint;
     public Transform objectivePoint;
     public float timeBetweenWaves = 10f;
     private float countdown = 5f;
     private int waveIndex = 0;
     private int nbEnemies;
+    public GameObject[] zombiesList;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +41,8 @@ public class WaveManagerScript : MonoBehaviour
     }
 
     void SpawnEnemy(){
-        Instantiate(normalZombie, spawnPoint.position, spawnPoint.rotation);
-        normalZombie.GetComponent<AINavigationScript>().objectivePoint = objectivePoint;
+        GameObject randomZombie = zombiesList[UnityEngine.Random.Range(0, zombiesList.Length)];
+        GameObject spawnedZombie = Instantiate(randomZombie, spawnPoint.position, spawnPoint.rotation);
+        spawnedZombie.GetComponent<AINavigationScript>().objectivePoint = objectivePoint;
     }
 }

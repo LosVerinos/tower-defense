@@ -494,8 +494,8 @@ MonoBehaviour:
   sniperDefense:
     prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
     cost: 200
-  shopButtonMitrailleuse: {fileID: 0}
-  shopButtonSniper: {fileID: 0}
+  shopButtonMitrailleuse: {fileID: 1083815829}
+  shopButtonSniper: {fileID: 748000216}
 --- !u!1 &142457078
 GameObject:
   m_ObjectHideFlags: 0
@@ -3289,6 +3289,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2748004830529807357, guid: f5f303e80809346a5ba96cc47055b94e, type: 3}
   m_PrefabInstance: {fileID: 742343984}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &748000216 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+  m_PrefabInstance: {fileID: 215122637}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &793847359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3506,10 +3517,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ed62caa8aa8462a8ff46a1da9925b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalZombie: {fileID: 2734810277367927149, guid: 0f71907b5fb9c48e39dc280ea560110d, type: 3}
   spawnPoint: {fileID: 1986821949}
   objectivePoint: {fileID: 1474339611}
   timeBetweenWaves: 10
+  zombiesList:
+  - {fileID: 2734810277367927149, guid: 0f71907b5fb9c48e39dc280ea560110d, type: 3}
+  - {fileID: 2734810277367927149, guid: 2656ec92e12454697a4c89b25037ec08, type: 3}
 --- !u!4 &851428409
 Transform:
   m_ObjectHideFlags: 0
@@ -4549,6 +4562,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
   m_PrefabInstance: {fileID: 1083815826}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1083815829 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+  m_PrefabInstance: {fileID: 1083815826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1089648702
 PrefabInstance:
   m_ObjectHideFlags: 0
