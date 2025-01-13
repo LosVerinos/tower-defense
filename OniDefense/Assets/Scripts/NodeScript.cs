@@ -11,7 +11,7 @@ public class NodeScript : MonoBehaviour
     private Material defaultMaterial;
     [DoNotSerialize]public GameObject defense;
     [DoNotSerialize]public GameObject tempDefense;
-    public Vector3 positionOffset = new Vector3(0f, -0.3f, 0f);
+    public Vector3 positionOffset;
     BuildManager buildManager;
 
 

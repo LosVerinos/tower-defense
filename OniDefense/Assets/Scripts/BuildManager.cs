@@ -34,6 +34,7 @@ public class BuildManager : MonoBehaviour
     public void BuildDefenseOn(NodeScript node, bool activate){
         if(PlayerStats.Money >= defenseToBuild.cost){
             GameObject defense = Instantiate(defenseToBuild.prefab, node.transform.position + node.positionOffset, Quaternion.identity);
+            Debug.Log(node.positionOffset.y);
             TurretScript defenseScript = defense.GetComponent<TurretScript>();
             defenseScript.SetActive(activate);
 

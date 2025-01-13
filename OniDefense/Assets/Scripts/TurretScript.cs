@@ -91,6 +91,9 @@ public class TurretScript : MonoBehaviour
                 if(movingPartX.name != movingPartY.name){
                     movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
                 }
+                else{
+                
+                }
                 */
             }
 
@@ -116,10 +119,14 @@ public class TurretScript : MonoBehaviour
             Destroy(flash, 0.2f);
             GameObject bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             BulletScript bulletScript = bulletGameObject.GetComponent<BulletScript>();
-            bulletScript.SetDamage(damages);
-
             if(bulletScript != null){
+                bulletScript.SetDamage(damages);
                 bulletScript.Find(target);
+            }
+            else{
+                ObusScript obusScript = bulletGameObject.GetComponent<ObusScript>();
+                obusScript.SetDamage(damages);
+                obusScript.Find(target);
             }
         }
     }
