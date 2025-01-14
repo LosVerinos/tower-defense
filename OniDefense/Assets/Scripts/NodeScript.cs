@@ -14,7 +14,6 @@ public class NodeScript : MonoBehaviour
     public Vector3 positionOffset = new Vector3(0f, -0.3f, 0f);
     BuildManager buildManager;
 
-
     // Start is called before the first frame update
     void Start()
     {

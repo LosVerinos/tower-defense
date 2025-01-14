@@ -1,4 +1,4 @@
-﻿@startuml "TowerDefense"
+﻿@startuml "TurretDefense"
 
 package "System" {
     class GameManager {
@@ -22,6 +22,7 @@ package "System" {
     class Score {
         + playerName : string
         + wave : int
+        + AddScore():void
     }
 
     GameManager --> Leaderboard
@@ -30,36 +31,42 @@ package "System" {
 package "Building" {
     package "AttackStrategies" {
         interface IAttackStrategy {
-            + ExecuteAttack(tower : Tower, enemies : List<Oni>)
+            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
         }
 
         class SingleTargetStrategy implements IAttackStrategy {
-            + ExecuteAttack(tower : Tower, enemies : List<Oni>)
+            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
         }
 
         class AoeStrategy implements IAttackStrategy {
-            + ExecuteAttack(tower : Tower, enemies : List<Oni>)
+            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
         }
     }
 
-    class Tower {
-        + position : Vector3
-        + range : float
+    class Turret {
+        - target : Transform
+        + maximumRange : float
+        + minimumRange : float
+        + turningSpeed : float
         + damage : float
+        + fireRate : float
+        + fireCountdown : float 
+
+        //TO DO
         + level : int
         + cost : int
         + effect : EffectType
         + attackStrategy : IAttackStrategy
         + Upgrade()
-        + Attack(enemies : List<Oni>)
+        + Shoot(enemies : List<Enemy>)
     }
 
-    class FireTower extends Tower {
-        + Attack(enemies : List<Oni>)
+    class Sniper extends Turret {
+        + Shoot(enemies : List<Enemy>)
     }
 
-    class IceTower extends Tower {
-        + Attack(enemies : List<Oni>)
+    class Mortier extends Turret {
+        + Shoot(enemies : List<Enemy>)
     }
 
     enum EffectType {
@@ -67,22 +74,23 @@ package "Building" {
         Brulure
     }
 
-    Tower --* AttackStrategies.IAttackStrategy : Strategy
+    Turret --* AttackStrategies.IAttackStrategy : Strategy
 }
 
 package "Enemy" {
-    abstract class Oni {
+    abstract class Enemy {
         + health : float
         + speed : float
-        + type : EnemyType
+        + dammage : float
+        + type : EnemyType 
         + position : Vector3
         + TakeDamage(amount : float)
         + ApplyEffect(effect : EffectType)
         + Move()
     }
 
-    class FireOni extends Oni {}
-    class IceOni extends Oni {}
+    class FireEnemy extends Enemy {}
+    class IceEnemy extends Enemy {}
 
     enum EnemyType {
         Feu,
@@ -91,30 +99,30 @@ package "Enemy" {
 
     class EnemySpawner {
         + waveCount : int
-        + SpawnWave(waveNumber : int) : List<Oni>
+        + SpawnWave(waveNumber : int) : List<Enemy>
     }
 }
 
 package "Map" {
     class Map {
-        + tiles : List<Tile>
+        + Nodes : List<Node>
         + GetPath(start : Vector3, end : Vector3) : List<Vector3>
         + IsValidPosition(position : Vector3) : bool
-        + PlaceTower(position : Vector3, tower : Tower)
+        + PlaceTurret(position : Vector3, Turret : Turret)
     }
 
-    class Tile {
+    class Node {
         + position : Vector3
         + isWalkable : bool
     }
 
-    Map --> Tile
+    Map --> Node
 }
 
-GameManager --> "1..*" Building.Tower
-GameManager --> "1..*" Enemy.Oni
+GameManager --> "1..*" Building.Turret
+GameManager --> "1..*" Enemy.Enemy
 GameManager --> "1" Map.Map
 
-Building.Tower --> Map.Map : Uses
-Enemy.Oni --> Map.Map : Uses
-EnemySpawner --> Enemy.Oni : Creates
+Building.Turret --> Map.Map : Uses
+Enemy.Enemy --> Map.Map : Uses
+EnemySpawner --> Enemy.Enemy : Creates
