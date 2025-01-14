@@ -23,12 +23,10 @@ public class ObusScript : MonoBehaviour
 
         destination = new Vector3(target.position.x, 0, target.position.z);
         startPosition = transform.position;
-
-        // Calcul du temps total de vol en fonction de la distance et de la vitesse
         float distance = Vector3.Distance(startPosition, destination);
         flightTime = distance / speed;
 
-        elapsedTime = 0f; // Réinitialisation du temps écoulé
+        elapsedTime = 0f;
 
         previousPosition = startPosition;
     }
@@ -37,40 +35,29 @@ public class ObusScript : MonoBehaviour
         damages = _damages;
     }
 
-    // Update is called once per frame
     void Update()
     {
-                // Mise à jour du temps écoulé
         elapsedTime += Time.deltaTime;
-
-        // Si l'obus a atteint sa cible
         if (elapsedTime >= flightTime || transform.position.y < 0f)
         {
             Explode();
             return;
         }
 
-        // Interpolation de position horizontale (XZ)
-        float progress = elapsedTime / flightTime; // Progression entre 0 et 1
+        float progress = elapsedTime / flightTime;
         Vector3 horizontalPosition = Vector3.Lerp(startPosition, destination, progress);
 
-        // Calcul de la hauteur en sinusoïde
         float verticalOffset = Mathf.Sin(progress * Mathf.PI) * arcHeight;
 
-        // Nouvelle position de l'obus
         Vector3 newPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + verticalOffset, horizontalPosition.z);
         transform.position = newPosition;
 
-        // Calcul de la direction basée sur la position actuelle et précédente
         Vector3 direction = (newPosition - previousPosition).normalized;
 
-        // Mise à jour de l'orientation de l'obus
         if (direction != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(direction);
         }
-
-        // Mise à jour de la position précédente
         previousPosition = newPosition;
     }
 

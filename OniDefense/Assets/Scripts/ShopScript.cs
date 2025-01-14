@@ -6,12 +6,14 @@ public class ShopScript : MonoBehaviour
     public DefenseClass standartDefense;
     public DefenseClass sniperDefense;
     public DefenseClass mortarDefense;
+    public DefenseClass barricade;
     BuildManager buildManager;
 
     // Références aux boutons
     public Button shopButtonMitrailleuse;
     public Button shopButtonSniper;
     public Button shopButtonMortar;
+    public Button shopButtonBarricade;
 
     public void SelectMitrailleuse()
     {
@@ -43,9 +45,22 @@ public class ShopScript : MonoBehaviour
     {
         if (PlayerStats.Money >= mortarDefense.cost)
         {
-            Debug.Log("Sniper sélectionné");
+            Debug.Log("Mortier sélectionné");
             buildManager.SelectDefenseToBuild(mortarDefense);
             EnableButton(shopButtonMortar);
+            return;
+        }
+        Debug.Log("Not enough money!");
+        buildManager.SelectDefenseToBuild(null);
+    }
+
+    public void SelectBarricade()
+    {
+        if (PlayerStats.Money >= barricade.cost)
+        {
+            Debug.Log("Barricade sélectionnée");
+            buildManager.SelectDefenseToBuild(barricade);
+            EnableButton(shopButtonBarricade);
             return;
         }
         Debug.Log("Not enough money!");
@@ -92,6 +107,12 @@ public class ShopScript : MonoBehaviour
             DisableButton(shopButtonMortar);
         }
         else
-            EnableButton(shopButtonMortar);    
+            EnableButton(shopButtonMortar);
+        if (PlayerStats.Money < barricade.cost)
+        {
+            DisableButton(shopButtonBarricade);
+        }
+        else
+            EnableButton(shopButtonBarricade);   
     }
 }

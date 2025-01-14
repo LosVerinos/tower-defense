@@ -119,3 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverMaterial: {fileID: 2100000, guid: c163a8bb32d5942c4b209308df6e091b, type: 2}
+  defense: {fileID: 0}
+  tempDefense: {fileID: 0}
+  positionOffset: {x: 0, y: -0.24, z: 0}

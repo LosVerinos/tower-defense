@@ -36,8 +36,9 @@ public class BuildManager : MonoBehaviour
             GameObject defense = Instantiate(defenseToBuild.prefab, node.transform.position + node.positionOffset, Quaternion.identity);
             Debug.Log(node.positionOffset.y);
             TurretScript defenseScript = defense.GetComponent<TurretScript>();
-            defenseScript.SetActive(activate);
-
+            if(defenseScript != null){
+                defenseScript.SetActive(activate);
+            }
             if(!activate){
                 node.tempDefense = defense;
                 return;
