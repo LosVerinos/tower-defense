@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BuildManager : MonoBehaviour
 {
@@ -34,16 +35,26 @@ public class BuildManager : MonoBehaviour
     public void BuildDefenseOn(NodeScript node, bool activate){
         if(PlayerStats.Money >= defenseToBuild.cost){
             GameObject defense = Instantiate(defenseToBuild.prefab, node.transform.position + node.positionOffset, Quaternion.identity);
-            Debug.Log(node.positionOffset.y);
+
             TurretScript defenseScript = defense.GetComponent<TurretScript>();
+            NavMeshObstacle _navMeshObstacle = defense.GetComponent<NavMeshObstacle>();
+
+            //Active la défense
             if(defenseScript != null){
                 defenseScript.SetActive(activate);
             }
+            //Stocke en tant que défense tmeporaire et désactivée
             if(!activate){
                 node.tempDefense = defense;
+                _navMeshObstacle.enabled = false;
                 return;
             }
+
+            //Active la zone d'obstacle pour les zombies
+            _navMeshObstacle.enabled = true;
+            
             node.defense = defense;
+            
             PlayerStats.Money -= defenseToBuild.cost;
             Debug.Log("Defense construite. Monnaie restante : " + PlayerStats.Money);
         }

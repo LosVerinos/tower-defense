@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4882011234880994780}
   - component: {fileID: 6420225212064673432}
+  - component: {fileID: 6718982103314269685}
   m_Layer: 0
   m_Name: Mitrailleuse_3
   m_TagString: Untagged
@@ -122,6 +123,22 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7995256546523920823, guid: a5df3e93d7e914b4bbcd1fca229403a8, type: 3}
   firePoint: {fileID: 7471656642807751523}
   muzzleFlash: {fileID: 1570680698082651596, guid: 62e75545398b94d749b26573e9206cba, type: 3}
+--- !u!208 &6718982103314269685
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773757521000308494}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.13, y: 1, z: 3.535}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &3807275659266691120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -246,7 +263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ad49964b0e9a4855abcdd7f5450371b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.67
+      value: 9.62
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ad49964b0e9a4855abcdd7f5450371b, type: 3}
       propertyPath: m_LocalRotation.w
