@@ -3,64 +3,64 @@ using UnityEngine.UI;
 
 public class ShopScript : MonoBehaviour
 {
-    public DefenseClass standartDefense;
-    public DefenseClass sniperDefense;
-    public DefenseClass mortarDefense;
-    public DefenseClass barricade;
+    public DefenseClass object1;
+    public DefenseClass object2;
+    public DefenseClass object3;
+    public DefenseClass object4;
     BuildManager buildManager;
 
     // Références aux boutons
-    public Button shopButtonMitrailleuse;
-    public Button shopButtonSniper;
-    public Button shopButtonMortar;
-    public Button shopButtonBarricade;
+    public Button shopButtonObject1;
+    public Button shopButtonObject2;
+    public Button shopButtonObject3;
+    public Button shopButtonObject4;
 
-    public void SelectMitrailleuse()
+    public void SelectObject1()
     {
-        if (PlayerStats.Money >= standartDefense.cost)
+        if (PlayerStats.Money >= object1.cost)
         {
             Debug.Log("Mitrailleuse sélectionnée");
-            buildManager.SelectDefenseToBuild(standartDefense);
-            EnableButton(shopButtonMitrailleuse);
+            buildManager.SelectDefenseToBuild(object1);
+            EnableButton(shopButtonObject1);
             return;
         }
         Debug.Log("Not enough money!");
         buildManager.SelectDefenseToBuild(null);
     }
 
-    public void SelectSniper()
+    public void SelectObject2()
     {
-        if (PlayerStats.Money >= sniperDefense.cost)
+        if (PlayerStats.Money >= object2.cost)
         {
             Debug.Log("Sniper sélectionné");
-            buildManager.SelectDefenseToBuild(sniperDefense);
-            EnableButton(shopButtonSniper);
+            buildManager.SelectDefenseToBuild(object2);
+            EnableButton(shopButtonObject2);
             return;
         }
         Debug.Log("Not enough money!");
         buildManager.SelectDefenseToBuild(null);
     }
 
-        public void SelectMortar()
+    public void SelectObject3()
     {
-        if (PlayerStats.Money >= mortarDefense.cost)
+        if (PlayerStats.Money >= object3.cost)
         {
             Debug.Log("Mortier sélectionné");
-            buildManager.SelectDefenseToBuild(mortarDefense);
-            EnableButton(shopButtonMortar);
+            buildManager.SelectDefenseToBuild(object3);
+            EnableButton(shopButtonObject3);
             return;
         }
         Debug.Log("Not enough money!");
         buildManager.SelectDefenseToBuild(null);
     }
 
-    public void SelectBarricade()
+    public void SelectObject4()
     {
-        if (PlayerStats.Money >= barricade.cost)
+        if (PlayerStats.Money >= object4.cost)
         {
-            Debug.Log("Barricade sélectionnée");
-            buildManager.SelectDefenseToBuild(barricade);
-            EnableButton(shopButtonBarricade);
+            Debug.Log("object4 sélectionnée");
+            buildManager.SelectDefenseToBuild(object4);
+            EnableButton(shopButtonObject4);
             return;
         }
         Debug.Log("Not enough money!");
@@ -89,30 +89,30 @@ public class ShopScript : MonoBehaviour
     }
 
     void Update(){
-        if (PlayerStats.Money < sniperDefense.cost)
+        if (PlayerStats.Money < object2.cost)
         {
-            DisableButton(shopButtonSniper);
+            DisableButton(shopButtonObject2);
         }
         else
-            EnableButton(shopButtonSniper);
+            EnableButton(shopButtonObject2);
 
-        if (PlayerStats.Money < standartDefense.cost)
+        if (PlayerStats.Money < object1.cost)
         {
-            DisableButton(shopButtonMitrailleuse);
+            DisableButton(shopButtonObject1);
         }
         else
-            EnableButton(shopButtonMitrailleuse);
-        if (PlayerStats.Money < mortarDefense.cost)
+            EnableButton(shopButtonObject1);
+        if (PlayerStats.Money < object3.cost)
         {
-            DisableButton(shopButtonMortar);
+            DisableButton(shopButtonObject3);
         }
         else
-            EnableButton(shopButtonMortar);
-        if (PlayerStats.Money < barricade.cost)
+            EnableButton(shopButtonObject3);
+        if (PlayerStats.Money < object4.cost)
         {
-            DisableButton(shopButtonBarricade);
+            DisableButton(shopButtonObject4);
         }
         else
-            EnableButton(shopButtonBarricade);   
+            EnableButton(shopButtonObject4);   
     }
 }

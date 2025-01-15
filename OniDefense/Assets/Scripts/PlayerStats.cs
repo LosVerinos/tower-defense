@@ -7,6 +7,9 @@ public class PlayerStats : MonoBehaviour
     public static int Money;
     public int startMoney = 400;
 
+    public static int moneyMultiplier = 1;
+    public static int fireRateMultiplier = 1;
+
 
     void Start()
     {

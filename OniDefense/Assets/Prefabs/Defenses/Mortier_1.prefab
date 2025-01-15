@@ -82,7 +82,7 @@ MonoBehaviour:
   maximumRange: 30
   minimumRange: 15
   turningSpeed: 5
-  damages: 100
+  damages: 50
   fireRate: 0.1
   EnemyTag: zombie
   movingPartY: {fileID: 4812689076350431149}

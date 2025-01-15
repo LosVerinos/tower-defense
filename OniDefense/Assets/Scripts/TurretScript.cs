@@ -102,7 +102,7 @@ public class TurretScript : MonoBehaviour
 
             if(fireCountdown <= 0){
                 Shoot();
-                fireCountdown = 1f / fireRate;
+                fireCountdown = 1f / fireRate * PlayerStats.fireRateMultiplier;
             }
 
             fireCountdown -= Time.deltaTime;

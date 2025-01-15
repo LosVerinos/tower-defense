@@ -27,7 +27,7 @@ public class EnemyScript : MonoBehaviour
 
     void Die(){
         Destroy(gameObject);
-        PlayerStats.Money += reward;
-        Debug.Log("Zombie tué ! +10$ ! Monnaie actuelle : " + PlayerStats.Money);
+        PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
+        Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
     }
 }
