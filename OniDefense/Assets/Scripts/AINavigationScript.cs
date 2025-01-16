@@ -18,5 +18,10 @@ public class AINavigationScript : MonoBehaviour
     void Update()
     {
         agent.destination = objectivePoint.position;
+        if (Vector3.Distance(transform.position, objectivePoint.position) < 1f)
+        {
+            Destroy(gameObject);
+            WaveManagerScript.EnemyDied();
+        }
     }
 }

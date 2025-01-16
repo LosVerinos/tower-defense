@@ -29,5 +29,8 @@ public class EnemyScript : MonoBehaviour
         Destroy(gameObject);
         PlayerStats.Money += reward;
         Debug.Log("Zombie tué ! +10$ ! Monnaie actuelle : " + PlayerStats.Money);
+        WaveManagerScript.EnemyDied();
     }
+    
+    
 }

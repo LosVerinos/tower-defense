@@ -6,6 +6,8 @@ using UnityEngine;
 public class WaveManagerScript : MonoBehaviour
 {
 
+    public static int EnemiesAliveCount = 0;
+
     public GameObject normalZombie;
     public Transform spawnPoint;
     public Transform objectivePoint;
@@ -22,6 +24,10 @@ public class WaveManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (EnemiesAliveCount > 0)
+        {
+            return;
+        }
         if(countdown < 0f){
             StartCoroutine(SpawnWave(waveIndex));
             countdown = timeBetweenWaves;
@@ -33,6 +39,7 @@ public class WaveManagerScript : MonoBehaviour
 
     IEnumerator SpawnWave(int waveNumber){
         Debug.Log("Wave incoming");
+        ResetEnemiesAliveCount();
         nbEnemies = waveNumber+1;
 
         for(int i = 0; i < nbEnemies; i++){
@@ -44,5 +51,18 @@ public class WaveManagerScript : MonoBehaviour
     void SpawnEnemy(){
         Instantiate(normalZombie, spawnPoint.position, spawnPoint.rotation);
         normalZombie.GetComponent<AINavigationScript>().objectivePoint = objectivePoint;
+        EnemySpawned();
+    }
+    
+    public static void EnemyDied(){
+        EnemiesAliveCount--;
+    }
+    
+    public static void EnemySpawned(){
+        EnemiesAliveCount++;
+    }
+    
+    private static void ResetEnemiesAliveCount(){
+        EnemiesAliveCount = 0;
     }
 }
