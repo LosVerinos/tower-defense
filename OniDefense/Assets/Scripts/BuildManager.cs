@@ -43,15 +43,21 @@ public class BuildManager : MonoBehaviour
             if(defenseScript != null){
                 defenseScript.SetActive(activate);
             }
+            
+
             //Stocke en tant que défense tmeporaire et désactivée
             if(!activate){
                 node.tempDefense = defense;
-                _navMeshObstacle.enabled = false;
+                if(_navMeshObstacle != null)
+                    _navMeshObstacle.enabled = false;
                 return;
             }
 
+            
             //Active la zone d'obstacle pour les zombies
-            _navMeshObstacle.enabled = true;
+            if(_navMeshObstacle != null){
+                _navMeshObstacle.enabled = true;
+            }
             
             node.defense = defense;
             

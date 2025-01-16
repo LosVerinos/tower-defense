@@ -19,7 +19,6 @@ public class ShopScript : MonoBehaviour
     {
         if (PlayerStats.Money >= object1.cost)
         {
-            Debug.Log("Mitrailleuse sélectionnée");
             buildManager.SelectDefenseToBuild(object1);
             EnableButton(shopButtonObject1);
             return;
@@ -32,7 +31,6 @@ public class ShopScript : MonoBehaviour
     {
         if (PlayerStats.Money >= object2.cost)
         {
-            Debug.Log("Sniper sélectionné");
             buildManager.SelectDefenseToBuild(object2);
             EnableButton(shopButtonObject2);
             return;
@@ -45,7 +43,6 @@ public class ShopScript : MonoBehaviour
     {
         if (PlayerStats.Money >= object3.cost)
         {
-            Debug.Log("Mortier sélectionné");
             buildManager.SelectDefenseToBuild(object3);
             EnableButton(shopButtonObject3);
             return;
@@ -58,7 +55,6 @@ public class ShopScript : MonoBehaviour
     {
         if (PlayerStats.Money >= object4.cost)
         {
-            Debug.Log("object4 sélectionnée");
             buildManager.SelectDefenseToBuild(object4);
             EnableButton(shopButtonObject4);
             return;

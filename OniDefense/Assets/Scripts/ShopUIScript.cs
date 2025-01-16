@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,20 +11,22 @@ public class ShopUIScript : MonoBehaviour
     [SerializeField] private GameObject shopButton;
     [SerializeField] private GameObject effectButton;
     [SerializeField] private GameObject closeButton;
-
-    private bool isPanelDeployed;
     private bool isShopDeployed;
     private bool isEffectDeployed;
+
+    void Start(){
+        closeButton.SetActive(false);
+    }
 
     public void DeployShopPanel(){
         if(isShopDeployed)
             return;
         if(isEffectDeployed)
             ShrinkEffectPanel();
-        shopPanel.transform.Translate(new Vector3(0,200,0));
-        shopButton.transform.Translate(new Vector3(0,200,0));
-        effectButton.transform.Translate(new Vector3(0,200,0));
-        closeButton.transform.Translate(new Vector3(0,200,0));
+
+        GameObject[] panelsToMove = {effectButton, shopButton, shopPanel, closeButton};
+        MovePanels(panelsToMove, new Vector3(0,230,0));
+
         closeButton.SetActive(true);
         isShopDeployed = true;
     }
@@ -33,37 +36,44 @@ public class ShopUIScript : MonoBehaviour
             return;
         if(isShopDeployed)
             ShrinkShopPanel();
-        effectButton.transform.Translate(new Vector3(0,200,0));
-        shopButton.transform.Translate(new Vector3(0,200,0));
-        closeButton.transform.Translate(new Vector3(0,200,0));
+
+        GameObject[] panelsToMove = {effectButton, shopButton, effectPanel, closeButton};
+        MovePanels(panelsToMove, new Vector3(0,230,0));
+
         closeButton.SetActive(true);
         isEffectDeployed = true;        
-        effectPanel.transform.Translate(new Vector3(0,200,0));
+        
     }
 
-    public void ShrinkShopPanel(){
+    void ShrinkShopPanel(){
         isShopDeployed = false;
-        shopPanel.transform.Translate(new Vector3(0,-200,0));
-        shopButton.transform.Translate(new Vector3(0,-200,0));
-        effectButton.transform.Translate(new Vector3(0,-200,0));
-        closeButton.transform.Translate(new Vector3(0,-200,0));
+        GameObject[] panelsToMove = {shopPanel, shopButton, effectButton, closeButton};
+        MovePanels(panelsToMove, new Vector3(0,-230,0));
         closeButton.SetActive(false);
     }
 
-    public void ShrinkEffectPanel(){
+    void ShrinkEffectPanel(){
         isEffectDeployed = false;
-        effectPanel.transform.Translate(new Vector3(0,-200,0));
-        shopButton.transform.Translate(new Vector3(0,-200,0));
-        effectButton.transform.Translate(new Vector3(0,-200,0));
-        closeButton.transform.Translate(new Vector3(0,-200,0));
+        GameObject[] panelsToMove = {effectPanel, shopButton, effectButton, closeButton};
+        MovePanels(panelsToMove, new Vector3(0,-230,0));
         closeButton.SetActive(false);
     }
 
     public void ShrinkAll(){
         if(isShopDeployed)
             ShrinkShopPanel();
-        
         if(isEffectDeployed)
             ShrinkEffectPanel();
+    }
+
+    void MovePanel(GameObject panel, Vector3 movement){
+        panel.transform.Translate(movement);
+    }
+
+    void MovePanels(GameObject[] panels, Vector3 movement){
+        foreach(GameObject panel in panels){
+            panel.transform.Translate(movement);
+        }
+        
     }
 }
