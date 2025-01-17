@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EffectScript : MonoBehaviour
+public class EffectZoneScript : MonoBehaviour
 {
+    private bool active = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class EffectScript : MonoBehaviour
                         Debug.Log("Zombie impacté par l'effet");
                         ApplyEffectSpeed(excollider.transform, 6f);
                     }
-                }*/
+                }
 
         Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(4f, 4f, 4f));
                 foreach(Collider collider in colliders){
@@ -30,13 +32,34 @@ public class EffectScript : MonoBehaviour
                         ApplyEffectSpeed(collider.transform, 0.5f);
                     }
                 }
-
+        */
         
+    }
+
+    void OnTriggerEnter(Collider otherCollider){
+        Debug.Log("Trigger Enter");
+        if(!active)
+            return;
+        if(otherCollider.transform.tag == "zombie")
+            Debug.Log("Zombie entre dans les barbelés");
+            ApplyEffectSpeed(otherCollider.transform, 0.5f);
+    }
+
+    void OnTriggerExit(Collider otherCollider){
+        Debug.Log("Trigger Exit");
+        if(!active)
+            return;
+        if(otherCollider.transform.tag == "zombie")
+            Debug.Log("Zombie sort des barbelés");
+            ApplyEffectSpeed(otherCollider.transform, 2f);
     }
 
     void ApplyEffectSpeed(Transform collider, float speedMultiplier){
         NavMeshAgent meshAgent = collider.GetComponent<NavMeshAgent>();
-        EnemyScript e = collider.GetComponent<EnemyScript>();
+        if(meshAgent != null){
+            meshAgent.speed *= speedMultiplier;
+        }
+        /*EnemyScript e = collider.GetComponent<EnemyScript>();
         Debug.Log(e.speedReduced);
         if(speedMultiplier < 1f && !e.speedReduced){
             meshAgent.speed *= speedMultiplier;
@@ -47,7 +70,11 @@ public class EffectScript : MonoBehaviour
             meshAgent.speed *= speedMultiplier;
             e.speedReduced = false;
             return;
-        }
+        }*/
         
+    }
+
+    public void SetActive(bool _activation){
+        active = _activation;
     }
 }

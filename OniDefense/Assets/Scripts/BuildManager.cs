@@ -38,12 +38,17 @@ public class BuildManager : MonoBehaviour
 
             TurretScript defenseScript = defense.GetComponent<TurretScript>();
             NavMeshObstacle _navMeshObstacle = defense.GetComponent<NavMeshObstacle>();
+            EffectZoneScript _effectScript = defense.GetComponent<EffectZoneScript>();
+            BoxCollider boxCollider = defense.GetComponent<BoxCollider>();
 
             //Active la défense
             if(defenseScript != null){
                 defenseScript.SetActive(activate);
             }
             
+            if(_effectScript != null){
+                _effectScript.SetActive(activate);
+            }
 
             //Stocke en tant que défense tmeporaire et désactivée
             if(!activate){
@@ -58,7 +63,12 @@ public class BuildManager : MonoBehaviour
             if(_navMeshObstacle != null){
                 _navMeshObstacle.enabled = true;
             }
-            
+
+            //Active le box collider si la défense en a un (pour le barbelé pour l'instant)
+            if(boxCollider != null && activate){
+                boxCollider.enabled = true;
+            }
+
             node.defense = defense;
             
             PlayerStats.Money -= defenseToBuild.cost;

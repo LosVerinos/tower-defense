@@ -63,6 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 200
   reward: 25
+  speedReduced: 0
 --- !u!195 &1129238645226254969
 NavMeshAgent:
   m_ObjectHideFlags: 0
