@@ -1139,7 +1139,7 @@ GameObject:
   - component: {fileID: 273166068}
   - component: {fileID: 273166072}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5726,7 +5726,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1206802969450421647, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
-      value: Barricade
+      value: "Barbel\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
