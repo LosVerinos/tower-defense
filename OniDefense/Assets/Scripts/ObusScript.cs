@@ -14,8 +14,9 @@ public class ObusScript : MonoBehaviour
     private Vector3 startPosition;
     private float flightTime; // Temps total de vol
     private float elapsedTime; // Temps écoulé depuis le départ
-    public float arcHeight = 5f; // Hauteur maximale de l'arc
+    public float arcHeight; // Hauteur maximale de l'arc
     private Vector3 previousPosition;
+    private bool aerialLaunch = false;
 
     public void Find(Transform _target)
     {
@@ -37,28 +38,38 @@ public class ObusScript : MonoBehaviour
 
     void Update()
     {
-        elapsedTime += Time.deltaTime;
-        if (elapsedTime >= flightTime || transform.position.y < 0f)
-        {
-            Explode();
-            return;
+        if(!aerialLaunch){
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= flightTime || transform.position.y < 0f)
+            {
+                Explode();
+                return;
+            }
+
+            float progress = elapsedTime / flightTime;
+            Vector3 horizontalPosition = Vector3.Lerp(startPosition, destination, progress);
+
+            float verticalOffset = Mathf.Sin(progress * Mathf.PI) * arcHeight;
+
+            Vector3 newPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + verticalOffset, horizontalPosition.z);
+            transform.position = newPosition;
+
+            Vector3 direction = (newPosition - previousPosition).normalized;
+
+            if (direction != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
+            previousPosition = newPosition;
         }
-
-        float progress = elapsedTime / flightTime;
-        Vector3 horizontalPosition = Vector3.Lerp(startPosition, destination, progress);
-
-        float verticalOffset = Mathf.Sin(progress * Mathf.PI) * arcHeight;
-
-        Vector3 newPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + verticalOffset, horizontalPosition.z);
-        transform.position = newPosition;
-
-        Vector3 direction = (newPosition - previousPosition).normalized;
-
-        if (direction != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(direction);
+        else{
+            transform.position += Vector3.down * speed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+            if (transform.position.y <= 2f)
+            {
+                Explode();
+            }
         }
-        previousPosition = newPosition;
     }
 
     void Explode(){
@@ -79,5 +90,13 @@ public class ObusScript : MonoBehaviour
             if(e != null){
                 e.TakeDamages(damages);
             }
+    }
+
+    public void SetAerialLaunch(bool _aerialLaunch){
+        aerialLaunch = _aerialLaunch;
+    }
+
+    public void SetSpeed(float _newSpeed){
+        speed = _newSpeed;
     }
 }

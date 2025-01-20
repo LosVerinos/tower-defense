@@ -38,17 +38,8 @@ public class BuildManager : MonoBehaviour
 
             TurretScript defenseScript = defense.GetComponent<TurretScript>();
             NavMeshObstacle _navMeshObstacle = defense.GetComponent<NavMeshObstacle>();
-            EffectZoneScript _effectScript = defense.GetComponent<EffectZoneScript>();
+            Effect effectScript = defense.GetComponent<Effect>();
             BoxCollider boxCollider = defense.GetComponent<BoxCollider>();
-
-            //Active la défense
-            if(defenseScript != null){
-                defenseScript.SetActive(activate);
-            }
-            
-            if(_effectScript != null){
-                _effectScript.SetActive(activate);
-            }
 
             //Stocke en tant que défense tmeporaire et désactivée
             if(!activate){
@@ -58,7 +49,16 @@ public class BuildManager : MonoBehaviour
                 return;
             }
 
-            
+            //Active la défense
+            if(defenseScript != null){
+                defenseScript.SetActive(activate);
+            }
+
+            //active l'effet s'il y en a un
+            if (effectScript != null && activate){
+                effectScript.ApplyEffect(node);
+            }
+
             //Active la zone d'obstacle pour les zombies
             if(_navMeshObstacle != null){
                 _navMeshObstacle.enabled = true;
