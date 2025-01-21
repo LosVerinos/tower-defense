@@ -8,5 +8,6 @@ public class DefenseClass
 {
     public GameObject prefab;
     public int cost;
+    public float health;
 
 }

@@ -22,8 +22,8 @@ public class BuildManager : MonoBehaviour
         defenseToBuild = null;
     }
 
-    public GameObject GetDefenseToBuild(){
-        return defenseToBuild.prefab;
+    public DefenseClass GetDefenseToBuild(){
+        return defenseToBuild;
     }
 
     public bool CanBuild{ get {return defenseToBuild != null; } }

@@ -85,6 +85,13 @@ public class ShopScript : MonoBehaviour
     }
 
     void Update(){
+        if (PlayerStats.Money < object1.cost)
+        {
+            DisableButton(shopButtonObject1);
+        }
+        else
+            EnableButton(shopButtonObject1);
+
         if (PlayerStats.Money < object2.cost)
         {
             DisableButton(shopButtonObject2);
@@ -92,18 +99,14 @@ public class ShopScript : MonoBehaviour
         else
             EnableButton(shopButtonObject2);
 
-        if (PlayerStats.Money < object1.cost)
-        {
-            DisableButton(shopButtonObject1);
-        }
-        else
-            EnableButton(shopButtonObject1);
+
         if (PlayerStats.Money < object3.cost)
         {
             DisableButton(shopButtonObject3);
         }
         else
             EnableButton(shopButtonObject3);
+        
         if (PlayerStats.Money < object4.cost)
         {
             DisableButton(shopButtonObject4);

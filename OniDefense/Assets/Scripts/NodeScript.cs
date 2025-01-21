@@ -52,10 +52,7 @@ public class NodeScript : MonoBehaviour
         if(EventSystem.current.IsPointerOverGameObject())
             return;
         
-        if(!buildManager.CanBuild)
-            return;
-
-        if(defense != null){
+        if(!buildManager.CanBuild || defense != null){
             //TODO: Ajouter UI avec stat de la case
             //DisplayNodeInfo()
             Debug.Log("Can't build there"); //A aouter en message à l'ecran
@@ -64,6 +61,8 @@ public class NodeScript : MonoBehaviour
         else{
             Destroy(tempDefense);
             buildManager.BuildDefenseOn(this, true);
+            DefenseScript defenseScript = defense.AddComponent<DefenseScript>();
+            defenseScript.Initialize(buildManager.GetDefenseToBuild());
             buildManager.SelectDefenseToBuild(null);
             tempDefense = null;
         }

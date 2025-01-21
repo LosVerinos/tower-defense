@@ -5,7 +5,7 @@ public class AirStrikeEffect : Effect
 {
     public GameObject obusPrefab;
     public float spawnHeight = 20f;
-    public float delayBeforeDrop;
+    private float delayBeforeDrop = 5f;
     public GameObject targetObject;
     public float spawnRadius = 15f;
     
@@ -13,7 +13,7 @@ public class AirStrikeEffect : Effect
     {
         base.ApplyEffect(_node);
         targetObject.SetActive(false);
-        InvokeRepeating("DropObus", delayBeforeDrop, 0.2f);
+        InvokeRepeating("DropObus", delayBeforeDrop, 0.1f);
         StartCoroutine(ReleaseNode());
     }
 
@@ -30,7 +30,7 @@ public class AirStrikeEffect : Effect
 
             if (obusScript != null)
             {
-                obusScript.SetSpeed(30f);
+                obusScript.SetSpeed(40f);
                 obusScript.SetDamage(50f);
                 obusScript.SetAerialLaunch(true);
                 obusScript.Find(node.transform); // On vise la node actuelle
@@ -42,7 +42,7 @@ public class AirStrikeEffect : Effect
 
     IEnumerator ReleaseNode()
     {
-        yield return new WaitForSeconds(5f);  // Attendre un instant après l’explosion
+        yield return new WaitForSeconds(8f);  // Attendre un instant après l’explosion
         RemoveEffect();
         node.defense = null;  // Libérer la node
         Destroy(gameObject);  // Détruire l'objet AirStrikeEffect

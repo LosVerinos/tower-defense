@@ -75,7 +75,7 @@ public class ObusScript : MonoBehaviour
     void Explode(){
         Collider[] colliders = Physics.OverlapSphere(transform.position, damagesRadius);
         foreach(Collider collider in colliders){
-            if(collider.tag == "zombie"){
+            if(collider.tag == "zombie" || collider.tag == "destructible"){
                 Debug.Log("Zombie touché par l'explosion !");
                 Damage(collider.transform);
             }
@@ -85,10 +85,15 @@ public class ObusScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void Damage(Transform enemy){
-        EnemyScript e = enemy.GetComponent<EnemyScript>();
+    void Damage(Transform colliderTransform){
+        EnemyScript e = colliderTransform.GetComponent<EnemyScript>();
             if(e != null){
                 e.TakeDamages(damages);
+            }
+        DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
+            if (defense != null)
+            {
+                defense.TakeDamage(damages);
             }
     }
 

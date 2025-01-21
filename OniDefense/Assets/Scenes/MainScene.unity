@@ -634,15 +634,19 @@ MonoBehaviour:
   object1:
     prefab: {fileID: 3186223316820800590, guid: dfed8afe0ff184c4bbc91fc7839e9009, type: 3}
     cost: 100
+    health: 0
   object2:
     prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
     cost: 250
+    health: 0
   object3:
     prefab: {fileID: 3186223316820800590, guid: acecad27189e44f8885d86ca89a96bea, type: 3}
     cost: 500
+    health: 0
   object4:
     prefab: {fileID: 0}
     cost: 0
+    health: 0
   shopButtonObject1: {fileID: 1083815829}
   shopButtonObject2: {fileID: 748000216}
   shopButtonObject3: {fileID: 710180458}
@@ -7136,6 +7140,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2748004830529807357, guid: f5f303e80809346a5ba96cc47055b94e, type: 3}
   m_PrefabInstance: {fileID: 1378262176}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1393424391 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+  m_PrefabInstance: {fileID: 24736711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1396853093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7620,18 +7635,22 @@ MonoBehaviour:
   object1:
     prefab: {fileID: 356996360541782798, guid: 228978e70804042ef94363fbdd914f7c, type: 3}
     cost: 150
+    health: 500
   object2:
     prefab: {fileID: 356996360541782798, guid: a06fbfccc74a84b27b5dabe2a93e18fe, type: 3}
     cost: 100
+    health: 250
   object3:
     prefab: {fileID: 356996360541782798, guid: 81c0e55af9ad84382a82ac2ee9ff5a52, type: 3}
     cost: 100
+    health: 0
   object4:
     prefab: {fileID: 0}
     cost: 0
+    health: 0
   shopButtonObject1: {fileID: 1598827015}
   shopButtonObject2: {fileID: 1131366599}
-  shopButtonObject3: {fileID: 0}
+  shopButtonObject3: {fileID: 1393424391}
   shopButtonObject4: {fileID: 0}
 --- !u!114 &1500932424
 MonoBehaviour:

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - zombie
   - Enemy
+  - destructible
   layers:
   - Default
   - TransparentFX

@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obusPrefab: {fileID: 7995256546523920823, guid: 7f0421ab5d95847cbb42fb8011aaab6e, type: 3}
   spawnHeight: 60
-  delayBeforeDrop: 2
+  delayBeforeDrop: 5
   targetObject: {fileID: 4629259041440251021}
   spawnRadius: 10
 --- !u!1 &4629259041440251021
