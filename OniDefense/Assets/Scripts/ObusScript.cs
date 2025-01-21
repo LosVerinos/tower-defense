@@ -86,7 +86,7 @@ public class ObusScript : MonoBehaviour
     }
 
     void Damage(Transform colliderTransform){
-        EnemyScript e = colliderTransform.GetComponent<EnemyScript>();
+        EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
             if(e != null){
                 e.TakeDamages(damages);
             }

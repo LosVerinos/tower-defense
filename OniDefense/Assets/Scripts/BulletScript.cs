@@ -40,7 +40,7 @@ public class BulletScript : MonoBehaviour
     }
 
     void HitTarget(){
-        EnemyScript e = target.GetComponent<EnemyScript>();
+        EnemyBase e = target.GetComponent<EnemyBase>();
         if(e != null){
             e.TakeDamages(damages);
         }
