@@ -61,8 +61,10 @@ public class NodeScript : MonoBehaviour
         else{
             Destroy(tempDefense);
             buildManager.BuildDefenseOn(this, true);
-            DefenseScript defenseScript = defense.AddComponent<DefenseScript>();
-            defenseScript.Initialize(buildManager.GetDefenseToBuild());
+            DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
+            if(defenseScript != null)
+                defenseScript.Initialize(buildManager.GetDefenseToBuild());
+                
             buildManager.SelectDefenseToBuild(null);
             tempDefense = null;
         }

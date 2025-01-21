@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DefenseScript : MonoBehaviour
 {
-    public float currentHealth;
+    private float currentHealth;
     private DefenseClass defenseData;
     private float baseHealth;
     public UnityEngine.UI.Image healthBar;
@@ -13,7 +13,9 @@ public class DefenseScript : MonoBehaviour
     public void Initialize(DefenseClass data)
     {
         defenseData = data;
-        currentHealth = defenseData.health;
+        baseHealth = defenseData.health;
+        currentHealth = baseHealth;
+        canvas = GetComponentInChildren<Canvas>();
     }
 
     public void TakeDamage(float amount)
@@ -21,8 +23,9 @@ public class DefenseScript : MonoBehaviour
         currentHealth -= amount;
         canvas.enabled = true;
         healthBar.fillAmount = currentHealth/baseHealth;
+        
         Debug.Log(gameObject.name + " subit " + amount + " dégâts. Vie restante: " + currentHealth);
-
+        StartCoroutine(EraseHealthBar());
         if (currentHealth <= 0)
         {
             DestroyDefense();
@@ -35,4 +38,10 @@ public class DefenseScript : MonoBehaviour
         Destroy(gameObject);
     }
 
+
+    IEnumerator EraseHealthBar()
+    {
+        yield return new WaitForSeconds(5f);  // Attendre un instant après l’explosion
+        canvas.enabled = false;
+    }
 }

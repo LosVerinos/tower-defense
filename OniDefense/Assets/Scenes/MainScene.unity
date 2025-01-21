@@ -634,15 +634,15 @@ MonoBehaviour:
   object1:
     prefab: {fileID: 3186223316820800590, guid: dfed8afe0ff184c4bbc91fc7839e9009, type: 3}
     cost: 100
-    health: 0
+    health: 1800
   object2:
     prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
     cost: 250
-    health: 0
+    health: 2000
   object3:
     prefab: {fileID: 3186223316820800590, guid: acecad27189e44f8885d86ca89a96bea, type: 3}
     cost: 500
-    health: 0
+    health: 1800
   object4:
     prefab: {fileID: 0}
     cost: 0
@@ -4262,7 +4262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94075a7080c364cc7b24d55f0101c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 600
+  startMoney: 10000
 --- !u!1001 &862274501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7635,11 +7635,11 @@ MonoBehaviour:
   object1:
     prefab: {fileID: 356996360541782798, guid: 228978e70804042ef94363fbdd914f7c, type: 3}
     cost: 150
-    health: 500
+    health: 1000
   object2:
     prefab: {fileID: 356996360541782798, guid: a06fbfccc74a84b27b5dabe2a93e18fe, type: 3}
     cost: 100
-    health: 250
+    health: 500
   object3:
     prefab: {fileID: 356996360541782798, guid: 81c0e55af9ad84382a82ac2ee9ff5a52, type: 3}
     cost: 100
