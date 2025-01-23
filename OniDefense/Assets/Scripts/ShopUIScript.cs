@@ -6,74 +6,56 @@ using UnityEngine.UIElements;
 
 public class ShopUIScript : MonoBehaviour
 {
-    [SerializeField] private GameObject shopPanel;
-    [SerializeField] private GameObject effectPanel;
-    [SerializeField] private GameObject shopButton;
-    [SerializeField] private GameObject effectButton;
+    [SerializeField] private GameObject defensesButton;
+    [SerializeField] private GameObject supportButton;
+    [SerializeField] private GameObject bonusButton;
     [SerializeField] private GameObject closeButton;
-    private bool isShopDeployed;
-    private bool isEffectDeployed;
-
+    
     void Start(){
         closeButton.SetActive(false);
     }
+    
 
-    public void DeployShopPanel(){
-        if(isShopDeployed)
-            return;
-        if(isEffectDeployed)
-            ShrinkEffectPanel();
+    private GameObject currentPanel;
+    private bool isPanelDeployed = false;
 
-        GameObject[] panelsToMove = {effectButton, shopButton, shopPanel, closeButton};
-        MovePanels(panelsToMove, new Vector3(0,230,0));
 
-        closeButton.SetActive(true);
-        isShopDeployed = true;
-    }
 
-    public void DeployEffectPanel(){
-        if(isEffectDeployed)
-            return;
-        if(isShopDeployed)
-            ShrinkShopPanel();
+    public void DeployPanel(GameObject panel)
+    {
+        if (currentPanel == panel) return;
+        ShrinkOtherPanels();
 
-        GameObject[] panelsToMove = {effectButton, shopButton, effectPanel, closeButton};
-        MovePanels(panelsToMove, new Vector3(0,230,0));
+        GameObject[] panelsToMove = { defensesButton, supportButton, bonusButton, panel, closeButton };
+        MovePanels(panelsToMove, new Vector3(0, 220, 0));
 
         closeButton.SetActive(true);
-        isEffectDeployed = true;        
-        
+        currentPanel = panel;
+        isPanelDeployed = true;
     }
 
-    void ShrinkShopPanel(){
-        isShopDeployed = false;
-        GameObject[] panelsToMove = {shopPanel, shopButton, effectButton, closeButton};
-        MovePanels(panelsToMove, new Vector3(0,-230,0));
+    void ShrinkOtherPanels()
+    {
+        if (!isPanelDeployed) return;
+
+        GameObject[] panelsToMove = { defensesButton, supportButton, bonusButton, currentPanel, closeButton };
+        MovePanels(panelsToMove, new Vector3(0, -220, 0));
+
         closeButton.SetActive(false);
+        currentPanel = null;
+        isPanelDeployed = false;
     }
 
-    void ShrinkEffectPanel(){
-        isEffectDeployed = false;
-        GameObject[] panelsToMove = {effectPanel, shopButton, effectButton, closeButton};
-        MovePanels(panelsToMove, new Vector3(0,-230,0));
-        closeButton.SetActive(false);
+    public void ShrinkAll()
+    {
+        ShrinkOtherPanels();
     }
 
-    public void ShrinkAll(){
-        if(isShopDeployed)
-            ShrinkShopPanel();
-        if(isEffectDeployed)
-            ShrinkEffectPanel();
-    }
-
-    void MovePanel(GameObject panel, Vector3 movement){
-        panel.transform.Translate(movement);
-    }
-
-    void MovePanels(GameObject[] panels, Vector3 movement){
-        foreach(GameObject panel in panels){
+    void MovePanels(GameObject[] panels, Vector3 movement)
+    {
+        foreach (GameObject panel in panels)
+        {
             panel.transform.Translate(movement);
         }
-        
     }
 }

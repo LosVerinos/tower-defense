@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     public int startMoney = 400;
 
     public static int moneyMultiplier = 1;
-    public static int fireRateMultiplier = 1;
+    public static float fireRateMultiplier = 1;
 
 
     void Start()
