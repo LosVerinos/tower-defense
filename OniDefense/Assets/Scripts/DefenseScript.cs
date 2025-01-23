@@ -1,14 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DefenseScript : MonoBehaviour
 {
     private float currentHealth;
     private DefenseClass defenseData;
     private float baseHealth;
-    public UnityEngine.UI.Image healthBar;
+    public Image healthBar;
     private Canvas canvas;
+    private CanvasGroup canvasGroup;
+
+    private Coroutine fadeCoroutine; // Stocke la coroutine en cours
+    private float lastDamageTime; // Temps du dernier dégât
 
     public void Initialize(DefenseClass data)
     {
@@ -16,16 +20,35 @@ public class DefenseScript : MonoBehaviour
         baseHealth = defenseData.health;
         currentHealth = baseHealth;
         canvas = GetComponentInChildren<Canvas>();
+        canvasGroup = canvas.GetComponent<CanvasGroup>();
+
+        if (canvasGroup == null)
+        {
+            canvasGroup = canvas.gameObject.AddComponent<CanvasGroup>(); // Ajoute le composant si absent
+        }
+
+        canvasGroup.alpha = 0f; // Masquer par défaut
     }
 
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
+        lastDamageTime = Time.time; // Mise à jour du temps du dernier dégât
+
         canvas.enabled = true;
-        healthBar.fillAmount = currentHealth/baseHealth;
-        
+        canvasGroup.alpha = 1f; // Rendre immédiatement visible
+        healthBar.fillAmount = currentHealth / baseHealth;
+
         Debug.Log(gameObject.name + " subit " + amount + " dégâts. Vie restante: " + currentHealth);
-        StartCoroutine(EraseHealthBar());
+
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine); // Arrête le fade s'il est en cours
+            fadeCoroutine = null;
+        }
+
+        StartCoroutine(StartFadeDelay()); // Redémarre l'attente pour le fade
+
         if (currentHealth <= 0)
         {
             DestroyDefense();
@@ -38,10 +61,37 @@ public class DefenseScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-
-    IEnumerator EraseHealthBar()
+    IEnumerator StartFadeDelay()
     {
-        yield return new WaitForSeconds(5f);  // Attendre un instant après l’explosion
-        canvas.enabled = false;
+        yield return new WaitForSeconds(5f); // Attendre 5 secondes après le dernier dégât
+
+        if (Time.time - lastDamageTime >= 5f) // Vérifie qu'aucun dégât n'a été reçu depuis
+        {
+            fadeCoroutine = StartCoroutine(FadeOutHealthBar()); // Lancer le fade
+        }
+    }
+
+    IEnumerator FadeOutHealthBar()
+    {
+        float duration = 2f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            // Si des dégâts sont reçus pendant le fade, interrompre
+            if (Time.time - lastDamageTime < 5f)
+            {
+                canvasGroup.alpha = 1f;
+                fadeCoroutine = null;
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / duration);
+            yield return null;
+        }
+
+        canvas.enabled = false; // Désactiver le Canvas une fois totalement invisible
+        fadeCoroutine = null;
     }
 }

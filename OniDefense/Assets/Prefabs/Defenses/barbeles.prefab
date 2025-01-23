@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8831138790496513249}
   - component: {fileID: 6737789123464479633}
   m_Layer: 0
-  m_Name: Barbeles
+  m_Name: barbeles
   m_TagString: destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 3778599383246332932}
   - component: {fileID: 2732653099312859072}
   - component: {fileID: 5219479259540018678}
+  - component: {fileID: 5096833047630893802}
   m_Layer: 5
   m_Name: Canvas (1)
   m_TagString: Untagged
@@ -215,6 +216,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &5096833047630893802
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235452003717907600}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5229818667178932639
 GameObject:
   m_ObjectHideFlags: 0
