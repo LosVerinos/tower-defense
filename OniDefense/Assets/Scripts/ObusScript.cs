@@ -12,9 +12,9 @@ public class ObusScript : MonoBehaviour
     private float damages;
     private Vector3 destination;
     private Vector3 startPosition;
-    private float flightTime; // Temps total de vol
-    private float elapsedTime; // Temps écoulé depuis le départ
-    public float arcHeight; // Hauteur maximale de l'arc
+    private float flightTime;
+    private float elapsedTime; 
+    public float arcHeight; // Hauteur maximale de l'obus
     private Vector3 previousPosition;
     private bool aerialLaunch = false;
 
@@ -77,7 +77,11 @@ public class ObusScript : MonoBehaviour
         foreach(Collider collider in colliders){
             if(collider.tag == "zombie" || collider.tag == "destructible"){
                 Debug.Log("Zombie touché par l'explosion !");
-                Damage(collider.transform);
+                float distance = Vector3.Distance(transform.position, collider.transform.position);
+                float damageMultiplier = CalculateDamageMultiplier(distance);
+                float finalDamage = damages * damageMultiplier;
+            
+                Damage(collider.transform, finalDamage);
             }
         }
         GameObject effect = Instantiate(bulletImpact, transform.position, Quaternion.Euler(-90, 0, 0));
@@ -85,15 +89,30 @@ public class ObusScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void Damage(Transform colliderTransform){
+    //Calcule les dégats en fonction de la distance de la cible 0%->50% du rayon dégat 100% puis diminue petit a petit sur la 50% restant de rayon 
+    float CalculateDamageMultiplier(float distance){
+        if (distance <= damagesRadius * 0.5f)
+        {
+            return 1f; 
+        }
+        else if (distance <= damagesRadius)
+        {
+            float normalizedDistance = (distance - (damagesRadius * 0.5f)) / (damagesRadius * 0.5f);
+            return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
+        }
+        
+        return 0f;
+    }
+
+    void Damage(Transform colliderTransform, float damgesTaken){
         EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
             if(e != null){
-                e.TakeDamages(damages);
+                e.TakeDamages(damgesTaken);
             }
         DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
             if (defense != null)
             {
-                defense.TakeDamage(damages);
+                defense.TakeDamage(damgesTaken);
             }
     }
 
