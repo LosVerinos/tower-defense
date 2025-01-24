@@ -43,6 +43,9 @@ public class WaveManagerScript : MonoBehaviour
     void SpawnEnemy(){
         GameObject randomZombie = zombiesList[UnityEngine.Random.Range(0, zombiesList.Length)];
         GameObject spawnedZombie = Instantiate(randomZombie, spawnPoint.position, spawnPoint.rotation);
-        spawnedZombie.GetComponent<AINavigationScript>().objectivePoint = objectivePoint;
+        if(spawnedZombie.tag == "Classic Enemy")
+            spawnedZombie.GetComponent<AINavigationScript>().objectivePoint = objectivePoint;
+        if(spawnedZombie.tag == "Flying Enemy")
+            spawnedZombie.GetComponent<FlyingEnemyNavigationScript>().target = objectivePoint;
     }
 }

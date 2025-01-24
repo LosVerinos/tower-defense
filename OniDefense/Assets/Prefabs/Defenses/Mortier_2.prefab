@@ -200,7 +200,9 @@ MonoBehaviour:
   turningSpeed: 5
   damages: 100
   fireRate: 0.1
-  EnemyTag: zombie
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
   movingPartY: {fileID: 4812689076350431149}
   movingPartX: {fileID: 8105015699163906183}
   bulletPrefab: {fileID: 7995256546523920823, guid: 7f0421ab5d95847cbb42fb8011aaab6e, type: 3}

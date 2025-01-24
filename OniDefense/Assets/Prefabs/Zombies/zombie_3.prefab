@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7243718141615881986}
   - component: {fileID: 1129238645226254969}
   - component: {fileID: 7012071457857665115}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: zombie_3
-  m_TagString: zombie
+  m_TagString: Classic Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +64,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 150
   reward: 25
-  speedReduced: 0
   healthBar: {fileID: 7043250068097872513}
 --- !u!195 &1129238645226254969
 NavMeshAgent:

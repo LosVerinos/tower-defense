@@ -12,13 +12,13 @@ public class SlowEffect : Effect
     }
 
     void OnTriggerEnter(Collider otherCollider){
-        if (isActive && otherCollider.CompareTag("zombie"))
+        if (isActive && otherCollider.CompareTag("Classic Enemy"))
             //Debug.Log("Zombie entre dans les barbelés");
             ApplyEffectSpeed(otherCollider.transform, 0.5f);
     }
 
     void OnTriggerExit(Collider otherCollider){
-        if (isActive && otherCollider.CompareTag("zombie"))
+        if (isActive && otherCollider.CompareTag("Classic Enemy"))
             //Debug.Log("Zombie sort des barbelés");
             ApplyEffectSpeed(otherCollider.transform, 2f);
     }

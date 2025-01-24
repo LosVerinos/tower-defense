@@ -75,7 +75,7 @@ public class ObusScript : MonoBehaviour
     void Explode(){
         Collider[] colliders = Physics.OverlapSphere(transform.position, damagesRadius);
         foreach(Collider collider in colliders){
-            if(collider.tag == "zombie" || collider.tag == "destructible"){
+            if(collider.tag == "Classic Enemy" || collider.tag == "destructible"){
                 Debug.Log("Zombie touché par l'explosion !");
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
                 float damageMultiplier = CalculateDamageMultiplier(distance);

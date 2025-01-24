@@ -2,14 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class TurretScript : MonoBehaviour
 {
-
     private Transform target;
 
-    [Header("Parametres tourelle")]
+    [Header("Paramètres Tourelle")]
     public float maximumRange = 15f;
     public float minimumRange = 0f;
     public float turningSpeed = 10f;
@@ -17,8 +15,9 @@ public class TurretScript : MonoBehaviour
     public float fireRate;
     private float fireCountdown;
 
-    [Header("Parametres Unity")]
-    public string EnemyTag = "zombie";
+    [Header("Paramètres Unity")]
+    //public List<string> enemyTags = new List<string> { "Classic Enemy" };
+    public LayerMask enemyLayer;
     public Transform movingPartY;
     public Transform movingPartX;
     public GameObject bulletPrefab;
@@ -29,111 +28,103 @@ public class TurretScript : MonoBehaviour
     private Quaternion defaultRotationY;
     private bool active = false;
     
-
-    // Start is called before the first frame update
     void Start()
     {
         defaultRotationX = movingPartX.rotation;
         defaultRotationY = movingPartY.rotation;
-        InvokeRepeating("UpdateTarget", 0f, 0.25f);    
+        InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
+    bool UpdateTarget()
+    {
+        if (!active) return false;
 
-    bool UpdateTarget(){
-        if(active){
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyTag);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, maximumRange, enemyLayer);
+        GameObject nearestEnemy = null;
+        float shortestDistance = Mathf.Infinity;
 
-            float shortestDistance = Mathf.Infinity;
-            GameObject nearestEnemyInRange = null;
+        foreach (Collider collider in colliders)
+        {
 
-            foreach (GameObject enemy in enemies){
-                float distanceToTarget = Vector3.Distance (transform.position, enemy.transform.position);
-
-                if(distanceToTarget >= minimumRange && distanceToTarget < shortestDistance){
-                    shortestDistance = distanceToTarget;
-                    nearestEnemyInRange = enemy;
-                }
+            float distanceToTarget = Vector3.Distance(transform.position, collider.transform.position);
+            if (distanceToTarget >= minimumRange && distanceToTarget < shortestDistance)
+            {
+                shortestDistance = distanceToTarget;
+                nearestEnemy = collider.gameObject;
             }
+        }
 
-            if(nearestEnemyInRange != null && shortestDistance <= maximumRange && shortestDistance >= minimumRange){
-                target = nearestEnemyInRange.transform;
-            }
-            else{
-                target = null;
-                return false; 
-            }
+        if (nearestEnemy != null)
+        {
+            target = nearestEnemy.transform;
             return true;
         }
         else
+        {
+            target = null;
             return false;
+        }
     }
 
 
-    // Update is called once per frame
     void Update()
     {
-        if(active){
-            if(target == null && !UpdateTarget()){
-                Vector3 rotationX = Quaternion.Lerp(movingPartX.rotation, defaultRotationX, Time.deltaTime * turningSpeed).eulerAngles;
-                Vector3 rotationY = Quaternion.Lerp(movingPartY.rotation, defaultRotationY, Time.deltaTime * turningSpeed).eulerAngles;
-                movingPartX.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
-                movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
-                return;
-            }
-            else{
-                Vector3 direction = new Vector3(target.position.x, target.position.y + 2.5f, target.position.z) - movingPartY.position;
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-                Vector3 rotationY = Quaternion.Lerp(movingPartY.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
-                Vector3 rotationX = Quaternion.Lerp(movingPartX.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
-                movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
-                movingPartX.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
+        if (!active) return;
 
+        if (target == null && !UpdateTarget())
+        {
+            // Retour progressif à la position par défaut
+            Vector3 rotationX = Quaternion.Lerp(movingPartX.rotation, defaultRotationX, Time.deltaTime * turningSpeed).eulerAngles;
+            Vector3 rotationY = Quaternion.Lerp(movingPartY.rotation, defaultRotationY, Time.deltaTime * turningSpeed).eulerAngles;
+            movingPartX.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
+            movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
+            return;
+        }
+        else
+        {
+            // Suivi de la cible
+            Vector3 direction = new Vector3(target.position.x, target.position.y + 2.5f, target.position.z) - movingPartY.position;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            Vector3 rotationY = Quaternion.Lerp(movingPartY.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
+            Vector3 rotationX = Quaternion.Lerp(movingPartX.rotation, lookRotation, Time.deltaTime * turningSpeed).eulerAngles;
+            movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
+            movingPartX.rotation = Quaternion.Euler(rotationX.x, rotationY.y, 0f);
+        }
 
-                /* //No need 
-                if(movingPartX.name != movingPartY.name){
-                    movingPartY.rotation = Quaternion.Euler(0f, rotationY.y, 0f);
-                }
-                else{
-                
-                }
-                */
-            }
+        if (fireCountdown <= 0)
+        {
+            Shoot();
+            fireCountdown = 1f / fireRate;
+        }
 
+        fireCountdown -= Time.deltaTime;
+    }
 
-            if(fireCountdown <= 0){
-                Shoot();
-                fireCountdown = 1f / (fireRate * PlayerStats.fireRateMultiplier);
-            }
+    void Shoot()
+    {
+        if (!active) return;
 
-            fireCountdown -= Time.deltaTime;
+        GameObject flash = Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
+        Destroy(flash, 0.2f);
+
+        GameObject bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        BulletScript bulletScript = bulletGameObject.GetComponent<BulletScript>();
+
+        if (bulletScript != null)
+        {
+            bulletScript.SetDamage(damages);
+            bulletScript.Find(target);
+        }
+        else
+        {
+            ObusScript obusScript = bulletGameObject.GetComponent<ObusScript>();
+            obusScript.SetDamage(damages);
+            obusScript.Find(target);
         }
     }
 
-    void OnDrawGizmosSelected(){
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, maximumRange);
-        Gizmos.DrawWireSphere(transform.position, minimumRange);
-    }
-
-    void Shoot(){
-        if(active){
-            GameObject flash = Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
-            Destroy(flash, 0.2f);
-            GameObject bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            BulletScript bulletScript = bulletGameObject.GetComponent<BulletScript>();
-            if(bulletScript != null){
-                bulletScript.SetDamage(damages);
-                bulletScript.Find(target);
-            }
-            else{
-                ObusScript obusScript = bulletGameObject.GetComponent<ObusScript>();
-                obusScript.SetDamage(damages);
-                obusScript.Find(target);
-            }
-        }
-    }
-
-    public void SetActive(bool _active){
+    public void SetActive(bool _active)
+    {
         active = _active;
     }
 }
