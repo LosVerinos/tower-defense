@@ -15,6 +15,8 @@ public class NodeScript : MonoBehaviour
     public Vector3 positionOffset = new Vector3(0f, -0.3f, 0f);
     BuildManager buildManager;
 
+
+
     public bool isUpgraded = false;
 
 
@@ -74,9 +76,9 @@ public class NodeScript : MonoBehaviour
         
     }
 
-    /*public void UpgradeDefense(NodeScript node)
+    public void UpgradeDefense()
     {
-        if (PlayerStats.Money < defenseClass.upgradeCost);
+        if (PlayerStats.Money < defenseClass.upgradeCost)
         {
             Debug.Log("Pas assez d'argent pour améliorer!");
             return;
@@ -84,13 +86,20 @@ public class NodeScript : MonoBehaviour
 
         PlayerStats.Money -= defenseClass.upgradeCost;
 
-        Destroy(defense); 
+        Destroy(defense);
 
-        GameObject tempDefense = (GameObject)Instantiate(defenseClass.upgradedPrefab, node.transform.position + node.positionOffset, Quaternion.identity);
+        GameObject tempDefense = Instantiate(defenseClass.upgradedPrefab, transform.position + positionOffset, Quaternion.identity);
         defense = tempDefense;
+
+        TurretScript turretScript = defense.GetComponent<TurretScript>();
+        if (turretScript != null)
+        {
+            turretScript.SetActive(true); // Ensure the turret is active
+            turretScript.Initialize();   // Initialize any necessary state
+        }
 
         isUpgraded = true;
 
         Debug.Log("Defense améliorée!");
-    }*/
+    }
 }

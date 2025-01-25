@@ -21,4 +21,10 @@ public class SelectUIScript : MonoBehaviour
         ui.SetActive(false);
     }
 
+    public void Upgrade()
+    {
+        target.UpgradeDefense();
+        BuildManager.instance.DeselectNode();
+    }
+
 }
