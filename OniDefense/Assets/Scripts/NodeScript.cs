@@ -11,8 +11,11 @@ public class NodeScript : MonoBehaviour
     private Material defaultMaterial;
     [DoNotSerialize]public GameObject defense;
     [DoNotSerialize]public GameObject tempDefense;
+    [DoNotSerialize]public DefenseClass defenseClass;
     public Vector3 positionOffset = new Vector3(0f, -0.3f, 0f);
     BuildManager buildManager;
+
+    public bool isUpgraded = false;
 
 
     // Start is called before the first frame update
@@ -52,20 +55,42 @@ public class NodeScript : MonoBehaviour
         if(EventSystem.current.IsPointerOverGameObject())
             return;
         
-        if(!buildManager.CanBuild)
-            return;
-
         if(defense != null){
-            //TODO: Ajouter UI avec stat de la case
-            //DisplayNodeInfo()
-            Debug.Log("Can't build there"); //A aouter en message à l'ecran
+            buildManager.SelectNode(this);
             return;
         }
-        else{
+
+        if (!buildManager.CanBuild)
+            return;
+
+        else
+        {
             Destroy(tempDefense);
             buildManager.BuildDefenseOn(this, true);
             buildManager.SelectDefenseToBuild(null);
             tempDefense = null;
         }
+
+        
     }
+
+    /*public void UpgradeDefense(NodeScript node)
+    {
+        if (PlayerStats.Money < defenseClass.upgradeCost);
+        {
+            Debug.Log("Pas assez d'argent pour améliorer!");
+            return;
+        }
+
+        PlayerStats.Money -= defenseClass.upgradeCost;
+
+        Destroy(defense); 
+
+        GameObject tempDefense = (GameObject)Instantiate(defenseClass.upgradedPrefab, node.transform.position + node.positionOffset, Quaternion.identity);
+        defense = tempDefense;
+
+        isUpgraded = true;
+
+        Debug.Log("Defense améliorée!");
+    }*/
 }
