@@ -70,7 +70,7 @@ public class NodeScript : MonoBehaviour
     {
         if (currentUpgradeState >= defenseClass.upgradeStates.Count - 1)
         {
-            Debug.Log("Defense is already maximized!");
+            Debug.Log("La défense est au niveau max");
             return;
         }
 
@@ -86,14 +86,12 @@ public class NodeScript : MonoBehaviour
 
         DefenseUpgradeState newState = defenseClass.upgradeStates[currentUpgradeState];
 
-        // Replace the current defense prefab
         if (defense != null)
             Destroy(defense);
 
         defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
         defense.transform.parent = transform;
 
-        // Update turret stats
         TurretScript turretScript = defense.GetComponent<TurretScript>();
         if (turretScript != null)
         {
@@ -106,6 +104,14 @@ public class NodeScript : MonoBehaviour
 
         isUpgraded = true;
         Debug.Log($"Defense améliorée au niveau {currentUpgradeState + 1}!");
+    }
+
+    public void SellDefense()
+    {
+        PlayerStats.Money += defenseClass.GetSellAmount();
+
+        Destroy(defense);
+        defenseClass = null;
     }
 
 }

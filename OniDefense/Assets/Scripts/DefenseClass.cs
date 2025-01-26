@@ -18,5 +18,10 @@ public class DefenseClass
     public GameObject prefab;                      
     public int cost;                               
     public List<DefenseUpgradeState> upgradeStates; 
-    public int[] upgradeCosts;                    
+    public int[] upgradeCosts;
+
+    public int GetSellAmount()
+    {
+        return cost / 2;
+    }
 }

@@ -27,4 +27,9 @@ public class SelectUIScript : MonoBehaviour
         BuildManager.instance.DeselectNode();
     }
 
+    public void Sell()
+    {
+        target.SellDefense();
+        BuildManager.instance.DeselectNode();
+    }
 }
