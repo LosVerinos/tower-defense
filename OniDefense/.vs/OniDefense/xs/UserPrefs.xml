@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{F5CD1A3A-18C6-75AE-94C5-0350582BDEC5}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TurretScript.cs">
     <Files>
-      <File FileName="Assets/Scripts/NodeScript.cs" Line="104" Column="6" />
-      <File FileName="Assets/Scripts/SelectUIScript.cs" Line="19" Column="23" />
+      <File FileName="Assets/Scripts/NodeScript.cs" Line="84" Column="20" />
+      <File FileName="Assets/Scripts/SelectUIScript.cs" Line="23" Column="1" />
       <File FileName="Assets/Scripts/BulletScript.cs" Line="21" Column="1" />
-      <File FileName="Assets/Scripts/TurretScript.cs" Line="44" Column="6" />
+      <File FileName="Assets/Scripts/DefenseClass.cs" Line="16" Column="1" />
+      <File FileName="Assets/Scripts/TurretScript.cs" Line="82" Column="79" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

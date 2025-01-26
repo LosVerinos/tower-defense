@@ -9,18 +9,15 @@ public class NodeScript : MonoBehaviour
     private Renderer rend;
     public Material hoverMaterial;
     private Material defaultMaterial;
-    [DoNotSerialize]public GameObject defense;
-    [DoNotSerialize]public GameObject tempDefense;
-    [DoNotSerialize]public DefenseClass defenseClass;
+    [DoNotSerialize] public GameObject defense;
+    [DoNotSerialize] public GameObject tempDefense;
+    [DoNotSerialize] public DefenseClass defenseClass;
     public Vector3 positionOffset = new Vector3(0f, -0.3f, 0f);
     BuildManager buildManager;
 
-
-
+    public int currentUpgradeState = 0; 
     public bool isUpgraded = false;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -29,35 +26,33 @@ public class NodeScript : MonoBehaviour
         buildManager = BuildManager.instance;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnMouseEnter()
     {
-        
-    }
-
-    void OnMouseEnter(){
-        if(EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject())
             return;
 
         rend.material = hoverMaterial;
 
-        if(defense == null){
-            //GameObject defenseToBuild = buildManager.GetDefenseToBuild();
-            if(buildManager.CanBuild)
+        if (defense == null)
+        {
+            if (buildManager.CanBuild)
                 buildManager.BuildDefenseOn(this, false);
         }
     }
 
-    void OnMouseExit(){
+    void OnMouseExit()
+    {
         rend.material = defaultMaterial;
         Destroy(tempDefense);
     }
 
-    void OnMouseDown(){
-        if(EventSystem.current.IsPointerOverGameObject())
+    void OnMouseDown()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
             return;
-        
-        if(defense != null){
+
+        if (defense != null)
+        {
             buildManager.SelectNode(this);
             return;
         }
@@ -65,41 +60,52 @@ public class NodeScript : MonoBehaviour
         if (!buildManager.CanBuild)
             return;
 
-        else
-        {
-            Destroy(tempDefense);
-            buildManager.BuildDefenseOn(this, true);
-            buildManager.SelectDefenseToBuild(null);
-            tempDefense = null;
-        }
-
-        
+        Destroy(tempDefense);
+        buildManager.BuildDefenseOn(this, true);
+        buildManager.SelectDefenseToBuild(null);
+        tempDefense = null;
     }
 
     public void UpgradeDefense()
     {
-        if (PlayerStats.Money < defenseClass.upgradeCost)
+        if (currentUpgradeState >= defenseClass.upgradeStates.Count - 1)
+        {
+            Debug.Log("Defense is already maximized!");
+            return;
+        }
+
+        int upgradeCost = defenseClass.upgradeCosts[currentUpgradeState];
+        if (PlayerStats.Money < upgradeCost)
         {
             Debug.Log("Pas assez d'argent pour améliorer!");
             return;
         }
 
-        PlayerStats.Money -= defenseClass.upgradeCost;
+        PlayerStats.Money -= upgradeCost;
+        currentUpgradeState++;
 
-        Destroy(defense);
+        DefenseUpgradeState newState = defenseClass.upgradeStates[currentUpgradeState];
 
-        GameObject tempDefense = Instantiate(defenseClass.upgradedPrefab, transform.position + positionOffset, Quaternion.identity);
-        defense = tempDefense;
+        // Replace the current defense prefab
+        if (defense != null)
+            Destroy(defense);
 
+        defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
+        defense.transform.parent = transform;
+
+        // Update turret stats
         TurretScript turretScript = defense.GetComponent<TurretScript>();
         if (turretScript != null)
         {
-            turretScript.SetActive(true); // Ensure the turret is active
-            turretScript.Initialize();   // Initialize any necessary state
+            turretScript.damages = newState.damages;
+            turretScript.maximumRange = newState.maximumRange;
+            turretScript.fireRate = newState.fireRate;
+            turretScript.SetActive(true);
+            turretScript.Initialize();
         }
 
         isUpgraded = true;
-
-        Debug.Log("Defense améliorée!");
+        Debug.Log($"Defense améliorée au niveau {currentUpgradeState + 1}!");
     }
+
 }
