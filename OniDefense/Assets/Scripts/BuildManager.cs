@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
@@ -61,6 +62,7 @@ public class BuildManager : MonoBehaviour
     public void BuildDefenseOn(NodeScript node, bool activate){
         if(PlayerStats.Money >= defenseToBuild.cost){
             GameObject defense = Instantiate(defenseToBuild.prefab, node.transform.position + node.positionOffset, Quaternion.identity);
+            defense.transform.SetParent(node.transform);
 
             TurretScript defenseScript = defense.GetComponent<TurretScript>();
             NavMeshObstacle _navMeshObstacle = defense.GetComponent<NavMeshObstacle>();

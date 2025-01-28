@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,29 +27,32 @@ public class NodeScript : MonoBehaviour
         buildManager = BuildManager.instance;
     }
 
+    void OnMouseEnter(){
+        SetHover(true);
+    }
 
-    void OnMouseEnter()
+    void OnMouseExit(){
+        SetHover(false);
+    }
+
+    public void SetHover(bool state)
     {
-        if (IsPointerOverUIElement())
-            return;
+        if (IsPointerOverUIElement()) state = false;
 
-        rend.material = hoverMaterial;
-
-        if (defense == null)
+        if (state)
         {
-            if (buildManager.CanBuild)
+            rend.material = hoverMaterial;
+            if (defense == null && buildManager.CanBuild)
                 buildManager.BuildDefenseOn(this, false);
+        }
+        else
+        {
+            rend.material = defaultMaterial;
+            Destroy(tempDefense);
         }
     }
 
-    void OnMouseExit()
-    {
-        Debug.Log("Mouse exiting the node");
-        rend.material = defaultMaterial;
-        Destroy(tempDefense);
-    }
-
-    void OnMouseDown()
+    public void OnMouseDown()
     {
         if (IsPointerOverUIElement()){
             return;
@@ -88,7 +92,6 @@ public class NodeScript : MonoBehaviour
             {
                 Debug.Log("Est pas sur de l'ui, TRUE");
                 return true; // La souris est bien sur un élément UI
-
             }
         }
         

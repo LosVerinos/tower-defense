@@ -94,4 +94,34 @@ public class DefenseScript : MonoBehaviour
         canvas.enabled = false; // Désactiver le Canvas une fois totalement invisible
         fadeCoroutine = null;
     }
+
+    void OnMouseEnter()
+    {
+        Debug.Log("OnMouseEnter défense !");
+        NodeScript node = transform.GetComponentInParent<NodeScript>();
+        Debug.Log(node);
+        if (node != null)
+        {
+            Debug.Log("Setting hover TRUE !");
+            node.SetHover(true);
+        }
+    }
+
+    void OnMouseExit()
+    {
+        NodeScript node = transform.GetComponentInParent<NodeScript>();
+        if (node != null)
+        {
+            node.SetHover(false);
+        }
+    }
+
+    void OnMouseDown(){
+        NodeScript node = transform.GetComponentInParent<NodeScript>();
+        if (node != null)
+        {
+            node.OnMouseDown();
+        }
+    }
+    
 }
