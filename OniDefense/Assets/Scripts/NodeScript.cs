@@ -29,7 +29,7 @@ public class NodeScript : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (IsPointerOverUIElement())
             return;
 
         rend.material = hoverMaterial;
@@ -43,14 +43,16 @@ public class NodeScript : MonoBehaviour
 
     void OnMouseExit()
     {
+        Debug.Log("Mouse exiting the node");
         rend.material = defaultMaterial;
         Destroy(tempDefense);
     }
 
     void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (IsPointerOverUIElement()){
             return;
+        }
 
         if (defense != null)
         {
@@ -71,6 +73,27 @@ public class NodeScript : MonoBehaviour
         tempDefense = null;
     }
 
+    bool IsPointerOverUIElement()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        // On vérifie que la souris est bien au-dessus d'un élément UI uniquement
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.layer == LayerMask.NameToLayer("UI"))
+            {
+                Debug.Log("Est pas sur de l'ui, TRUE");
+                return true; // La souris est bien sur un élément UI
+
+            }
+        }
+        
+        return false; // Aucun élément UI détecté sous la souris
+    }
 
     public void UpgradeDefense()
     {

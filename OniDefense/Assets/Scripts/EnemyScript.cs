@@ -40,6 +40,6 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Die(){
         Destroy(gameObject);
         PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
-        Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
+        //Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
     }
 }

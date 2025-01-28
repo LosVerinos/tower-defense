@@ -98,7 +98,7 @@ public class BuildManager : MonoBehaviour
             node.defense = defense;
             node.defenseClass = defenseToBuild;
             PlayerStats.Money -= defenseToBuild.cost;
-            Debug.Log("Defense construite. Monnaie restante : " + PlayerStats.Money);
+            //Debug.Log("Defense construite. Monnaie restante : " + PlayerStats.Money);
         }
 
     }
