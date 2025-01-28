@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5494452840772907113}
   - component: {fileID: 6221787538385219543}
   - component: {fileID: 3920399436783819138}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mitrailleuse_1
   m_TagString: destructible
   m_Icon: {fileID: 0}

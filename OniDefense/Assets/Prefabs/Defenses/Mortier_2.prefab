@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 3480946679615665573}
   - component: {fileID: 4768822032195948716}
   - component: {fileID: -4038919784010960825}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mortier_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

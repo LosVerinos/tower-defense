@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2651442968334814813}
   - component: {fileID: -7630683328764597485}
   - component: {fileID: 7365187403118356231}
-  m_Layer: 0
-  m_Name: Barricade_1
+  m_Layer: 8
+  m_Name: barricade_1
   m_TagString: destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

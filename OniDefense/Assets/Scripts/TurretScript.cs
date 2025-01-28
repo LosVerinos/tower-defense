@@ -35,6 +35,13 @@ public class TurretScript : MonoBehaviour
         InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
+    public void Initialize()
+    {
+        fireCountdown = 0f;
+        target = null; // Ensure the turret starts with no target
+        Debug.Log("Turret initialized");
+    }
+
     bool UpdateTarget()
     {
         if (!active) return false;

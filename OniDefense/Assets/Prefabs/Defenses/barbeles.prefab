@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8794508320178785414}
   - component: {fileID: 8831138790496513249}
   - component: {fileID: 6737789123464479633}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barbeles
   m_TagString: destructible
   m_Icon: {fileID: 0}

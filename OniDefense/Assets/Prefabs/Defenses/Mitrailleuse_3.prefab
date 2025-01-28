@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 4882011234880994780}
   - component: {fileID: 6420225212064673432}
   - component: {fileID: 6718982103314269685}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mitrailleuse_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

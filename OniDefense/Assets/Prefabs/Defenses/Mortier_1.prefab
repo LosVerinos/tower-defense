@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: -4038919784010960825}
   - component: {fileID: 2312949098841885383}
   - component: {fileID: 3078141516920133733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mortier_1
   m_TagString: destructible
   m_Icon: {fileID: 0}

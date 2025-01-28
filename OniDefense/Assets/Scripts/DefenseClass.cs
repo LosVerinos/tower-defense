@@ -4,10 +4,25 @@ using UnityEngine;
 
 
 [System.Serializable]
+public class DefenseUpgradeState
+{
+    public GameObject prefab;    
+    public float maximumRange;   
+    public float damages; 
+    public float fireRate;      
+}
+
+[System.Serializable]
 public class DefenseClass
 {
-    public GameObject prefab;
-    public int cost;
+    public GameObject prefab;                      
+    public int cost;                               
+    public List<DefenseUpgradeState> upgradeStates; 
+    public int[] upgradeCosts;
     public float health;
 
+    public int GetSellAmount()
+    {
+        return cost / 2;
+    }
 }

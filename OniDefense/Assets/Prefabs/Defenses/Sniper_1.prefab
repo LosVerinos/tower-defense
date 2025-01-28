@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 593789638219836562}
   - component: {fileID: 5295431203962652486}
   - component: {fileID: 1034336209372523557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sniper_1
   m_TagString: destructible
   m_Icon: {fileID: 0}

@@ -17,6 +17,9 @@ public class BuildManager : MonoBehaviour
     }
 
     private DefenseClass defenseToBuild;
+    private NodeScript selectedNode;
+
+    public SelectUIScript selectUI;
 
     void Start(){
         defenseToBuild = null;
@@ -28,8 +31,31 @@ public class BuildManager : MonoBehaviour
 
     public bool CanBuild{ get {return defenseToBuild != null; } }
 
+    public void SelectNode(NodeScript node)
+    {
+        if (selectedNode == node)
+        {
+            DeselectNode();
+            return;
+        }
+        selectedNode = node;
+        Debug.Log("Defense sélectionnée ");
+        defenseToBuild = null;
+
+        selectUI.SetTarget(node);
+    }
+
+    public void DeselectNode()
+    {
+        selectedNode = null;
+        selectUI.Hide();
+    }
+
     public void SelectDefenseToBuild(DefenseClass _defense){
         defenseToBuild = _defense;
+        selectedNode = null;
+
+        selectUI.Hide();
     }
 
     public void BuildDefenseOn(NodeScript node, bool activate){
@@ -70,11 +96,10 @@ public class BuildManager : MonoBehaviour
             }
 
             node.defense = defense;
-            
+            node.defenseClass = defenseToBuild;
             PlayerStats.Money -= defenseToBuild.cost;
             Debug.Log("Defense construite. Monnaie restante : " + PlayerStats.Money);
         }
 
     }
-
 }

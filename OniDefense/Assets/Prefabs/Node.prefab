@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3719297109945795073}
   - component: {fileID: 183143577510456694}
   - component: {fileID: 6780833238746212879}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Node
-  m_TagString: Untagged
+  m_TagString: Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,4 +121,12 @@ MonoBehaviour:
   hoverMaterial: {fileID: 2100000, guid: c163a8bb32d5942c4b209308df6e091b, type: 2}
   defense: {fileID: 0}
   tempDefense: {fileID: 0}
+  defenseClass:
+    prefab: {fileID: 0}
+    cost: 0
+    upgradeStates: []
+    upgradeCosts: 
+    health: 0
   positionOffset: {x: 0, y: -0.24, z: 0}
+  currentUpgradeState: 0
+  isUpgraded: 0

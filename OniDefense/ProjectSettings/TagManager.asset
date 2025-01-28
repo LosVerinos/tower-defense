@@ -8,6 +8,7 @@ TagManager:
   - destructible
   - Classic Enemy
   - Flying Enemy
+  - Node
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - EnemyGround
   - EnemyFlying
-  - 
-  - 
+  - Defense
+  - Node
   - 
   - 
   - 
