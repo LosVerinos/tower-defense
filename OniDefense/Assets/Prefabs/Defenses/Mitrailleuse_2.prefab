@@ -266,6 +266,8 @@ GameObject:
   - component: {fileID: 4058288708133836997}
   - component: {fileID: 3607936524728683563}
   - component: {fileID: 7462172021021056083}
+  - component: {fileID: 328636705895647015}
+  - component: {fileID: 132251993361353541}
   m_Layer: 8
   m_Name: Mitrailleuse_2
   m_TagString: Untagged
@@ -326,12 +328,46 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2, y: 1, z: 5}
+  m_Extents: {x: 2, y: 2, z: 4.85}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &328636705895647015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077712319001752596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a40b349b13941e8b4aa81b7fe4ece0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1373282590085034439}
+--- !u!65 &132251993361353541
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077712319001752596}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 4, z: 9.7}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &8557231537434943797
 GameObject:
   m_ObjectHideFlags: 0
