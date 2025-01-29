@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 1829606127159294187}
   m_Layer: 8
   m_Name: Mitrailleuse_3
-  m_TagString: Untagged
+  m_TagString: destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,8 +327,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 7, y: 2, z: 7.07}
-  m_Center: {x: 0.34, y: 1, z: 0}
+  m_Size: {x: 7, y: 0.1, z: 7.07}
+  m_Center: {x: 0.34, y: 0, z: 0}
 --- !u!1 &8325766192318590612
 GameObject:
   m_ObjectHideFlags: 0

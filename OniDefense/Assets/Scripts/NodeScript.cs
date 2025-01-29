@@ -117,7 +117,7 @@ public class NodeScript : MonoBehaviour
         currentUpgradeState++;
         defenseClass.upgradeLevel++;
 
-        DefenseUpgradeState newState = defenseClass.upgradeStates[currentUpgradeState];
+        DefenseUpgradeState newState = defenseClass.upgradeStates[defenseClass.upgradeLevel];
 
         if (defense != null)
             Destroy(defense);
@@ -127,6 +127,9 @@ public class NodeScript : MonoBehaviour
         
         //defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
         //defense.transform.parent = transform;
+        DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
+        if(defenseScript != null)
+            defenseScript.Initialize(defenseClass);
 
         TurretScript turretScript = defense.GetComponent<TurretScript>();
         if (turretScript != null)
@@ -142,7 +145,7 @@ public class NodeScript : MonoBehaviour
         tempDefense = null;
 
         isUpgraded = true;
-        Debug.Log($"Defense améliorée au niveau {currentUpgradeState + 1}!");
+        Debug.Log($"Defense améliorée au niveau {defenseClass.upgradeLevel}!");
     }
 
     public void SellDefense()

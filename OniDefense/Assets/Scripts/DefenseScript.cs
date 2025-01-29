@@ -20,6 +20,7 @@ public class DefenseScript : MonoBehaviour
         baseHealth = defenseData.upgradeStates[defenseData.upgradeLevel].health;
         currentHealth = baseHealth;
         canvas = GetComponentInChildren<Canvas>();
+        Debug.Log(defenseData.upgradeStates[defenseData.upgradeLevel].prefab.name + " Canvas = " + canvas);
         canvasGroup = canvas.GetComponent<CanvasGroup>();
 
         if (canvasGroup == null)
@@ -94,7 +95,7 @@ public class DefenseScript : MonoBehaviour
         canvas.enabled = false; // Désactiver le Canvas une fois totalement invisible
         fadeCoroutine = null;
     }
-
+    /*
     void OnMouseEnter()
     {
         //Debug.Log("OnMouseEnter défense !");
@@ -122,6 +123,6 @@ public class DefenseScript : MonoBehaviour
         {
             node.OnMouseDown();
         }
-    }
+    }*/
     
 }
