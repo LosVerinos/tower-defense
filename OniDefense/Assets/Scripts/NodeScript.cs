@@ -43,7 +43,7 @@ public class NodeScript : MonoBehaviour
         {
             rend.material = hoverMaterial;
             if (defense == null && buildManager.CanBuild)
-                buildManager.BuildDefenseOn(this, false);
+                buildManager.BuildDefenseOn(this, false, false);
         }
         else
         {
@@ -68,7 +68,7 @@ public class NodeScript : MonoBehaviour
             return;
 
         Destroy(tempDefense);
-        buildManager.BuildDefenseOn(this, true);
+        buildManager.BuildDefenseOn(this, true, false);
         DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
         if(defenseScript != null)
             defenseScript.Initialize(buildManager.GetDefenseToBuild());
@@ -100,29 +100,33 @@ public class NodeScript : MonoBehaviour
 
     public void UpgradeDefense()
     {
-        if (currentUpgradeState >= defenseClass.upgradeStates.Count - 1)
+        if (defenseClass.upgradeLevel+1 >= defenseClass.upgradeStates.Count - 1)
         {
             Debug.Log("La défense est au niveau max");
             return;
         }
-
+        /*
         int upgradeCost = defenseClass.upgradeCosts[currentUpgradeState];
         if (PlayerStats.Money < upgradeCost)
         {
             Debug.Log("Pas assez d'argent pour améliorer!");
             return;
-        }
+        
 
-        PlayerStats.Money -= upgradeCost;
+        PlayerStats.Money -= upgradeCost;}*/
         currentUpgradeState++;
+        defenseClass.upgradeLevel++;
 
         DefenseUpgradeState newState = defenseClass.upgradeStates[currentUpgradeState];
 
         if (defense != null)
             Destroy(defense);
 
-        defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
-        defense.transform.parent = transform;
+        buildManager.SelectDefenseToBuild(defenseClass);
+        buildManager.BuildDefenseOn(this, true, true);
+        
+        //defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
+        //defense.transform.parent = transform;
 
         TurretScript turretScript = defense.GetComponent<TurretScript>();
         if (turretScript != null)
@@ -130,9 +134,12 @@ public class NodeScript : MonoBehaviour
             turretScript.damages = newState.damages;
             turretScript.maximumRange = newState.maximumRange;
             turretScript.fireRate = newState.fireRate;
-            turretScript.SetActive(true);
+            //turretScript.SetActive(true);
             turretScript.Initialize();
         }
+
+        buildManager.SelectDefenseToBuild(null);
+        tempDefense = null;
 
         isUpgraded = true;
         Debug.Log($"Defense améliorée au niveau {currentUpgradeState + 1}!");

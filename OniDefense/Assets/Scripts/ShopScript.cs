@@ -17,7 +17,7 @@ public class ShopScript : MonoBehaviour
 
     public void SelectObject1()
     {
-        if (PlayerStats.Money >= object1.cost)
+        if (PlayerStats.Money >= object1.upgradeStates[0].cost)
         {
             buildManager.SelectDefenseToBuild(object1);
             EnableButton(shopButtonObject1);
@@ -29,7 +29,7 @@ public class ShopScript : MonoBehaviour
 
     public void SelectObject2()
     {
-        if (PlayerStats.Money >= object2.cost)
+        if (PlayerStats.Money >= object2.upgradeStates[0].cost)
         {
             buildManager.SelectDefenseToBuild(object2);
             EnableButton(shopButtonObject2);
@@ -41,7 +41,7 @@ public class ShopScript : MonoBehaviour
 
     public void SelectObject3()
     {
-        if (PlayerStats.Money >= object3.cost)
+        if (PlayerStats.Money >= object3.upgradeStates[0].cost)
         {
             buildManager.SelectDefenseToBuild(object3);
             EnableButton(shopButtonObject3);
@@ -53,7 +53,7 @@ public class ShopScript : MonoBehaviour
 
     public void SelectObject4()
     {
-        if (PlayerStats.Money >= object4.cost)
+        if (PlayerStats.Money >= object4.upgradeStates[0].cost)
         {
             buildManager.SelectDefenseToBuild(object4);
             EnableButton(shopButtonObject4);
@@ -85,14 +85,14 @@ public class ShopScript : MonoBehaviour
     }
 
     void Update(){
-        if (PlayerStats.Money < object1.cost)
+        if (object1.upgradeStates != null && object1.upgradeStates.Count > 0 && PlayerStats.Money < object1.upgradeStates[0].cost)
         {
             DisableButton(shopButtonObject1);
         }
         else
             EnableButton(shopButtonObject1);
 
-        if (PlayerStats.Money < object2.cost)
+        if (object2.upgradeStates != null && object2.upgradeStates.Count > 0 && PlayerStats.Money < object2.upgradeStates[0].cost)
         {
             DisableButton(shopButtonObject2);
         }
@@ -100,14 +100,14 @@ public class ShopScript : MonoBehaviour
             EnableButton(shopButtonObject2);
 
 
-        if (PlayerStats.Money < object3.cost)
+        if (object3.upgradeStates != null && object3.upgradeStates.Count > 0 && PlayerStats.Money < object3.upgradeStates[0].cost)
         {
             DisableButton(shopButtonObject3);
         }
         else
             EnableButton(shopButtonObject3);
         
-        if (PlayerStats.Money < object4.cost)
+        if (object4.upgradeStates != null && object4.upgradeStates.Count > 0 && PlayerStats.Money < object4.upgradeStates[0].cost)
         {
             DisableButton(shopButtonObject4);
         }

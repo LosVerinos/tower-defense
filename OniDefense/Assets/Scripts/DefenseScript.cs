@@ -17,7 +17,7 @@ public class DefenseScript : MonoBehaviour
     public void Initialize(DefenseClass data)
     {
         defenseData = data;
-        baseHealth = defenseData.health;
+        baseHealth = defenseData.upgradeStates[defenseData.upgradeLevel].health;
         currentHealth = baseHealth;
         canvas = GetComponentInChildren<Canvas>();
         canvasGroup = canvas.GetComponent<CanvasGroup>();
@@ -97,12 +97,12 @@ public class DefenseScript : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Debug.Log("OnMouseEnter défense !");
+        //Debug.Log("OnMouseEnter défense !");
         NodeScript node = transform.GetComponentInParent<NodeScript>();
-        Debug.Log(node);
+        //Debug.Log(node);
         if (node != null)
         {
-            Debug.Log("Setting hover TRUE !");
+            //Debug.Log("Setting hover TRUE !");
             node.SetHover(true);
         }
     }

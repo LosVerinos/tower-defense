@@ -59,9 +59,17 @@ public class BuildManager : MonoBehaviour
         selectUI.Hide();
     }
 
-    public void BuildDefenseOn(NodeScript node, bool activate){
-        if(PlayerStats.Money >= defenseToBuild.cost){
-            GameObject defense = Instantiate(defenseToBuild.prefab, node.transform.position + node.positionOffset, Quaternion.identity);
+    public void BuildDefenseOn(NodeScript node, bool activate, bool isUpgrade){
+        Debug.Log("Defense Level : " + defenseToBuild.upgradeLevel);
+        int defenseLevel = 0;
+        if(isUpgrade){
+            defenseLevel = defenseToBuild.upgradeLevel;
+            Debug.Log("Defense Level upgraded : " + defenseLevel);
+        }
+        DefenseUpgradeState defenseState = defenseToBuild.upgradeStates[defenseLevel];
+
+        if(PlayerStats.Money >= defenseState.cost || isUpgrade){
+            GameObject defense = Instantiate(defenseState.prefab, node.transform.position + node.positionOffset, Quaternion.identity);
             defense.transform.SetParent(node.transform);
 
             TurretScript defenseScript = defense.GetComponent<TurretScript>();
@@ -98,8 +106,13 @@ public class BuildManager : MonoBehaviour
             }
 
             node.defense = defense;
-            node.defenseClass = defenseToBuild;
-            PlayerStats.Money -= defenseToBuild.cost;
+            
+            
+            if(!isUpgrade) {
+                node.defenseClass = defenseToBuild;
+                
+            }
+            PlayerStats.Money -= defenseState.cost;
             //Debug.Log("Defense construite. Monnaie restante : " + PlayerStats.Money);
         }
 
