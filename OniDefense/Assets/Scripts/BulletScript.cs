@@ -40,11 +40,11 @@ public class BulletScript : MonoBehaviour
     }
 
     void HitTarget(){
-        EnemyScript e = target.GetComponent<EnemyScript>();
+        EnemyBase e = target.GetComponent<EnemyBase>();
         if(e != null){
             e.TakeDamages(damages);
         }
-        GameObject effect = Instantiate(bulletImpact, transform.position, transform.rotation);
+        GameObject effect = Instantiate(bulletImpact, new Vector3 (e.transform.position.x, e.transform.position.y + 2.5f, e.transform.position.z), transform.rotation);
         Destroy(effect, 2f);
         Destroy(gameObject);
     }
