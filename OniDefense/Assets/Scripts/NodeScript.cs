@@ -85,17 +85,16 @@ public class NodeScript : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
-        // On vérifie que la souris est bien au-dessus d'un élément UI uniquement
         foreach (RaycastResult result in results)
         {
             if (result.gameObject.layer == LayerMask.NameToLayer("UI"))
             {
-                Debug.Log("Est pas sur de l'ui, TRUE");
-                return true; // La souris est bien sur un élément UI
+                //Debug.Log("Est pas sur de l'ui, TRUE");
+                return true; 
             }
         }
         
-        return false; // Aucun élément UI détecté sous la souris
+        return false;
     }
 
     public void UpgradeDefense()
@@ -114,7 +113,6 @@ public class NodeScript : MonoBehaviour
         
 
         PlayerStats.Money -= upgradeCost;}*/
-        currentUpgradeState++;
         defenseClass.upgradeLevel++;
 
         DefenseUpgradeState newState = defenseClass.upgradeStates[defenseClass.upgradeLevel];

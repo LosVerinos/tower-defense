@@ -10,9 +10,8 @@ public class DefenseScript : MonoBehaviour
     public Image healthBar;
     private Canvas canvas;
     private CanvasGroup canvasGroup;
-
-    private Coroutine fadeCoroutine; // Stocke la coroutine en cours
-    private float lastDamageTime; // Temps du dernier dégât
+    private Coroutine fadeCoroutine;
+    private float lastDamageTime;
 
     public void Initialize(DefenseClass data)
     {
@@ -20,35 +19,35 @@ public class DefenseScript : MonoBehaviour
         baseHealth = defenseData.upgradeStates[defenseData.upgradeLevel].health;
         currentHealth = baseHealth;
         canvas = GetComponentInChildren<Canvas>();
-        Debug.Log(defenseData.upgradeStates[defenseData.upgradeLevel].prefab.name + " Canvas = " + canvas);
+        //Debug.Log(defenseData.upgradeStates[defenseData.upgradeLevel].prefab.name + " Canvas = " + canvas);
         canvasGroup = canvas.GetComponent<CanvasGroup>();
 
         if (canvasGroup == null)
         {
-            canvasGroup = canvas.gameObject.AddComponent<CanvasGroup>(); // Ajoute le composant si absent
+            canvasGroup = canvas.gameObject.AddComponent<CanvasGroup>();
         }
 
-        canvasGroup.alpha = 0f; // Masquer par défaut
+        canvasGroup.alpha = 0f;
     }
 
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
-        lastDamageTime = Time.time; // Mise à jour du temps du dernier dégât
+        lastDamageTime = Time.time;
 
         canvas.enabled = true;
-        canvasGroup.alpha = 1f; // Rendre immédiatement visible
+        canvasGroup.alpha = 1f;
         healthBar.fillAmount = currentHealth / baseHealth;
 
-        Debug.Log(gameObject.name + " subit " + amount + " dégâts. Vie restante: " + currentHealth);
+        //Debug.Log(gameObject.name + " subit " + amount + " dégâts. Vie restante: " + currentHealth);
 
         if (fadeCoroutine != null)
         {
-            StopCoroutine(fadeCoroutine); // Arrête le fade s'il est en cours
+            StopCoroutine(fadeCoroutine);
             fadeCoroutine = null;
         }
 
-        StartCoroutine(StartFadeDelay()); // Redémarre l'attente pour le fade
+        StartCoroutine(StartFadeDelay());
 
         if (currentHealth <= 0)
         {
@@ -66,9 +65,9 @@ public class DefenseScript : MonoBehaviour
     {
         yield return new WaitForSeconds(5f); // Attendre 5 secondes après le dernier dégât
 
-        if (Time.time - lastDamageTime >= 5f) // Vérifie qu'aucun dégât n'a été reçu depuis
+        if (Time.time - lastDamageTime >= 5f)
         {
-            fadeCoroutine = StartCoroutine(FadeOutHealthBar()); // Lancer le fade
+            fadeCoroutine = StartCoroutine(FadeOutHealthBar());
         }
     }
 
