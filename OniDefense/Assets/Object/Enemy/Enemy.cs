@@ -14,19 +14,10 @@ public abstract class Enemy
 		
 	}
 
-	public void TakeDamage(float amount)
-	{
+	public abstract void TakeDamage(float amount);
 
-	}
+	public abstract void ApplyEffect(EffectType effect);
 
-	public void ApplyEffect(EffectType effect)
-	{
-
-	}
-
-	public void Move()
-	{
-
-	}
+	public abstract void Move();
 }
 

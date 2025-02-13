@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964124, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -494,8 +494,8 @@ MonoBehaviour:
   sniperDefense:
     prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
     cost: 200
-  shopButtonMitrailleuse: {fileID: 0}
-  shopButtonSniper: {fileID: 0}
+  shopButtonMitrailleuse: {fileID: 1083815829}
+  shopButtonSniper: {fileID: 456804800}
 --- !u!1 &142457078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,6 +1804,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2748004830529807357, guid: f5f303e80809346a5ba96cc47055b94e, type: 3}
   m_PrefabInstance: {fileID: 445618479}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &456804800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+  m_PrefabInstance: {fileID: 215122637}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &473502090
 GameObject:
   m_ObjectHideFlags: 0
@@ -4549,6 +4560,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
   m_PrefabInstance: {fileID: 1083815826}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1083815829 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+  m_PrefabInstance: {fileID: 1083815826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1089648702
 PrefabInstance:
   m_ObjectHideFlags: 0

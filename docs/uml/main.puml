@@ -52,6 +52,8 @@ package "Building" {
         + fireRate : float
         + fireCountdown : float 
 
+        - prefab : GameObject
+
         //TO DO
         + level : int
         + cost : int
@@ -114,6 +116,21 @@ package "Map" {
     class Node {
         + position : Vector3
         + isWalkable : bool
+        + isOccupied : bool
+
+        - rend : Renderer 
+        + hoverMaterial : Material
+        - defaultMaterial : Material
+        + defense : GameObject 
+        + tempDefense : GameObject 
+        + buildManager : BuildManager
+    }
+
+    class BuildManager {
+        - DefenseTobuild : Turret
+
+        + GetDefenseToBuild() : GameObject
+        + SelectDefenseToBuild()
     }
 
     Map --> Node
