@@ -43,6 +43,20 @@ package "Building" {
         }
     }
 
+    class buildManager {
+        - defenseToBuild : DefenseClass
+        - selectedNode : NodeScript
+        + selectUI : SelectUIScript
+
+        + start(): void
+        + GetDefenseToBuild(): DefenseClass
+        + CanBuild(): bool
+        + SelectNode(NodeScript node): void
+        + DeselectNode() : void
+        + SelectDefenseToBuild(DefenseClass _defense) : void
+        + BuildDefenseOn(NodeScript node, bool activate, bool isUpgrade) : void 
+    }
+
     class Turret {
         - target : Transform
         + maximumRange : float
@@ -91,8 +105,8 @@ package "Enemy" {
         + Move()
     }
 
-    class FireEnemy extends Enemy {}
-    class IceEnemy extends Enemy {}
+    class zombie extends Enemy {}
+
 
     enum EnemyType {
         Feu,
