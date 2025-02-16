@@ -57,6 +57,50 @@ package "Building" {
         + BuildDefenseOn(NodeScript node, bool activate, bool isUpgrade) : void 
     }
 
+    class Bullet {
+        - target: Transform 
+        + speed : float 
+        + bulletImpact : GameObject 
+        - damages : float 
+
+        + Find(Transform _target) : void 
+        + SetDamage(float _damages) : void 
+        + Update() : void
+        + HitTarget() : void
+    }
+
+    class CameraController {
+        + panSpeed : float
+        + panBorderThickness : float
+        + scrollSpeed : float
+        + minY : float
+        + maxY : float
+        + minX : float
+        + maxX : float
+        + minZ : float
+        + maxZ : float
+
+        + Start() : void
+        + Update() : void
+        + CalculateZMax(float cameraY) : float 
+        + CalculateXMin(float cameraY) : float
+        + CalculateXMax(float cameraY) : float
+    }
+
+    class Defense {
+       + upgradeStates : List<DefenseUpgradeState>
+       + GetSellAmount() : int
+    }
+
+    class DefenseUpgradeState{
+        + prefab : GameObject    
+        + maximumRange : float   
+        + damages : float
+        + fireRate : float     
+        + cost : int
+        + health : float
+    }
+
     class Turret {
         - target : Transform
         + maximumRange : float
