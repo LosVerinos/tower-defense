@@ -28,21 +28,7 @@ package "System" {
     GameManager --> Leaderboard
 }
 
-package "Building" {
-    package "AttackStrategies" {
-        interface IAttackStrategy {
-            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
-        }
-
-        class SingleTargetStrategy implements IAttackStrategy {
-            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
-        }
-
-        class AoeStrategy implements IAttackStrategy {
-            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
-        }
-    }
-
+package "Current Code" {
     class buildManager {
         - defenseToBuild : DefenseClass
         - selectedNode : NodeScript
@@ -91,6 +77,238 @@ package "Building" {
        + upgradeStates : List<DefenseUpgradeState>
        + GetSellAmount() : int
     }
+
+    class DefenseScript {
+        - currentHealth : float 
+        - defenseData : DefenseClass 
+        - baseHealth : float 
+        + healthBar : Image
+        - canvas : Canvas 
+        - canvasGroup : CanvasGroup 
+        - fadeCoroutine : Coroutine 
+        - lastDamageTime : float 
+
+        + Initialize(DefenseClass data) : void 
+        + TakeDamage(float amount) : void 
+        + DestroyDefense() : void 
+        + StartFadeDelay() : IEnumerator 
+        + FadeOutHealthBar() : IEnumerator 
+    }
+
+    abstract class Effect {
+        # isActive : bool 
+        # node : NodeScript 
+
+        + {abstract} ApplyEffect(NodeScript _node) : void
+        + {abstract} RemoveEffect() : void
+    }
+
+    class EnemyBase {
+        - {static} PlayerStats : PlayerStats
+        # baseHealth : float
+        # reward : int
+        # health : float
+        + healthBar : UnityEngine.UI.Image
+        - canvas : Canvas
+        # agent : NavMeshAgent
+
+        # {abstract} Start() : void
+        + {abstract} TakeDamages(damages : float) : void
+        # {abstract} Die() : void
+    }
+
+    class ExplosiveZombie {
+        + explosionRadius : float = 10f
+        + explosionDamage : float = 2000f
+        + explosionEffect : GameObject
+
+        # Die() : void
+        - Explode() : void
+        - CalculateDamageMultiplier(distance : float) : float
+    }
+
+    class FlyingEnemyNavigationScript {
+        + target : Transform
+        + speed : float = 5f
+        - flightHeight : float = 10.5f
+        - smoothRotationSpeed : float = 5f
+        - velocity : Vector3 = Vector3.zero
+
+        - Start() : void
+        - Update() : void
+        - MoveTowardsTarget() : void
+    }
+
+    class MoneyUIScript {
+        + moneyText : TextMeshProUGUI
+
+        - Start() : void
+        - Update() : void
+    }
+    class NodeScript {
+        - rend : Renderer
+        + hoverMaterial : Material
+        - defaultMaterial : Material
+        + defense : GameObject
+        + tempDefense : GameObject
+        + defenseClass : DefenseClass
+        + positionOffset : Vector3
+        - buildManager : BuildManager
+        + currentUpgradeState : int = 0
+        + isUpgraded : bool = false
+
+        - Start() : void
+        - OnMouseEnter() : void
+        - OnMouseExit() : void
+        + SetHover(state : bool) : void
+        + OnMouseDown() : void
+        - IsPointerOverUIElement() : bool
+        + UpgradeDefense() : void
+        + SellDefense() : void
+    }
+
+    class ObusScript {
+        - target : Transform
+        + speed : float = 70f
+        + bulletImpact : GameObject
+        + damagesRadius : float
+        - damages : float
+        - destination : Vector3
+        - startPosition : Vector3
+        - flightTime : float
+        - elapsedTime : float
+        + arcHeight : float
+        - previousPosition : Vector3
+        - aerialLaunch : bool = false
+
+        + Find(_target : Transform) : void
+        + SetDamage(_damages : float) : void
+        - Update() : void
+        - Explode() : void
+        - CalculateDamageMultiplier(distance : float) : float
+        - Damage(colliderTransform : Transform, damagesTaken : float) : void
+        + SetAerialLaunch(_aerialLaunch : bool) : void
+        + SetSpeed(_newSpeed : float) : void
+    }
+
+    class PlayerStats {
+        + Money : int
+        + startMoney : int = 400
+        + moneyMultiplier : int = 1
+        + fireRateMultiplier : float = 1
+
+        - Start() : void
+        - Update() : void
+    }
+
+    class ShopScript {
+        +DefenseClass object1
+        +DefenseClass object2
+        +DefenseClass object3
+        +DefenseClass object4
+        -BuildManager buildManager
+        +Button shopButtonObject1
+        +Button shopButtonObject2
+        +Button shopButtonObject3
+        +Button shopButtonObject4
+
+        +void SelectObject1()
+        +void SelectObject2()
+        +void SelectObject3()
+        +void SelectObject4()
+        -void DisableButton(Button button)
+        -void EnableButton(Button button)
+        +void Start()
+        +void Update()
+    }
+
+    class SelectUIScript {
+        - target : NodeScript
+        + ui : GameObject
+
+        + SetTarget(_target : NodeScript) : void
+        + Hide() : void
+        + Upgrade() : void
+        + Sell() : void
+    }
+
+    class ShopUIScript {
+        -GameObject defensesButton
+        -GameObject supportButton
+        -GameObject bonusButton
+        -GameObject closeButton
+        -GameObject currentPanel
+        -bool isPanelDeployed
+        +void Start()
+        +void DeployPanel(GameObject panel)
+        -void ShrinkOtherPanels()
+        +void ShrinkAll()
+        -void MovePanels(GameObject[] panels, Vector3 movement)
+    }
+
+    class SlowEffect {
+        +void ApplyEffect(NodeScript _node)
+        -void OnTriggerEnter(Collider otherCollider)
+        -void OnTriggerExit(Collider otherCollider)
+        -void ApplyEffectSpeed(Transform collider, float speedMultiplier)
+    }
+
+    class TurretScript {
+        -Transform target
+        +float maximumRange
+        +float minimumRange
+        +float turningSpeed
+        +float damages
+        +float fireRate
+        -float fireCountdown
+        +LayerMask enemyLayer
+        +Transform movingPartY
+        +Transform movingPartX
+        +GameObject bulletPrefab
+        +Transform firePoint
+        +GameObject muzzleFlash
+        -Quaternion defaultRotationX
+        -Quaternion defaultRotationY
+        -bool active
+        +void Start()
+        +void Initialize()
+        -bool UpdateTarget()
+        +void Update()
+        -void Shoot()
+        +void SetActive(bool _active)
+    }
+
+    class WaveManagerScript {
+        +Transform spawnPoint
+        +Transform objectivePoint
+        +float timeBetweenWaves
+        -float countdown
+        -int waveIndex
+        -int nbEnemies
+        +GameObject[] zombiesList
+        +void Start()
+        +void Update()
+        -IEnumerator SpawnWave(int waveNumber)
+        -void SpawnEnemy()
+    }
+}
+
+package "Building" {
+    package "AttackStrategies" {
+        interface IAttackStrategy {
+            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
+        }
+
+        class SingleTargetStrategy implements IAttackStrategy {
+            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
+        }
+
+        class AoeStrategy implements IAttackStrategy {
+            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
+        }
+    }
+
+    
 
     class DefenseUpgradeState{
         + prefab : GameObject    
