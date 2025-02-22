@@ -1,10 +1,12 @@
 @startuml "DefenseDefense"
 
 package "System" {
+
+    /'Wait of the manager to be done'/
     class GameManager {
         + waveNumber : int
         + lives : int
-        + gold : int
+        + monney : int
         + leaderboard : Leaderboard
         + StartGame()
         + EndGame()
@@ -61,20 +63,54 @@ package "Building" {
         - upgradeLevel : int
         - UpgradeState : List<DefenseUpgradeState>
 
-        + Shoot() : void
+        + Shoot(target: ennemy) : void
         + findTarget() : Trasnform
 
         - target : Transform
-        - projectile : GameObject
         - ennemyLayer : LayerMask 
         - movingPartx : Trasnform
         - movingParty : Trasnform
-        - bulletPrefab : GameObject
+        - projectile : Projectile
         - firePoint : Transform
         - muselFlashPrefab : GameObject
         - defaultRotationX : quaternion
         - defaultRotationY : quaternion
         - active : bool
+    }
+
+    class Projectile{
+
+        + prefab : GameObject
+        + target : ennemy
+        + speed : float
+        + damage : float
+        + bulletImpact : GameObject
+
+        + SetTarget(target : ennemy) : void
+        + setDamage(damage : float) : void
+        + hitTarget() : void
+    }
+
+    class Obus implements Projectile{
+        + prefab : GameObject
+        + target : ennemy
+        + speed : float
+        + damage : float
+        + bulletImpact : GameObject
+
+        + explode() : void
+        + calculteDammageMultiplier(distance:float) : float
+        + hitTarget() : void
+        + setAerialLaucnh(aerialLaunch:bool) : void
+        + setSpeed(speed : float) : void
+    }
+
+    class Bullets implements Projectile{
+        + prefab : GameObject
+        + target : ennemy
+        + speed : float
+        + damage : float
+        + bulletImpact : GameObject
     }
 
     class DefenseUpgradeState{
@@ -87,15 +123,15 @@ package "Building" {
     }
 
     class Sniper extends Defense {
-        + Shoot() : void
+        findTarget() : Transform
     }
 
     class Mortier extends Defense {
-        + Shoot() : void
+        findTarget() : Transform
     }
 
      class Mitrailleuse extends Defense {
-        + Shoot() : void
+        findTarget() : Transform
     }
 
     enum EffectType {
@@ -114,13 +150,14 @@ package "Enemy" {
         + healthBar : Image
         + agent : navMeshAgent
         + type : EnemyType
-        + prefab : GameObject
 
         + TakeDamage(amount : float) : void
         + Die() : void 
     }
 
     class zombie extends Enemy {
+        + prefab : GameObject
+
         + TakeDamage(amount : float) : void
 
         + Die() : void
@@ -140,38 +177,58 @@ package "Enemy" {
         + ennemyCount : int
         + ennemyList : List<Enemy>
 
-
-        + SpawnWave(waveNumber : int) : List<Enemy>
+        + SpawnWave(waveIndex : int)
+        + SpawnEnnemy() : Enemy
     }
 }
 
 package "Map" {
+
+    /'Singleton pour la map'/
+
     class Map {
         + Nodes : List<Node>
-        + GetPath(start : Vector3, end : Vector3) : List<Vector3>
+        + spawnPoint : Transform
+        + endPoint : Transform
+        + surface : navMesh
+        + buildManager : BuildManager
+
         + IsValidPosition(position : Vector3) : bool
         + PlaceDefense(position : Vector3, Defense : Defense)
     }
 
     class Node {
+        + defense : Defense
+        + tempDefense : Defense
+        + defenseClass : Defense
         + position : Vector3
-        + isWalkable : bool
-        + isOccupied : bool
 
-        - rend : Renderer 
-        + hoverMaterial : Material
-        - defaultMaterial : Material
-        + defense : GameObject 
-        + tempDefense : GameObject 
         + buildManager : BuildManager
+        + isUpgraded : bool
+
+        + onMouseEnter() : void
+        + onMouseExit() : void
+        + setOver(state: bool ) : void
+        + OnMouseDown() : void
+        + isPointerOverUIElement() : bool
+        + UpradeDefense() : void
+        + SellDefense() : void
     }
 
+    /'singleton'/
     class BuildManager {
-        - DefenseTobuild : Defense
 
-        + GetDefenseToBuild() : GameObject
-        + SelectDefenseToBuild()
-    }
+            - BuildManager : BuildManager
+            + defenseToBuild : Defense
+            - selectedNode : Node
+            - SelectUi : SelectUiScript
+            - GetDefenseToBuild() : Defense
+            - CanBuild() : bool
+            - selectdNode(node : Node) : void
+            - deSelectNode() : void
+            - selectDefenseToBuild(Defense : Defense) : void
+            - BuildDefenseOn(activate : bool , upgrade : bool ) : void
+        }
 
     Map --> Node
 }
