@@ -1,0 +1,190 @@
+@startuml "DefenseDefense"
+
+package "System" {
+    class GameManager {
+        + waveNumber : int
+        + lives : int
+        + gold : int
+        + leaderboard : Leaderboard
+        + StartGame()
+        + EndGame()
+        + UpdateWave()
+        + AddGold(amount : int)
+        + LoseLife()
+    }
+
+    class Leaderboard {
+        + scores : List<Score>
+        + AddScore(playerName : string, waveNumber : int)
+        + GetTopScores() : List<Score>
+    }
+
+    class Score {
+        + playerName : string
+        + wave : int
+        + AddScore():void
+    }
+
+    GameManager --> Leaderboard
+}
+
+package "Building" {
+    package "AttackStrategies" {
+        interface IAttackStrategy {
+            + ExecuteAttack(Defense : Defense, enemies : List<Enemy>)
+        }
+
+        class SingleTargetStrategy implements IAttackStrategy {
+            + ExecuteAttack(Defense : Defense, enemies : List<Enemy>)
+        }
+
+        class AoeStrategy implements IAttackStrategy {
+            + ExecuteAttack(Defense : Defense, enemies : List<Enemy>)
+        }
+    }
+
+    
+
+    class DefenseUpgradeState{
+        + prefab : GameObject    
+        + maximumRange : float   
+        + damages : float
+        + fireRate : float     
+        + cost : int
+        + health : float
+    }
+
+    /'Ennemy layer : liste des ennemy qui peuvent être touché '/
+
+    class Defense {
+        - name : string
+        - upgradeLevel : int
+        - UpgradeState : List<DefenseUpgradeState>
+
+        + Shoot() : void
+        + findTarget() : Trasnform
+
+        - target : Transform
+        - projectile : GameObject
+        - ennemyLayer : LayerMask 
+        - movingPartx : Trasnform
+        - movingParty : Trasnform
+        - bulletPrefab : GameObject
+        - firePoint : Transform
+        - muselFlashPrefab : GameObject
+        - defaultRotationX : quaternion
+        - defaultRotationY : quaternion
+        - active : bool
+    }
+
+    class DefenseUpgradeState{
+        + prefab : GameObject
+        + maximumRange : float
+        + minimumRange : float
+        + turningSpeed : float
+        + damage : float
+        + fireRate : float
+    }
+
+    class Sniper extends Defense {
+        + Shoot() : void
+    }
+
+    class Mortier extends Defense {
+        + Shoot() : void
+    }
+
+     class Mitrailleuse extends Defense {
+        + Shoot() : void
+    }
+
+    enum EffectType {
+        Slow
+    }
+
+    Defense --* AttackStrategies.IAttackStrategy : Strategy
+}
+
+package "Enemy" {
+    abstract class Enemy {
+        + baseHealth : float
+        + health : float
+        + reward : int
+        + canva : canvas
+        + healthBar : Image
+        + agent : navMeshAgent
+        + type : EnemyType
+        + prefab : GameObject
+
+        + TakeDamage(amount : float) : void
+        + Die() : void 
+    }
+
+    class zombie extends Enemy {
+        + TakeDamage(amount : float) : void
+
+        + Die() : void
+    }
+    /' Strategy pattern here'/
+
+    enum EnemyType {
+        Explosive
+    }
+    /' '/
+    class EnemySpawner {
+        + startPoint : Transform
+        + objectivePoint : Transform
+        + timeBetweenWaves : float
+        + countdown : float
+        + waveindex : int
+        + ennemyCount : int
+        + ennemyList : List<Enemy>
+
+
+        + SpawnWave(waveNumber : int) : List<Enemy>
+    }
+}
+
+package "Map" {
+    class Map {
+        + Nodes : List<Node>
+        + GetPath(start : Vector3, end : Vector3) : List<Vector3>
+        + IsValidPosition(position : Vector3) : bool
+        + PlaceDefense(position : Vector3, Defense : Defense)
+    }
+
+    class Node {
+        + position : Vector3
+        + isWalkable : bool
+        + isOccupied : bool
+
+        - rend : Renderer 
+        + hoverMaterial : Material
+        - defaultMaterial : Material
+        + defense : GameObject 
+        + tempDefense : GameObject 
+        + buildManager : BuildManager
+    }
+
+    class BuildManager {
+        - DefenseTobuild : Defense
+
+        + GetDefenseToBuild() : GameObject
+        + SelectDefenseToBuild()
+    }
+
+    Map --> Node
+}
+
+GameManager --> "1..*" Building.Defense
+GameManager --> "1..*" Enemy.Enemy
+GameManager --> "1" Map.Map
+
+Building.Defense --> Map.Map : Uses
+Enemy.Enemy --> Map.Map : Uses
+EnemySpawner --> Enemy.Enemy : Creates
+
+@enduml
+```
+Abstract factory pour le shop
+

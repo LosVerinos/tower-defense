@@ -74,25 +74,25 @@ package "Current Code" {
     }
 
     class Defense {
-       + upgradeStates : List<DefenseUpgradeState>
-       + GetSellAmount() : int
-    }
-
-    class DefenseScript {
+        + upgradeStates : List<DefenseUpgradeState>
+        + GetSellAmount() : int
         - currentHealth : float 
-        - defenseData : DefenseClass 
         - baseHealth : float 
         + healthBar : Image
         - canvas : Canvas 
         - canvasGroup : CanvasGroup 
         - fadeCoroutine : Coroutine 
-        - lastDamageTime : float 
+        - lastDamageTime : float
 
-        + Initialize(DefenseClass data) : void 
         + TakeDamage(float amount) : void 
         + DestroyDefense() : void 
         + StartFadeDelay() : IEnumerator 
         + FadeOutHealthBar() : IEnumerator 
+    }
+
+    class DefenseScript {
+        - defenseData : DefenseClass 
+        + Initialize(DefenseClass data) : void 
     }
 
     abstract class Effect {
@@ -419,3 +419,8 @@ GameManager --> "1" Map.Map
 Building.Turret --> Map.Map : Uses
 Enemy.Enemy --> Map.Map : Uses
 EnemySpawner --> Enemy.Enemy : Creates
+
+@enduml
+```
+Abstract factory pour le shop
+
