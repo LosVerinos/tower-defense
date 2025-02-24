@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectivePoint: {fileID: 0}
+  agent: {fileID: 0}
+  speed: 5
 --- !u!195 &1129238645226254969
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -107,7 +109,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 500
   reward: 1000
+  damage: 10
+  difficultyWeight: 4
+  health: 0
   healthBar: {fileID: 7043250068097872513}
+  agent: {fileID: 0}
   explosionRadius: 10
   explosionDamage: 1000
   explosionEffect: {fileID: 4305196486595961852, guid: 9d4eb44cb6add4901864e688a38e2aa7, type: 3}

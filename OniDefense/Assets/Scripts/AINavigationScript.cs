@@ -7,7 +7,8 @@ using UnityEngine.AI;
 public class AINavigationScript : MonoBehaviour
 {
     public Transform objectivePoint;
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
+    public float speed = 5f;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class AINavigationScript : MonoBehaviour
     void OnReachedDestination()
     {
         // Décrémenter les vies
-        LivesManager.Instance.DecreaseLives(1);
+        LivesManager.Instance.DecreaseLives(GetComponent<EnemyBase>().damage);
         WaveManagerScript.EnemyDied();
         // Tuer le zombie
         Destroy(gameObject);

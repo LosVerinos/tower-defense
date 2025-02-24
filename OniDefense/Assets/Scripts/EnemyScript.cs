@@ -10,12 +10,14 @@ using UnityEngine.UI;
 public class EnemyBase : MonoBehaviour
 {
 
-    [SerializeField] protected float baseHealth;
-    [SerializeField] protected int reward;
-    protected float health;
+    [SerializeField] public float baseHealth;
+    [SerializeField] public int reward;
+    [SerializeField] public int damage;
+    [SerializeField] public float difficultyWeight;
+    public float health;
     public UnityEngine.UI.Image healthBar;
     private Canvas canvas;
-    protected NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     protected virtual void Start()
     {

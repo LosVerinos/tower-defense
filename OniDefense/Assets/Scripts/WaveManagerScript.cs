@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,43 +11,83 @@ public class WaveManagerScript : MonoBehaviour
     public Transform objectivePoint;
     public float timeBetweenWaves = 10f;
     private float countdown = 5f;
-    private int waveIndex = 0;
-    private int nbEnemies;
+    public int waveIndex = 0;
     public GameObject[] zombiesList;
     [SerializeField] public Button playButton;
-    // Start is called before the first frame update
+
+    // Variables pour la difficulté croissante
+    public int baseEnemyCount = 1;
+    public int maxEnemiesPerWave = 20;
+    public float enemyHealthMultiplier = 1.1f;
+    public float enemySpeedMultiplier = 1.05f;
+    public float difficultyMultiplier = 1.2f;
+    private float currentDifficulty = 1f;
+
     void Start()
     {
-
+        ResetEnemiesAliveCount();
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        // if (EnemiesAliveCount > 0)
+        //     return;
     }
 
     IEnumerator SpawnWave(int waveNumber)
     {
         Debug.Log("Wave incoming");
         ResetEnemiesAliveCount();
-        nbEnemies = waveNumber + 1;
+        currentDifficulty = baseEnemyCount * Mathf.Pow(difficultyMultiplier, waveNumber);
 
-        for (int i = 0; i < nbEnemies; i++)
+        float remainingDifficulty = currentDifficulty;
+        bool enemySpawned = false;
+
+        while (remainingDifficulty > 0)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(0.5f);
+            GameObject randomZombie = zombiesList[UnityEngine.Random.Range(0, zombiesList.Length)];
+            float difficultyWeight = randomZombie.GetComponent<EnemyBase>().difficultyWeight;
+
+            if (remainingDifficulty >= difficultyWeight)
+            {
+                SpawnEnemy(randomZombie, waveNumber);
+                remainingDifficulty -= difficultyWeight;
+                enemySpawned = true;
+                yield return new WaitForSeconds(0.1f);
+            }
+            else
+            {
+                break;
+            }
         }
+
+        if (!enemySpawned)
+        {
+            GameObject fallbackZombie = zombiesList[0]; // Ensure at least one enemy is spawned
+            SpawnEnemy(fallbackZombie, waveNumber);
+        }
+
+        waveIndex++;
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(GameObject enemyPrefab, int waveNumber)
     {
-        GameObject randomZombie = zombiesList[UnityEngine.Random.Range(0, zombiesList.Length)];
-        GameObject spawnedZombie = Instantiate(randomZombie, spawnPoint.position, spawnPoint.rotation);
+        GameObject spawnedZombie = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
         if (spawnedZombie.tag == "Classic Enemy")
-            spawnedZombie.GetComponent<AINavigationScript>().objectivePoint = objectivePoint;
+        {
+            var navigationScript = spawnedZombie.GetComponent<AINavigationScript>();
+            navigationScript.objectivePoint = objectivePoint;
+            navigationScript.agent = spawnedZombie.GetComponent<UnityEngine.AI.NavMeshAgent>();
+            navigationScript.agent.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
+        }
         if (spawnedZombie.tag == "Flying Enemy")
-            spawnedZombie.GetComponent<FlyingEnemyNavigationScript>().target = objectivePoint;
+        {
+            var flyingScript = spawnedZombie.GetComponent<FlyingEnemyNavigationScript>();
+            flyingScript.target = objectivePoint;
+            flyingScript.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
+        }
+        spawnedZombie.GetComponent<EnemyBase>().health *= Mathf.Pow(enemyHealthMultiplier, waveNumber);
+
         EnemySpawned();
     }
 
@@ -72,13 +111,12 @@ public class WaveManagerScript : MonoBehaviour
         EnemiesAliveCount = 0;
     }
 
-
     public void OnButtonNextWave()
     {
         if (EnemiesAliveCount > 0)
             return;
         Debug.Log("Wave incoming");
-        StartCoroutine(SpawnWave(waveIndex++));
+        StartCoroutine(SpawnWave(waveIndex));
         playButton.interactable = false;
     }
 }
