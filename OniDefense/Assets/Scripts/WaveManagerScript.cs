@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,16 +23,21 @@ public class WaveManagerScript : MonoBehaviour
     public float enemySpeedMultiplier = 1.05f;
     public float difficultyMultiplier = 1.2f;
     private float currentDifficulty = 1f;
+    private GameObject gameOverPanel;
 
     void Start()
     {
         ResetEnemiesAliveCount();
+        gameOverPanel = GameObject.FindGameObjectWithTag("GOPanel");
+        gameOverPanel.SetActive(false);
     }
 
     void Update()
     {
-        // if (EnemiesAliveCount > 0)
-        //     return;
+        if (LivesManager.Instance.Lives <= 0 && gameOverPanel.activeSelf == false)
+        {
+            gameOverPanel.SetActive(true);
+        }
     }
 
     IEnumerator SpawnWave(int waveNumber)
@@ -113,10 +119,11 @@ public class WaveManagerScript : MonoBehaviour
 
     public void OnButtonNextWave()
     {
-        if (EnemiesAliveCount > 0)
-            return;
-        Debug.Log("Wave incoming");
-        StartCoroutine(SpawnWave(waveIndex));
-        playButton.interactable = false;
+        LivesManager.Instance.Lives = 0;
+        // if (EnemiesAliveCount > 0)
+        //     return;
+        // Debug.Log("Wave incoming");
+        // StartCoroutine(SpawnWave(waveIndex));
+        // playButton.interactable = false;
     }
 }
