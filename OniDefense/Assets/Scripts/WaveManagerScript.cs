@@ -19,37 +19,41 @@ public class WaveManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    IEnumerator SpawnWave(int waveNumber){
+    IEnumerator SpawnWave(int waveNumber)
+    {
         Debug.Log("Wave incoming");
         ResetEnemiesAliveCount();
-        nbEnemies = waveNumber+1;
+        nbEnemies = waveNumber + 1;
 
-        for(int i = 0; i < nbEnemies; i++){
+        for (int i = 0; i < nbEnemies; i++)
+        {
             SpawnEnemy();
             yield return new WaitForSeconds(0.5f);
         }
     }
 
-    void SpawnEnemy(){
+    void SpawnEnemy()
+    {
         GameObject randomZombie = zombiesList[UnityEngine.Random.Range(0, zombiesList.Length)];
         GameObject spawnedZombie = Instantiate(randomZombie, spawnPoint.position, spawnPoint.rotation);
-        if(spawnedZombie.tag == "Classic Enemy")
+        if (spawnedZombie.tag == "Classic Enemy")
             spawnedZombie.GetComponent<AINavigationScript>().objectivePoint = objectivePoint;
-        if(spawnedZombie.tag == "Flying Enemy")
+        if (spawnedZombie.tag == "Flying Enemy")
             spawnedZombie.GetComponent<FlyingEnemyNavigationScript>().target = objectivePoint;
         EnemySpawned();
     }
-    
-    public static void EnemyDied(){
+
+    public static void EnemyDied()
+    {
         EnemiesAliveCount--;
         if (EnemiesAliveCount <= 0)
         {
@@ -57,16 +61,18 @@ public class WaveManagerScript : MonoBehaviour
             GameObject.FindObjectOfType<WaveManagerScript>().playButton.interactable = true;
         }
     }
-    
-    public static void EnemySpawned(){
+
+    public static void EnemySpawned()
+    {
         EnemiesAliveCount++;
     }
-    
-    private static void ResetEnemiesAliveCount(){
+
+    private static void ResetEnemiesAliveCount()
+    {
         EnemiesAliveCount = 0;
     }
 
-    
+
     public void OnButtonNextWave()
     {
         if (EnemiesAliveCount > 0)
