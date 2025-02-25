@@ -119,11 +119,11 @@ public class WaveManagerScript : MonoBehaviour
 
     public void OnButtonNextWave()
     {
-        LivesManager.Instance.Lives = 0;
-        // if (EnemiesAliveCount > 0)
-        //     return;
-        // Debug.Log("Wave incoming");
-        // StartCoroutine(SpawnWave(waveIndex));
-        // playButton.interactable = false;
+        // LivesManager.Instance.Lives = 0;
+        if (EnemiesAliveCount > 0)
+            return;
+        Debug.Log("Wave incoming");
+        StartCoroutine(SpawnWave(waveIndex));
+        playButton.interactable = false;
     }
 }
