@@ -10,8 +10,6 @@ class ZombieFactory : MonoBehaviour
     // Variables pour la difficulté croissante
     private static float enemyHealthMultiplier = 1.1f;
     private static float enemySpeedMultiplier = 1.05f;
-    private static float difficultyMultiplier = 1.2f;
-    private float currentDifficulty = 1f;
     public Transform defaultSpawnPoint;
     public Transform defaultObjectivePoint;
     public GameObject[] zombies;
@@ -20,7 +18,6 @@ class ZombieFactory : MonoBehaviour
         var filteredZombies = zombies.Where(zombie => zombie.GetComponent<EnemyBase>().difficultyWeight <= maxDifficulty).ToArray();
         if (filteredZombies.Length == 0)
         {
-            // Debug.Log("No zombie with difficulty lower than " + maxDifficulty);
             return null;
         }
         GameObject spawnedZombie = Instantiate(filteredZombies[Random.Range(0, filteredZombies.Length)], defaultSpawnPoint.position, defaultSpawnPoint.rotation);

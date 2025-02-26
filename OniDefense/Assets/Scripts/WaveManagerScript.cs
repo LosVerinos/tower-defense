@@ -11,7 +11,6 @@ public class WaveManagerScript : MonoBehaviour
     public Transform spawnPoint;
     public Transform objectivePoint;
     public float timeBetweenWaves = 10f;
-    private float countdown = 5f;
     public int waveIndex = 0;
     public GameObject[] zombiesList;
     [SerializeField] public Button playButton;
@@ -44,52 +43,40 @@ public class WaveManagerScript : MonoBehaviour
     {
         Debug.Log("Wave incoming");
         ResetEnemiesAliveCount();
-        currentDifficulty = (int)(baseEnemyCount * Math.Pow(difficultyMultiplier, waveIndex)) + waveIndex;
+        CalculateCurrentDifficulty();
         Debug.Log($"Current Difficulty : {currentDifficulty}");
 
         int remainingDifficulty = currentDifficulty;
-        bool enemySpawned = false;
 
         while (remainingDifficulty >= 0)
         {
-            Debug.Log($"Spawning a zombie under diff : {remainingDifficulty}");
-            GameObject randomZombie = GetComponent<ZombieFactory>().CreateRandomZombieByDifficulty(remainingDifficulty, waveIndex);
-            if (randomZombie != null)
-            {
-                remainingDifficulty -= (int)randomZombie.GetComponent<EnemyBase>().difficultyWeight;
-                Debug.Log("Spawning enemy with difficulty " + randomZombie.GetComponent<EnemyBase>().difficultyWeight);
-                EnemySpawned();
-                yield return new WaitForSeconds(0.1f);
-            }
-            else
+            GameObject randomZombie = TrySpawnZombie(ref remainingDifficulty);
+            if (randomZombie == null)
             {
                 break;
             }
-
+            yield return new WaitForSeconds(0.1f);
         }
 
         waveIndex++;
     }
 
-    void SpawnEnemy(GameObject enemyPrefab, int waveNumber)
+    private void CalculateCurrentDifficulty()
     {
-        GameObject spawnedZombie = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-        if (spawnedZombie.tag == "Classic Enemy")
-        {
-            var navigationScript = spawnedZombie.GetComponent<AINavigationScript>();
-            navigationScript.objectivePoint = objectivePoint;
-            navigationScript.agent = spawnedZombie.GetComponent<UnityEngine.AI.NavMeshAgent>();
-            navigationScript.agent.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
-        }
-        if (spawnedZombie.tag == "Flying Enemy")
-        {
-            var flyingScript = spawnedZombie.GetComponent<FlyingEnemyNavigationScript>();
-            flyingScript.target = objectivePoint;
-            flyingScript.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
-        }
-        spawnedZombie.GetComponent<EnemyBase>().health *= Mathf.Pow(enemyHealthMultiplier, waveNumber);
+        currentDifficulty = (int)(baseEnemyCount * Math.Pow(difficultyMultiplier, waveIndex)) + waveIndex;
+    }
 
-        EnemySpawned();
+    private GameObject TrySpawnZombie(ref int remainingDifficulty)
+    {
+        Debug.Log($"Spawning a zombie under diff : {remainingDifficulty}");
+        GameObject randomZombie = GetComponent<ZombieFactory>().CreateRandomZombieByDifficulty(remainingDifficulty, waveIndex);
+        if (randomZombie != null)
+        {
+            remainingDifficulty -= (int)randomZombie.GetComponent<EnemyBase>().difficultyWeight;
+            Debug.Log("Spawning enemy with difficulty " + randomZombie.GetComponent<EnemyBase>().difficultyWeight);
+            EnemySpawned();
+        }
+        return randomZombie;
     }
 
     public static void EnemyDied()
