@@ -18,7 +18,7 @@ public class ObusScript : MonoBehaviour
     private Vector3 previousPosition;
     private bool aerialLaunch = false;
 
-    public void Find(Transform _target)
+    public void SetTarget(Transform _target)
     {
         target = _target;
 

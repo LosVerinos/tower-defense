@@ -16,7 +16,7 @@ public class NodeScript : MonoBehaviour
     public Vector3 positionOffset;
     BuildManager buildManager;
 
-    public int currentUpgradeState = 0; 
+    public int currentUpgradeState = 0;
     public bool isUpgraded = false;
 
     void Start()

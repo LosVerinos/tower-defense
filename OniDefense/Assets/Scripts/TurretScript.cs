@@ -120,13 +120,13 @@ public class TurretScript : MonoBehaviour
         if (bulletScript != null)
         {
             bulletScript.SetDamage(damages);
-            bulletScript.Find(target);
+            bulletScript.SetTarget(target);
         }
         else
         {
             ObusScript obusScript = bulletGameObject.GetComponent<ObusScript>();
             obusScript.SetDamage(damages);
-            obusScript.Find(target);
+            obusScript.SetTarget(target);
         }
     }
 

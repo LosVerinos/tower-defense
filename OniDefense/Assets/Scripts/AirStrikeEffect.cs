@@ -33,7 +33,7 @@ public class AirStrikeEffect : Effect
                 obusScript.SetSpeed(40f);
                 obusScript.SetDamage(50f);
                 obusScript.SetAerialLaunch(true);
-                obusScript.Find(node.transform); // On vise la node actuelle
+                obusScript.SetTarget(node.transform); // On vise la node actuelle
             }
         }
 

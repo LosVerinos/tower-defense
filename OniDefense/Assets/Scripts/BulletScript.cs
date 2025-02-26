@@ -10,7 +10,7 @@ public class BulletScript : MonoBehaviour
     public GameObject bulletImpact;
     private float damages;
     // Start is called before the first frame update
-    public void Find(Transform _target)
+    public void SetTarget(Transform _target)
     {
         target = _target;
     }
