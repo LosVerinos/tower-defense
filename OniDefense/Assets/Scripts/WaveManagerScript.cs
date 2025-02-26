@@ -22,7 +22,7 @@ public class WaveManagerScript : MonoBehaviour
     public float enemyHealthMultiplier = 1.1f;
     public float enemySpeedMultiplier = 1.05f;
     public float difficultyMultiplier = 1.2f;
-    private float currentDifficulty = 1f;
+    private int currentDifficulty = 1;
     private GameObject gameOverPanel;
 
     void Start()
@@ -44,33 +44,26 @@ public class WaveManagerScript : MonoBehaviour
     {
         Debug.Log("Wave incoming");
         ResetEnemiesAliveCount();
-        currentDifficulty = baseEnemyCount * Mathf.Pow(difficultyMultiplier, waveNumber);
+        currentDifficulty = (int)(baseEnemyCount * Mathf.Pow(difficultyMultiplier, waveNumber));
 
-        float remainingDifficulty = currentDifficulty;
+        int remainingDifficulty = currentDifficulty;
         bool enemySpawned = false;
 
-        while (remainingDifficulty > 0)
+        while (remainingDifficulty >= 0)
         {
-            GameObject randomZombie = zombiesList[UnityEngine.Random.Range(0, zombiesList.Length)];
-            float difficultyWeight = randomZombie.GetComponent<EnemyBase>().difficultyWeight;
-
-            if (remainingDifficulty >= difficultyWeight)
+            GameObject randomZombie = GetComponent<ZombieFactory>().CreateRandomZombieByDifficulty(remainingDifficulty, waveNumber);
+            if (randomZombie != null)
             {
-                SpawnEnemy(randomZombie, waveNumber);
-                remainingDifficulty -= difficultyWeight;
-                enemySpawned = true;
+                Debug.Log("Spawning enemy with difficulty " + randomZombie.GetComponent<EnemyBase>().difficultyWeight);
+                remainingDifficulty -= (int)randomZombie.GetComponent<EnemyBase>().difficultyWeight;
+                EnemySpawned();
                 yield return new WaitForSeconds(0.1f);
             }
             else
             {
                 break;
             }
-        }
 
-        if (!enemySpawned)
-        {
-            GameObject fallbackZombie = zombiesList[0]; // Ensure at least one enemy is spawned
-            SpawnEnemy(fallbackZombie, waveNumber);
         }
 
         waveIndex++;
