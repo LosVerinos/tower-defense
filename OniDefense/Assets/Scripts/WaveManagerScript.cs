@@ -40,22 +40,24 @@ public class WaveManagerScript : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnWave(int waveNumber)
+    IEnumerator SpawnWave()
     {
         Debug.Log("Wave incoming");
         ResetEnemiesAliveCount();
-        currentDifficulty = (int)(baseEnemyCount * Mathf.Pow(difficultyMultiplier, waveNumber));
+        currentDifficulty = (int)(baseEnemyCount * Math.Pow(difficultyMultiplier, waveIndex)) + waveIndex;
+        Debug.Log($"Current Difficulty : {currentDifficulty}");
 
         int remainingDifficulty = currentDifficulty;
         bool enemySpawned = false;
 
         while (remainingDifficulty >= 0)
         {
-            GameObject randomZombie = GetComponent<ZombieFactory>().CreateRandomZombieByDifficulty(remainingDifficulty, waveNumber);
+            Debug.Log($"Spawning a zombie under diff : {remainingDifficulty}");
+            GameObject randomZombie = GetComponent<ZombieFactory>().CreateRandomZombieByDifficulty(remainingDifficulty, waveIndex);
             if (randomZombie != null)
             {
-                Debug.Log("Spawning enemy with difficulty " + randomZombie.GetComponent<EnemyBase>().difficultyWeight);
                 remainingDifficulty -= (int)randomZombie.GetComponent<EnemyBase>().difficultyWeight;
+                Debug.Log("Spawning enemy with difficulty " + randomZombie.GetComponent<EnemyBase>().difficultyWeight);
                 EnemySpawned();
                 yield return new WaitForSeconds(0.1f);
             }
@@ -116,7 +118,7 @@ public class WaveManagerScript : MonoBehaviour
         if (EnemiesAliveCount > 0)
             return;
         Debug.Log("Wave incoming");
-        StartCoroutine(SpawnWave(waveIndex));
+        StartCoroutine(SpawnWave());
         playButton.interactable = false;
     }
 }

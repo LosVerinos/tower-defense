@@ -20,7 +20,7 @@ class ZombieFactory : MonoBehaviour
         var filteredZombies = zombies.Where(zombie => zombie.GetComponent<EnemyBase>().difficultyWeight <= maxDifficulty).ToArray();
         if (filteredZombies.Length == 0)
         {
-            Debug.Log("No zombie with difficulty lower than " + maxDifficulty);
+            // Debug.Log("No zombie with difficulty lower than " + maxDifficulty);
             return null;
         }
         GameObject spawnedZombie = Instantiate(filteredZombies[Random.Range(0, filteredZombies.Length)], defaultSpawnPoint.position, defaultSpawnPoint.rotation);
