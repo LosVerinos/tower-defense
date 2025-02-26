@@ -1,54 +1,53 @@
 ﻿<Properties StartupConfiguration="{F5CD1A3A-18C6-75AE-94C5-0350582BDEC5}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BonusShopScript.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1f62ed2d-fcbe-4d0f-832e-d69416204973" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/object/Defense.cs">
     <Files>
       <File FileName="Assets/Object/Enemy/Enemy.cs" Line="8" Column="25" />
-      <File FileName="Assets/Object/EnemyType.cs" Line="1" Column="1" />
-      <File FileName="Assets/Object/Enemy/Zombie.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/AINavigationScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BuildManager.cs" Line="11" Column="1" />
-      <File FileName="Assets/Scripts/BulletScript.cs" Line="42" Column="21" />
-      <File FileName="Assets/Scripts/CameraControllerScript.cs" Line="90" Column="6" />
-      <File FileName="Assets/Scripts/DefenseClass.cs" Line="17" Column="1" />
-      <File FileName="Assets/Scripts/DefenseScript.cs" Line="74" Column="5" />
-      <File FileName="Assets/Scripts/EffectClass.cs" Line="14" Column="5" />
-      <File FileName="Assets/Scripts/EnemyScript.cs" Line="21" Column="51" />
-      <File FileName="Assets/Scripts/ExplosiveZombie.cs" Line="60" Column="1" />
-      <File FileName="Assets/Scripts/FlyingEnemyNavigationScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MoneyUIScript.cs" Line="18" Column="6" />
-      <File FileName="Assets/Scripts/NodeScript.cs" Line="20" Column="36" />
-      <File FileName="Assets/Scripts/ObusScript.cs" Line="20" Column="1" />
-      <File FileName="Assets/Scripts/PlayerStats.cs" Line="19" Column="37" />
-      <File FileName="Assets/Scripts/SelectUIScript.cs" Line="24" Column="26" />
-      <File FileName="Assets/Scripts/ShopScript.cs" Line="17" Column="1" />
-      <File FileName="Assets/Scripts/ShopUIScript.cs" Line="22" Column="1" />
-      <File FileName="Assets/Scripts/SlowEffect.cs" Line="25" Column="1" />
-      <File FileName="Assets/Scripts/TurretScript.cs" Line="23" Column="36" />
-      <File FileName="Assets/Scripts/WaveManagerScript.cs" Line="24" Column="28" />
-      <File FileName="Assets/Object/LeaderBoard.cs" Line="1" Column="1" />
+      <File FileName="Assets/Object/Enemy/Zombie.cs" />
+      <File FileName="Assets/Scripts/AINavigationScript.cs" />
+      <File FileName="Assets/Scripts/BuildManager.cs" />
+      <File FileName="Assets/Scripts/BulletScript.cs" />
+      <File FileName="Assets/Scripts/CameraControllerScript.cs" />
+      <File FileName="Assets/Scripts/DefenseClass.cs" />
+      <File FileName="Assets/Scripts/DefenseScript.cs" />
+      <File FileName="Assets/Scripts/EffectClass.cs" />
+      <File FileName="Assets/Scripts/EnemyScript.cs" />
+      <File FileName="Assets/Scripts/ExplosiveZombie.cs" />
+      <File FileName="Assets/Scripts/FlyingEnemyNavigationScript.cs" />
+      <File FileName="Assets/Scripts/MoneyUIScript.cs" />
+      <File FileName="Assets/Scripts/NodeScript.cs" />
+      <File FileName="Assets/Scripts/ObusScript.cs" />
+      <File FileName="Assets/Scripts/PlayerStats.cs" />
+      <File FileName="Assets/Scripts/SelectUIScript.cs" />
+      <File FileName="Assets/Scripts/ShopScript.cs" />
+      <File FileName="Assets/Scripts/ShopUIScript.cs" />
+      <File FileName="Assets/Scripts/SlowEffect.cs" />
+      <File FileName="Assets/Scripts/TurretScript.cs" />
+      <File FileName="Assets/Scripts/WaveManagerScript.cs" />
+      <File FileName="Assets/Object/LeaderBoard.cs" />
       <File FileName="Assets/Scripts/BonusShopScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Object/Score.cs" Line="1" Column="1" />
+      <File FileName="Assets/object/NewClass.cs" Line="17" Column="3" />
+      <File FileName="Assets/object/NewClass1.cs" Line="2" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="OniDefense">
             <Node name="Assets" expanded="True">
-              <Node name="Object" expanded="True">
-                <Node name="Enemy" expanded="True" />
-              </Node>
-              <Node name="Scripts" expanded="True">
-                <Node name="BonusShopScript.cs" selected="True" />
-              </Node>
+              <Node name="object" expanded="True" />
+              <Node name="Prefabs" expanded="True" />
+              <Node name="Scripts" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0bf1ed57-13f0-49bd-84d1-d003f17572b6" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
 </Properties>

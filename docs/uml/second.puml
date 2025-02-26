@@ -40,7 +40,7 @@ package "Building" {
             + ExecuteAttack(Defense : Defense, enemies : List<Enemy>)
         }
 
-        class AoeStrategy implements IAttackStrategy {
+        class AoeTargetStrategy implements IAttackStrategy {
             + ExecuteAttack(Defense : Defense, enemies : List<Enemy>)
         }
     }
