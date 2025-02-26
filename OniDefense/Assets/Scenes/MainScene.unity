@@ -5117,6 +5117,7 @@ GameObject:
   - component: {fileID: 851428410}
   - component: {fileID: 851428411}
   - component: {fileID: 851428412}
+  - component: {fileID: 851428413}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5205,6 +5206,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138de344c859491c8f8619ad040b8637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &851428413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851428407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7464bc2197827c4aaeffe5533c1985d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSpawnPoint: {fileID: 1986821949}
+  defaultObjectivePoint: {fileID: 1474339611}
+  zombies:
+  - {fileID: 2734810277367927149, guid: 0f71907b5fb9c48e39dc280ea560110d, type: 3}
+  - {fileID: 2734810277367927149, guid: 2656ec92e12454697a4c89b25037ec08, type: 3}
+  - {fileID: 2734810277367927149, guid: 57fa97bd6ca8a47c0805deefb0590586, type: 3}
+  - {fileID: 2734810277367927149, guid: 6cd34bdbdda5b4e1abf7eceed3ddf176, type: 3}
+  - {fileID: 2734810277367927149, guid: 4709aa8964f334d31afc9d14e5b4ba4a, type: 3}
 --- !u!1001 &864363193
 PrefabInstance:
   m_ObjectHideFlags: 0
