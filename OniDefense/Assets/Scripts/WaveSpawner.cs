@@ -39,8 +39,6 @@ public class WaveSpawner : MonoBehaviour
 
         countdown -= Time.deltaTime;
         countdown = Math.Clamp(countdown, 0f, Mathf.Infinity);
-
-
     }
 
     IEnumerator SpawnWave(){
@@ -61,7 +59,6 @@ public class WaveSpawner : MonoBehaviour
         }
         waveIndex++;
         GenerateNextWave();
-
     }
 
     private void TrySpawnZombie(Wave currentWave){
@@ -86,7 +83,7 @@ public class WaveSpawner : MonoBehaviour
         if (EnemiesAliveCount <= 0)
         {
             Debug.Log("Wave cleared !");
-            GameObject.FindObjectOfType<WaveSpawner>().playButton.interactable = true;
+            PlayerStats.PassedWaves++;
         }
     }
 
@@ -100,7 +97,6 @@ public class WaveSpawner : MonoBehaviour
 
     private void GenerateNextWave(){
         Wave newWave = new Wave();
-
         newWave.count = (int)Mathf.Pow(difficultyMultiplier, generatedWaves.Count);
         newWave.highestEnemy = Mathf.Min(generatedWaves.Count / 3, GetComponent<ZombieFactory>().zombies.Length - 1);
         newWave.maxHighestEnemy = Mathf.Max(1, newWave.count / 5);

@@ -69,6 +69,7 @@ public class NodeScript : MonoBehaviour
 
         Destroy(tempDefense);
         buildManager.BuildDefenseOn(this, true, false);
+        PlayerStats.BuiltDefenses++;
         DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
         if(defenseScript != null)
             defenseScript.Initialize(buildManager.GetDefenseToBuild());

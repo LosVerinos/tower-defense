@@ -12,6 +12,11 @@ public class PlayerStats : MonoBehaviour
     public static float fireRateMultiplier = 1;
 
     public static int Lives;
+    public static int PassedWaves;
+    public static int NbKilledEmenies;
+    public static int BuiltDefenses;
+    public static float DamagesGiven;
+    public static int MoneySpent;
 
     void Start()
     {
@@ -35,6 +40,7 @@ public class PlayerStats : MonoBehaviour
 
     public static void DecreaseMoney(int _money){
         Money -= _money;
+        MoneySpent += _money;
     }
 
     public static void IncreaseMoney(int _money){
