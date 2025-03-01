@@ -10,24 +10,24 @@ public class WaveSpawner : MonoBehaviour
     public static int EnemiesAliveCount = 0;
     public Transform spawnPoint;
     public Transform objectivePoint;
-    public float timeBetweenWaves = 5f;
-    [SerializeField] public Wave[] waves;
+    public float timeBetweenWaves = 1f;
+    private List<Wave> generatedWaves = new List<Wave>();
     [DoNotSerialize] public int waveIndex = 0;
     private float countdown;
     [SerializeField] public Button playButton;
-    private int currentDifficulty = 1;
     private int highestEnemyCount;
-    public int baseEnemyCount = 1;
-    public float difficultyMultiplier = 1.2f;
+    public float difficultyMultiplier = 1.3f;
 
-    void Start()
-    {
+    void Start(){
         ResetEnemiesAliveCount();
         countdown = timeBetweenWaves;
+        for (int i = 0; i < 3; i++)
+        {
+            GenerateNextWave();
+        }
     }
 
-    void Update()
-    {
+    void Update(){
         if(EnemiesAliveCount > 0 || !GameManager.isRunning){
             return;
         }
@@ -43,46 +43,28 @@ public class WaveSpawner : MonoBehaviour
 
     }
 
-    IEnumerator SpawnWave()
-    {
-        Wave currentWave = waves[waveIndex];
+    IEnumerator SpawnWave(){
+        Wave currentWave = generatedWaves[waveIndex];
         highestEnemyCount = currentWave.maxHighestEnemy;
-        Debug.Log("Wave incoming");
+        int remainingEnemiesToSpawn = currentWave.count;
+        Debug.Log("Wave incoming : " + currentWave.count + " Zs");
         ResetEnemiesAliveCount();
+        while(remainingEnemiesToSpawn > 0){
+            int groupSize = UnityEngine.Random.Range(1, currentWave.count/3);
 
-        CalculateCurrentDifficulty();
-        
-        int remainingDifficulty = currentDifficulty;
-        
-
-        while (remainingDifficulty >= 0)
-        {
-            TrySpawnZombie(ref remainingDifficulty, currentWave);
-            yield return new WaitForSeconds(1 / currentWave.rate);
+            for (int i = 0; i < groupSize; i++)
+            {
+                TrySpawnZombie(currentWave);
+                remainingEnemiesToSpawn --;
+            }
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.3f, 0.6f));
         }
-
-        /*
-        for(int i=0; i < currentWave.count; i++){
-            TrySpawnZombie(ref remainingDifficulty);
-            yield return new WaitForSeconds(1 / currentWave.rate);
-        }*/
-
         waveIndex++;
-
-
-        if(waveIndex == waves.Length){
-            Debug.Log("Last wave of the level launched !");
-        }
+        GenerateNextWave();
 
     }
 
-    private void CalculateCurrentDifficulty()
-    {
-        currentDifficulty = (int)(baseEnemyCount * Math.Pow(difficultyMultiplier, waveIndex)) + waveIndex;
-    }
-
-    private void TrySpawnZombie(ref int remainingDifficulty, Wave currentWave)
-    {
+    private void TrySpawnZombie(Wave currentWave){
         int indexZombieSelected = 10;
         while(indexZombieSelected > currentWave.highestEnemy){
             indexZombieSelected = UnityEngine.Random.Range(0, GetComponent<ZombieFactory>().zombies.Length);
@@ -97,24 +79,9 @@ public class WaveSpawner : MonoBehaviour
 
         GetComponent<ZombieFactory>().SpawnZombie(waveIndex, indexZombieSelected);
         EnemySpawned();
-        remainingDifficulty -= (int)GetComponent<ZombieFactory>().zombies[indexZombieSelected].GetComponent<EnemyBase>().difficultyWeight;
-
-        /*
-        GameObject randomZombie = GetComponent<ZombieFactory>().CreateRandomZombieByDifficulty(remainingDifficulty, waveIndex);
-        if (randomZombie != null)
-        {
-            remainingDifficulty -= (int)randomZombie.GetComponent<EnemyBase>().difficultyWeight;
-            EnemySpawned();
-        }
-        */
     }
 
-    private void SpawnZombie(){
-        //TODO : SPAWN
-    }
-
-    public static void EnemyDied()
-    {
+    public static void EnemyDied(){
         EnemiesAliveCount--;
         if (EnemiesAliveCount <= 0)
         {
@@ -123,24 +90,21 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    public static void EnemySpawned()
-    {
+    public static void EnemySpawned(){
         EnemiesAliveCount++;
     }
 
-    private static void ResetEnemiesAliveCount()
-    {
+    private static void ResetEnemiesAliveCount(){
         EnemiesAliveCount = 0;
     }
 
-/*
-    public void OnButtonNextWave()
-    {
-        // LivesManager.Instance.Lives = 0;
-        if (EnemiesAliveCount > 0)
-            return;
-        Debug.Log("Wave incoming");
-        StartCoroutine(SpawnWave());
-        playButton.interactable = false;
-    }*/
+    private void GenerateNextWave(){
+        Wave newWave = new Wave();
+
+        newWave.count = (int)Mathf.Pow(difficultyMultiplier, generatedWaves.Count);
+        newWave.highestEnemy = Mathf.Min(generatedWaves.Count / 3, GetComponent<ZombieFactory>().zombies.Length - 1);
+        newWave.maxHighestEnemy = Mathf.Max(1, newWave.count / 5);
+        newWave.rate = Mathf.Min(2.0f, 0.5f + generatedWaves.Count * 0.05f);
+        generatedWaves.Add(newWave);
+    }
 }

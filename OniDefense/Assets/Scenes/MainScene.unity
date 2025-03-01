@@ -5139,26 +5139,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1986821949}
   objectivePoint: {fileID: 1474339611}
-  timeBetweenWaves: 10
-  waves:
-  - highestEnemy: 0
-    maxHighestEnemy: 10000
-    count: 10
-    rate: 1
-  - highestEnemy: 2
-    maxHighestEnemy: 2
-    count: 10
-    rate: 2
-  - highestEnemy: 2
-    maxHighestEnemy: 10
-    count: 20
-    rate: 3
-  - highestEnemy: 4
-    maxHighestEnemy: 10
-    count: 20
-    rate: 5
+  timeBetweenWaves: 1
   waveIndex: 0
   playButton: {fileID: 1249713839}
+  baseEnemyCount: 1
+  difficultyMultiplier: 1.2
 --- !u!4 &851428409
 Transform:
   m_ObjectHideFlags: 0
