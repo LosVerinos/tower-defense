@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class AINavigationScript : MonoBehaviour
 {
@@ -19,20 +20,16 @@ public class AINavigationScript : MonoBehaviour
     void Update()
     {
         // Vérifier si le zombie est arrivé à destination
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (Vector3.Distance(gameObject.transform.position, objectivePoint.position) <= 2)
         {
-            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-            {
-                // Le zombie est arrivé à destination
-                OnReachedDestination();
-            }
+            OnReachedDestination();
         }
     }
 
     void OnReachedDestination()
     {
         // Décrémenter les vies
-        LivesManager.Instance.DecreaseLives(GetComponent<EnemyBase>().damage);
+        PlayerStats.DecreaseLives(GetComponent<EnemyBase>().damage);
         WaveManagerScript.EnemyDied();
         // Tuer le zombie
         Destroy(gameObject);

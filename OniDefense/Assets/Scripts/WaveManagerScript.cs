@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,10 +32,7 @@ public class WaveManagerScript : MonoBehaviour
 
     void Update()
     {
-        if (LivesManager.Instance.Lives <= 0 && gameOverPanel.activeSelf == false)
-        {
-            gameOverPanel.SetActive(true);
-        }
+
     }
 
     IEnumerator SpawnWave()
@@ -63,7 +59,8 @@ public class WaveManagerScript : MonoBehaviour
 
     private void CalculateCurrentDifficulty()
     {
-        currentDifficulty = (int)(baseEnemyCount * Math.Pow(difficultyMultiplier, waveIndex)) + waveIndex;
+        //currentDifficulty = (int)(baseEnemyCount * Math.Pow(difficultyMultiplier, waveIndex)) + waveIndex;
+        currentDifficulty = 50;
     }
 
     private GameObject TrySpawnZombie(ref int remainingDifficulty)
