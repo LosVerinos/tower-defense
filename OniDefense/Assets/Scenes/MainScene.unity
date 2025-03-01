@@ -5140,19 +5140,25 @@ MonoBehaviour:
   spawnPoint: {fileID: 1986821949}
   objectivePoint: {fileID: 1474339611}
   timeBetweenWaves: 10
+  waves:
+  - highestEnemy: 0
+    maxHighestEnemy: 10000
+    count: 10
+    rate: 1
+  - highestEnemy: 2
+    maxHighestEnemy: 2
+    count: 10
+    rate: 2
+  - highestEnemy: 2
+    maxHighestEnemy: 10
+    count: 20
+    rate: 3
+  - highestEnemy: 4
+    maxHighestEnemy: 10
+    count: 20
+    rate: 5
   waveIndex: 0
-  zombiesList:
-  - {fileID: 2734810277367927149, guid: 0f71907b5fb9c48e39dc280ea560110d, type: 3}
-  - {fileID: 2734810277367927149, guid: 2656ec92e12454697a4c89b25037ec08, type: 3}
-  - {fileID: 2734810277367927149, guid: 57fa97bd6ca8a47c0805deefb0590586, type: 3}
-  - {fileID: 2734810277367927149, guid: 6cd34bdbdda5b4e1abf7eceed3ddf176, type: 3}
-  - {fileID: 2734810277367927149, guid: 4709aa8964f334d31afc9d14e5b4ba4a, type: 3}
   playButton: {fileID: 1249713839}
-  baseEnemyCount: 1
-  maxEnemiesPerWave: 20
-  enemyHealthMultiplier: 1.1
-  enemySpeedMultiplier: 1.05
-  difficultyMultiplier: 1.2
 --- !u!4 &851428409
 Transform:
   m_ObjectHideFlags: 0
@@ -5212,6 +5218,8 @@ MonoBehaviour:
   zombies:
   - {fileID: 2734810277367927149, guid: 0f71907b5fb9c48e39dc280ea560110d, type: 3}
   - {fileID: 2734810277367927149, guid: 2656ec92e12454697a4c89b25037ec08, type: 3}
+  - {fileID: 2734810277367927149, guid: 57fa97bd6ca8a47c0805deefb0590586, type: 3}
+  - {fileID: 2734810277367927149, guid: 6cd34bdbdda5b4e1abf7eceed3ddf176, type: 3}
 --- !u!114 &851428414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7607,9 +7615,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 851428408}
-        m_TargetAssemblyTypeName: WaveManagerScript, Assembly-CSharp
-        m_MethodName: OnButtonNextWave
+      - m_Target: {fileID: 851428414}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

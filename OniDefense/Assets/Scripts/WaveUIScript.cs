@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class WaveUIScript : MonoBehaviour
 {
     public TextMeshProUGUI waveText;
-    [SerializeField] public WaveManagerScript waveManager;
+    [SerializeField] public WaveSpawner waveManager;
     // Start is called before the first frame update
     void Start()
     {

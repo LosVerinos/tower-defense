@@ -44,6 +44,6 @@ public class EnemyBase : MonoBehaviour
         Destroy(gameObject);
         PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
         //Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
-        WaveManagerScript.EnemyDied();
+        WaveSpawner.EnemyDied();
     }
 }
