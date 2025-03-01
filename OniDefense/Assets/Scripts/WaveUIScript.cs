@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
 using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;

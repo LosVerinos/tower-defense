@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
 using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -15,7 +14,7 @@ public class StatsUIScript : MonoBehaviour
     {
         statsText.text = $"Wave: {waveManager.waveIndex} \n" +
                          $"Money: {PlayerStats.Money} \n" +
-                         $"Health: {LivesManager.Instance.Lives.ToString()}";
+                         $"Health: {PlayerStats.Lives.ToString()}";
     }
 
     // Update is called once per frame
@@ -23,6 +22,6 @@ public class StatsUIScript : MonoBehaviour
     {
         statsText.text = $"Wave: {waveManager.waveIndex} \n" +
                          $"Money: {PlayerStats.Money} \n" +
-                         $"Health: {LivesManager.Instance.Lives.ToString()}";
+                         $"Health: {PlayerStats.Lives.ToString()}";
     }
 }
