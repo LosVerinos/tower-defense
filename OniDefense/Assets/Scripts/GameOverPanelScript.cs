@@ -7,18 +7,6 @@ using UnityEngine.UI;
 
 public class GameOverPanelScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        Activate(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnRestartButtonClick()
     {
         // var currentScene = SceneManager.GetActiveScene();
