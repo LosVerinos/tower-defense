@@ -6,17 +6,15 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1f62ed2d-fcbe-4d0f-832e-d69416204973" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/object/Defense.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/object/NewClass.cs">
     <Files>
-      <File FileName="Assets/Object/Enemy/Enemy.cs" Line="8" Column="25" />
-      <File FileName="Assets/Object/Enemy/Zombie.cs" />
-      <File FileName="Assets/Scripts/AINavigationScript.cs" />
+      <File FileName="Assets/Scripts/AINavigationScript.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/BuildManager.cs" />
       <File FileName="Assets/Scripts/BulletScript.cs" />
       <File FileName="Assets/Scripts/CameraControllerScript.cs" />
-      <File FileName="Assets/Scripts/DefenseClass.cs" />
+      <File FileName="Assets/Scripts/DefenseClass.cs" Line="8" Column="32" />
       <File FileName="Assets/Scripts/DefenseScript.cs" />
-      <File FileName="Assets/Scripts/EffectClass.cs" />
+      <File FileName="Assets/Scripts/EffectClass.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/EnemyScript.cs" />
       <File FileName="Assets/Scripts/ExplosiveZombie.cs" />
       <File FileName="Assets/Scripts/FlyingEnemyNavigationScript.cs" />
@@ -30,11 +28,16 @@
       <File FileName="Assets/Scripts/SlowEffect.cs" />
       <File FileName="Assets/Scripts/TurretScript.cs" />
       <File FileName="Assets/Scripts/WaveManagerScript.cs" />
-      <File FileName="Assets/Object/LeaderBoard.cs" />
-      <File FileName="Assets/Scripts/BonusShopScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Object/Score.cs" Line="1" Column="1" />
-      <File FileName="Assets/object/NewClass.cs" Line="17" Column="3" />
-      <File FileName="Assets/object/NewClass1.cs" Line="2" Column="1" />
+      <File FileName="Assets/Scripts/BonusShopScript.cs" />
+      <File FileName="Assets/object/Defense.cs" Line="15" Column="39" />
+      <File FileName="Assets/object/Ennemy.cs" Line="1" Column="15" />
+      <File FileName="Assets/object/NewInterface.cs" Line="13" Column="1" />
+      <File FileName="Assets/object/NewClass.cs" Line="16" Column="10" />
+      <File FileName="Assets/object/NewClass.cs" Line="6" Column="18" />
+      <File FileName="Assets/object/NewClass1.cs" Line="10" Column="34" />
+      <File FileName="Assets/object/NewClass.cs" Line="10" Column="34" />
+      <File FileName="Assets/object/NewClass.cs" Line="19" Column="10" />
+      <File FileName="Assets/object/NewClass.cs" Line="16" Column="8" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -46,6 +49,11 @@
               <Node name="Scripts" expanded="True" />
             </Node>
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="Unity" selected="True" />
         </State>
       </Pad>
     </Pads>

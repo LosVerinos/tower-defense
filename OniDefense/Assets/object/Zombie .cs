@@ -1,11 +1,12 @@
 ﻿using System;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace Game
 {
-    public abstract class Ennemy
+    public class Zombie : Ennemy
     {
         private float baseHealt;
         private float health;
@@ -16,12 +17,12 @@ namespace Game
         private enemyType type;
 
 
-        public Ennemy()
+        public Zombie()
         {
 
         }
 
-        public void takeDammage(float amount)
+        new public void takeDammage(float amount)
         {
 
         }
