@@ -1,34 +1,26 @@
 ﻿<Properties StartupConfiguration="{F5CD1A3A-18C6-75AE-94C5-0350582BDEC5}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DefenseClass.cs">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MainMenu.cs">
     <Files>
-      <File FileName="Assets/Scripts/NodeScript.cs" Line="109" Column="28" />
-      <File FileName="Assets/Scripts/DefenseClass.cs" Line="15" Column="22" />
-      <File FileName="Assets/Scripts/SelectUIScript.cs" Line="34" Column="6" />
+      <File FileName="Assets/PauseMenu.cs" Line="52" Column="6" />
+      <File FileName="Assets/MainMenu.cs" Line="10" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="OniDefense" expanded="True">
+          <Node name="OniDefense">
             <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="DefenseClass.cs" selected="True" />
-              </Node>
+              <Node name="Scripts" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="Unity" expanded="True" selected="True" />
-        </State>
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="fa6e6d37-cc6a-430d-a191-c7df85558a84" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="72287f21-adce-46f9-a941-0661d8a66366" />
   <MultiItemStartupConfigurations />
 </Properties>
