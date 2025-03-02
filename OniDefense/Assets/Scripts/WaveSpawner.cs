@@ -11,6 +11,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform spawnPoint;
     public Transform objectivePoint;
     public float timeBetweenWaves = 1f;
+    private int baseEnemyCount = 1;
     private List<Wave> generatedWaves = new List<Wave>();
     [DoNotSerialize] public int waveIndex = 0;
     private float countdown;
@@ -48,7 +49,7 @@ public class WaveSpawner : MonoBehaviour
         Debug.Log("Wave incoming : " + currentWave.count + " Zs");
         ResetEnemiesAliveCount();
         while(remainingEnemiesToSpawn > 0){
-            int groupSize = UnityEngine.Random.Range(1, currentWave.count/3);
+            int groupSize = UnityEngine.Random.Range(2, Mathf.Min(6, currentWave.count / 5));
 
             for (int i = 0; i < groupSize; i++)
             {
@@ -63,15 +64,14 @@ public class WaveSpawner : MonoBehaviour
 
     private void TrySpawnZombie(Wave currentWave){
         int indexZombieSelected = 10;
-        while(indexZombieSelected > currentWave.highestEnemy){
-            indexZombieSelected = UnityEngine.Random.Range(0, GetComponent<ZombieFactory>().zombies.Length);
-            if(indexZombieSelected == currentWave.highestEnemy && highestEnemyCount == 0)
-            {
-                break;
-            }
-        }
-        if(indexZombieSelected == currentWave.highestEnemy){
+        if (UnityEngine.Random.value > 0.7f && highestEnemyCount > 0) 
+        {
+            indexZombieSelected = currentWave.highestEnemy;
             highestEnemyCount--;
+        }
+        else
+        {
+            indexZombieSelected = UnityEngine.Random.Range(0, currentWave.highestEnemy + 1);
         }
 
         GetComponent<ZombieFactory>().SpawnZombie(waveIndex, indexZombieSelected);
@@ -97,10 +97,31 @@ public class WaveSpawner : MonoBehaviour
 
     private void GenerateNextWave(){
         Wave newWave = new Wave();
-        newWave.count = (int)Mathf.Pow(difficultyMultiplier, generatedWaves.Count);
-        newWave.highestEnemy = Mathf.Min(generatedWaves.Count / 3, GetComponent<ZombieFactory>().zombies.Length - 1);
-        newWave.maxHighestEnemy = Mathf.Max(1, newWave.count / 5);
+        newWave.count = CalculateZombiesForWave(generatedWaves.Count);
+        newWave.highestEnemy = Mathf.Min(generatedWaves.Count / 5, GetComponent<ZombieFactory>().zombies.Length - 1);
+        newWave.maxHighestEnemy = Mathf.Clamp(newWave.count / 7, 1, newWave.count / 3);
         newWave.rate = Mathf.Min(2.0f, 0.5f + generatedWaves.Count * 0.05f);
         generatedWaves.Add(newWave);
+    }
+
+    public int CalculateZombiesForWave(int waveNumber)
+    {
+        // Paramètres ajustables
+        float baseZombies = 1.0f;
+        float growthRate = 1.5f;
+        float variability = 0.3f;
+
+        // Calcul du nombre de base de zombies pour la vague
+        float baseCount = baseZombies + growthRate * waveNumber;
+
+        // Ajout de la variabilité
+        float variation = (float)(variability * waveNumber * (new System.Random().NextDouble() - 0.5));
+        
+
+        // Calcul du nombre final de zombies
+        int zombieCount = (int)Math.Max(1, baseCount + variation);
+        Debug.Log("New generated wave n°" + waveNumber + " : " + zombieCount + " zombies.");
+
+        return zombieCount;
     }
 }
