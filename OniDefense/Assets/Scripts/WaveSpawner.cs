@@ -17,7 +17,7 @@ public class WaveSpawner : MonoBehaviour
 
     void Start(){
         ResetEnemiesAliveCount();
-        for (int i = 0; i < 3; i++)
+        for (int i = 1; i < 3; i++)
         {
             GenerateNextWave();
         }
@@ -45,6 +45,14 @@ public class WaveSpawner : MonoBehaviour
         }
 
         zombieSpawnOrder.Sort((z1, z2) => GetZombieSpeed(z1).CompareTo(GetZombieSpeed(z2)));
+        
+        for (int i = 0; i < currentWave.bossCount; i++)
+        {
+            GetComponent<ZombieFactory>().SpawnZombie(waveIndex, 5);
+            Debug.Log("Spawn d'un boss !");
+            EnemySpawned();
+            yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
+        }
 
         while (zombieSpawnOrder.Count > 0)
         {
@@ -60,14 +68,13 @@ public class WaveSpawner : MonoBehaviour
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.3f, 0.6f));
         }
-
         waveIndex++;
         GenerateNextWave();
     }
 
     public static void EnemyDied(){
         EnemiesAliveCount--;
-        if (EnemiesAliveCount <= 0)
+        if (EnemiesAliveCount == 0)
         {
             Debug.Log("Wave cleared !");
             PlayerStats.PassedWaves++;
@@ -86,7 +93,7 @@ public class WaveSpawner : MonoBehaviour
         Wave newWave = new Wave();
         newWave.count = CalculateZombiesForWave(generatedWaves.Count);
 
-        float zombie1Ratio = 1.0f, zombie2Ratio = 0.0f, zombie3Ratio = 0.0f;
+        float zombie1Ratio = 1.0f, zombie2Ratio = 0.0f, zombie3Ratio = 0.0f, zombie4Ratio = 0.0f;
 
         if (generatedWaves.Count >= 5)
         {
@@ -99,11 +106,15 @@ public class WaveSpawner : MonoBehaviour
             zombie2Ratio = 0.25f;
             zombie3Ratio = 0.15f;
         }
+        if (generatedWaves.Count >= 15)
+        {
+            zombie4Ratio = 0.1f; // Ajout des corbeaux à partir de la vague 15
+        }
 
-        if (UnityEngine.Random.value < 0.1f)//10% de chance de vague spéciale
+        if (UnityEngine.Random.value < 0.2f && waveIndex > 10)//10% de chance de vague spéciale
         {
             newWave.isSpecialWave = true;
-            int specialType = UnityEngine.Random.Range(0, 4);
+            int specialType = UnityEngine.Random.Range(0, 5);
 
             switch (specialType)
             {
@@ -124,12 +135,19 @@ public class WaveSpawner : MonoBehaviour
                     newWave.zombieRatios.Add(1, 0.1f);
                     break;
 
+
                 case 3: // Vague Chaotique (répartition aléatoire)
                     newWave.specialWaveType = "Chaotique";
                     newWave.zombieRatios.Add(0, UnityEngine.Random.Range(0.3f, 0.5f));
                     newWave.zombieRatios.Add(1, UnityEngine.Random.Range(0.2f, 0.4f));
                     newWave.zombieRatios.Add(2, UnityEngine.Random.Range(0.1f, 0.3f));
+                    newWave.zombieRatios.Add(3, UnityEngine.Random.Range(0.1f, 0.2f));
                     break;
+
+                case 4: // "Volants"
+                    newWave.specialWaveType = "Volants";
+                    newWave.zombieRatios.Add(3, 1.0f); // 100% Corbeaux (pour l'instant)
+                break;
             }
 
             Debug.Log("Vague spéciale détectée : " + newWave.specialWaveType);
@@ -137,11 +155,19 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             newWave.zombieRatios.Add(0, zombie1Ratio);
-            if (generatedWaves.Count >= 5) newWave.zombieRatios.Add(1, zombie2Ratio);
-            if (generatedWaves.Count >= 10) newWave.zombieRatios.Add(2, zombie3Ratio);
+            if (generatedWaves.Count-1 >= 5) newWave.zombieRatios.Add(1, zombie2Ratio);
+            if (generatedWaves.Count-1 >= 10) newWave.zombieRatios.Add(2, zombie3Ratio);
+            if (generatedWaves.Count-1 >= 15) newWave.zombieRatios.Add(3, zombie4Ratio);
+        }
+
+        if ((generatedWaves.Count-1) % 15 == 0)
+        {
+            newWave.bossCount = Mathf.RoundToInt((generatedWaves.Count-1) / 20f * 1.5f);
+            Debug.Log("Vague Boss !");
         }
 
         generatedWaves.Add(newWave);
+        Debug.Log("New generated wave n°" + generatedWaves.Count + " : " + newWave.count + " zombies.");
     }
 
     public int CalculateZombiesForWave(int waveNumber)
@@ -154,7 +180,6 @@ public class WaveSpawner : MonoBehaviour
 
         float variation = (float)(variability * waveNumber * (new System.Random().NextDouble() - 0.5));
         int zombieCount = (int)Math.Max(1, baseCount + variation);
-        Debug.Log("New generated wave n°" + waveNumber + " : " + zombieCount + " zombies.");
 
         return zombieCount;
     }

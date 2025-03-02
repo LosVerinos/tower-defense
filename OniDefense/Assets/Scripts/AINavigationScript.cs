@@ -28,10 +28,8 @@ public class AINavigationScript : MonoBehaviour
 
     void OnReachedDestination()
     {
-        // Décrémenter les vies
         PlayerStats.DecreaseLives(GetComponent<EnemyBase>().damage);
         WaveSpawner.EnemyDied();
-        // Tuer le zombie
         Destroy(gameObject);
     }
 }

@@ -60,12 +60,12 @@ public class BuildManager : MonoBehaviour
     }
 
     public void BuildDefenseOn(NodeScript node, bool activate, bool isUpgrade){
-        Debug.Log("Defense Level : " + defenseToBuild.upgradeLevel);
+        //Debug.Log("Defense Level : " + defenseToBuild.upgradeLevel);
         int defenseLevel = 0;
         DefenseUpgradeState defenseState = null;
         if(isUpgrade){
             defenseLevel = node.defenseClass.upgradeLevel;
-            Debug.Log("Defense Level upgraded : " + defenseLevel);
+            //Debug.Log("Defense Level upgraded : " + defenseLevel);
             defenseState = node.defenseClass.upgradeStates[defenseLevel];
         }
         else{
