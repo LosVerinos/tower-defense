@@ -11,17 +11,12 @@ public class WaveSpawner : MonoBehaviour
     public Transform spawnPoint;
     public Transform objectivePoint;
     public float timeBetweenWaves = 1f;
-    private int baseEnemyCount = 1;
     private List<Wave> generatedWaves = new List<Wave>();
-    [DoNotSerialize] public int waveIndex = 0;
-    private float countdown;
-    [SerializeField] public Button playButton;
-    private int highestEnemyCount;
+    [DoNotSerialize] public static int waveIndex = 0;
     public float difficultyMultiplier = 1.3f;
 
     void Start(){
         ResetEnemiesAliveCount();
-        countdown = timeBetweenWaves;
         for (int i = 0; i < 3; i++)
         {
             GenerateNextWave();

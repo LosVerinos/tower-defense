@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameOverPanelScript : MonoBehaviour
 {
+    [SerializeField] private StatsUIScript stats;
     public void OnRestartButtonClick()
     {
         // var currentScene = SceneManager.GetActiveScene();
@@ -17,5 +18,6 @@ public class GameOverPanelScript : MonoBehaviour
 
     public void Activate(bool activate){
         gameObject.SetActive(activate);
+        stats.DisplayStats();
     }
 }

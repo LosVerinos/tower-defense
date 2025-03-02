@@ -25,11 +25,17 @@ public class GameManager : MonoBehaviour
 
     private void EndGame(){
         Debug.Log("Game Over !");
-        isRunning = false;
+        PauseGame();
         gameOverPanel.GetComponent<GameOverPanelScript>().Activate(true);
     }
 
-    public void StartGame(){
+    public static void PauseGame(){
+        isRunning = false;
+        Time.timeScale = 0f;
+    }
+
+    public static void StartGame(){
         isRunning = true;
+        Time.timeScale = 1f;
     }
 }

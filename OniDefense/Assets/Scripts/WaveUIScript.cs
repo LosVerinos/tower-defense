@@ -12,12 +12,12 @@ public class WaveUIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waveText.text = " Wave:" + waveManager.waveIndex.ToString();
+        waveText.text = " Vague :" + WaveSpawner.waveIndex.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        waveText.text = " Wave:" + waveManager.waveIndex.ToString();
+        waveText.text = " Vague :" + WaveSpawner.waveIndex.ToString();
     }
 }

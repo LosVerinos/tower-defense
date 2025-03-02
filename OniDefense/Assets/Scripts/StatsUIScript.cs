@@ -8,20 +8,10 @@ using UnityEngine.UI;
 public class StatsUIScript : MonoBehaviour
 {
     public TextMeshProUGUI statsText;
-    [SerializeField] public WaveSpawner waveManager;
-    // Start is called before the first frame update
-    void Start()
-    {
-        statsText.text = $"Wave: {waveManager.waveIndex} \n" +
-                         $"Money: {PlayerStats.Money} \n" +
-                         $"Health: {PlayerStats.Lives.ToString()}";
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        statsText.text = $"Wave: {waveManager.waveIndex} \n" +
-                         $"Money: {PlayerStats.Money} \n" +
-                         $"Health: {PlayerStats.Lives.ToString()}";
+    public void DisplayStats(){
+        statsText.text = $"Vagues survécues: {PlayerStats.PassedWaves} \n" +
+                         $"Argent: {PlayerStats.Money} \n" +
+                         $"Vies: {PlayerStats.Lives.ToString()}";
     }
 }
