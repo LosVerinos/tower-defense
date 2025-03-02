@@ -32,50 +32,42 @@ public class WaveSpawner : MonoBehaviour
         if(EnemiesAliveCount > 0 || !GameManager.isRunning){
             return;
         }
-        if(countdown <= 0){
-            StartCoroutine(SpawnWave());
-            countdown = timeBetweenWaves;
-            return;
-        }
-
-        countdown -= Time.deltaTime;
-        countdown = Math.Clamp(countdown, 0f, Mathf.Infinity);
+        StartCoroutine(SpawnWave());
     }
 
-    IEnumerator SpawnWave(){
+    IEnumerator SpawnWave()
+    {
         Wave currentWave = generatedWaves[waveIndex];
-        highestEnemyCount = currentWave.maxHighestEnemy;
-        int remainingEnemiesToSpawn = currentWave.count;
-        Debug.Log("Wave incoming : " + currentWave.count + " Zs");
         ResetEnemiesAliveCount();
-        while(remainingEnemiesToSpawn > 0){
-            int groupSize = UnityEngine.Random.Range(2, Mathf.Min(6, currentWave.count / 5));
+        List<int> zombieSpawnOrder = new List<int>();
+        foreach (var zombieType in currentWave.zombieRatios)
+        {
+            int zombieCount = Mathf.RoundToInt(currentWave.count * zombieType.Value);
+            for (int i = 0; i < zombieCount; i++)
+            {
+                zombieSpawnOrder.Add(zombieType.Key);
+            }
+        }
+
+        zombieSpawnOrder.Sort((z1, z2) => GetZombieSpeed(z1).CompareTo(GetZombieSpeed(z2)));
+
+        while (zombieSpawnOrder.Count > 0)
+        {
+            int groupSize = UnityEngine.Random.Range(1, Mathf.Min(6, zombieSpawnOrder.Count));
 
             for (int i = 0; i < groupSize; i++)
             {
-                TrySpawnZombie(currentWave);
-                remainingEnemiesToSpawn --;
+                int zombieType = zombieSpawnOrder[0];
+                zombieSpawnOrder.RemoveAt(0);
+                GetComponent<ZombieFactory>().SpawnZombie(waveIndex, zombieType);
+                EnemySpawned();
             }
+
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.3f, 0.6f));
         }
+
         waveIndex++;
         GenerateNextWave();
-    }
-
-    private void TrySpawnZombie(Wave currentWave){
-        int indexZombieSelected = 10;
-        if (UnityEngine.Random.value > 0.7f && highestEnemyCount > 0) 
-        {
-            indexZombieSelected = currentWave.highestEnemy;
-            highestEnemyCount--;
-        }
-        else
-        {
-            indexZombieSelected = UnityEngine.Random.Range(0, currentWave.highestEnemy + 1);
-        }
-
-        GetComponent<ZombieFactory>().SpawnZombie(waveIndex, indexZombieSelected);
-        EnemySpawned();
     }
 
     public static void EnemyDied(){
@@ -98,30 +90,83 @@ public class WaveSpawner : MonoBehaviour
     private void GenerateNextWave(){
         Wave newWave = new Wave();
         newWave.count = CalculateZombiesForWave(generatedWaves.Count);
-        newWave.highestEnemy = Mathf.Min(generatedWaves.Count / 5, GetComponent<ZombieFactory>().zombies.Length - 1);
-        newWave.maxHighestEnemy = Mathf.Clamp(newWave.count / 7, 1, newWave.count / 3);
-        newWave.rate = Mathf.Min(2.0f, 0.5f + generatedWaves.Count * 0.05f);
+
+        float zombie1Ratio = 1.0f, zombie2Ratio = 0.0f, zombie3Ratio = 0.0f;
+
+        if (generatedWaves.Count >= 5)
+        {
+            zombie1Ratio = 0.8f;
+            zombie2Ratio = 0.2f;
+        }
+        if (generatedWaves.Count >= 10)
+        {
+            zombie1Ratio = 0.6f;
+            zombie2Ratio = 0.25f;
+            zombie3Ratio = 0.15f;
+        }
+
+        if (UnityEngine.Random.value < 0.1f)//10% de chance de vague spéciale
+        {
+            newWave.isSpecialWave = true;
+            int specialType = UnityEngine.Random.Range(0, 4);
+
+            switch (specialType)
+            {
+                case 0: // Vague Sprint (100% zombies rapides)
+                    newWave.specialWaveType = "Sprint";
+                    newWave.zombieRatios.Add(1, 1.0f);
+                    break;
+
+                case 1: // Vague Tank (100% zombies résistants)
+                    newWave.specialWaveType = "Tank";
+                    newWave.zombieRatios.Add(2, 1.0f);
+                    break;
+
+                case 2: // Vague Tsunami (90% zombies classiques & 1,5x plus de zombie)
+                    newWave.specialWaveType = "Tsunami";
+                    newWave.count = (int)(newWave.count*1.5f);
+                    newWave.zombieRatios.Add(0, 0.9f);
+                    newWave.zombieRatios.Add(1, 0.1f);
+                    break;
+
+                case 3: // Vague Chaotique (répartition aléatoire)
+                    newWave.specialWaveType = "Chaotique";
+                    newWave.zombieRatios.Add(0, UnityEngine.Random.Range(0.3f, 0.5f));
+                    newWave.zombieRatios.Add(1, UnityEngine.Random.Range(0.2f, 0.4f));
+                    newWave.zombieRatios.Add(2, UnityEngine.Random.Range(0.1f, 0.3f));
+                    break;
+            }
+
+            Debug.Log("Vague spéciale détectée : " + newWave.specialWaveType);
+        }
+        else
+        {
+            newWave.zombieRatios.Add(0, zombie1Ratio);
+            if (generatedWaves.Count >= 5) newWave.zombieRatios.Add(1, zombie2Ratio);
+            if (generatedWaves.Count >= 10) newWave.zombieRatios.Add(2, zombie3Ratio);
+        }
+
         generatedWaves.Add(newWave);
     }
 
     public int CalculateZombiesForWave(int waveNumber)
     {
-        // Paramètres ajustables
         float baseZombies = 1.0f;
         float growthRate = 1.5f;
         float variability = 0.3f;
 
-        // Calcul du nombre de base de zombies pour la vague
         float baseCount = baseZombies + growthRate * waveNumber;
 
-        // Ajout de la variabilité
         float variation = (float)(variability * waveNumber * (new System.Random().NextDouble() - 0.5));
-        
-
-        // Calcul du nombre final de zombies
         int zombieCount = (int)Math.Max(1, baseCount + variation);
         Debug.Log("New generated wave n°" + waveNumber + " : " + zombieCount + " zombies.");
 
         return zombieCount;
+    }
+
+    private float GetZombieSpeed(int zombieIndex)
+    {
+        GameObject zombiePrefab = GetComponent<ZombieFactory>().zombies[zombieIndex];
+        return zombiePrefab.GetComponent<AINavigationScript>().speed; // Assurez-vous que vos zombies ont une variable "speed"
     }
 }

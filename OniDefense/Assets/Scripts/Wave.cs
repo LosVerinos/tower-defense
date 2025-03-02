@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Wave
 {
-    public int highestEnemy;
-    public int maxHighestEnemy;
     public int count;
-    public float rate;
+    public Dictionary<int, float> zombieRatios = new Dictionary<int, float>();
+    public bool isSpecialWave = false;
+    public string specialWaveType = "";
 }

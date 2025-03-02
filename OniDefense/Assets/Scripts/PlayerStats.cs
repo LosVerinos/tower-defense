@@ -17,7 +17,6 @@ public class PlayerStats : MonoBehaviour
     public static int BuiltDefenses;
     public static float DamagesGiven;
     public static int MoneySpent;
-
     void Start()
     {
         Money = startMoney;  
