@@ -3,11 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-
     public GameObject ui;
+    public GameObject mainMenuUI;
 
     void Update()
     {
+        if (mainMenuUI != null && mainMenuUI.activeSelf)
+        {
+            ui.SetActive(false);
+            return; 
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             Toggle();
@@ -16,7 +22,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Toggle()
     {
-        ui.SetActive(!ui.activeSelf );
+        if (mainMenuUI != null && mainMenuUI.activeSelf) return;
+        ui.SetActive(!ui.activeSelf);
 
         if (ui.activeSelf)
         {
@@ -30,12 +37,18 @@ public class PauseMenu : MonoBehaviour
 
     public void Retry()
     {
-        Toggle();
+        ui.SetActive(false);
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Menu()
     {
-        Debug.Log("Menu à implémenter");
+        ui.SetActive(false);
+
+        mainMenuUI.SetActive(true);
+        
+        Time.timeScale = 0f;
     }
+
 }
