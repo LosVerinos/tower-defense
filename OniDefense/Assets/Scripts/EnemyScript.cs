@@ -35,6 +35,8 @@ public class EnemyBase : MonoBehaviour
         health -= damages;
         canvas.enabled = true;
         healthBar.fillAmount = health / baseHealth;
+
+        PlayerStats.DamagesGiven += damages;
         if (health <= 0)
             Die();
     }
@@ -43,7 +45,7 @@ public class EnemyBase : MonoBehaviour
     {
         Destroy(gameObject);
         PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
-        PlayerStats.NbKilledEmenies++;
+        PlayerStats.NbKilledEnemies++;
         //Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
         WaveSpawner.EnemyDied();
     }

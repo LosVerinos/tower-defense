@@ -1,23 +1,40 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameOverPanelScript : MonoBehaviour
 {
     [SerializeField] private StatsUIScript stats;
+    public GameObject mainMenuUI; 
+
     public void OnRestartButtonClick()
     {
-        // var currentScene = SceneManager.GetActiveScene();
-        // SceneManager.LoadScene(currentScene.name);
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+
+        GameManager.StartGame();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void Activate(bool activate){
+    public void Activate(bool activate)
+    {
         gameObject.SetActive(activate);
-        stats.DisplayStats();
+
+        if (activate)
+        {
+            GameManager.PauseGame();
+            stats.DisplayStats();
+        }
+    }
+
+    public void Menu()
+    {
+        gameObject.SetActive(false);
+
+        if (mainMenuUI != null)
+        {
+            mainMenuUI.SetActive(true);
+        }
+
+        GameManager.PauseGame();
     }
 }
