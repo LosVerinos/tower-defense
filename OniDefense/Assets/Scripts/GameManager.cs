@@ -36,6 +36,6 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame(){
         isRunning = true;
-        Time.timeScale = 1f;
+        Time.timeScale = 3f;
     }
 }

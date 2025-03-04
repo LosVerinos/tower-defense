@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour
@@ -17,10 +18,7 @@ public class WaveSpawner : MonoBehaviour
 
     void Start(){
         ResetEnemiesAliveCount();
-        for (int i = 1; i < 3; i++)
-        {
-            GenerateNextWave();
-        }
+        GenerateNextWave();
     }
 
     void Update(){
@@ -32,43 +30,41 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        Wave currentWave = generatedWaves[waveIndex];
+        waveIndex++;
+        Wave currentWave = generatedWaves[waveIndex - 1];
         ResetEnemiesAliveCount();
-        List<int> zombieSpawnOrder = new List<int>();
+        List<int> wavesZombies = new List<int>();
         foreach (var zombieType in currentWave.zombieRatios)
         {
             int zombieCount = Mathf.RoundToInt(currentWave.count * zombieType.Value);
             for (int i = 0; i < zombieCount; i++)
             {
-                zombieSpawnOrder.Add(zombieType.Key);
+                wavesZombies.Add(zombieType.Key);
             }
         }
 
-        zombieSpawnOrder.Sort((z1, z2) => GetZombieSpeed(z1).CompareTo(GetZombieSpeed(z2)));
-        
         for (int i = 0; i < currentWave.bossCount; i++)
         {
-            GetComponent<ZombieFactory>().SpawnZombie(waveIndex, 5);
+            GetComponent<ZombieFactory>().SpawnZombie(waveIndex, 4);
             Debug.Log("Spawn d'un boss !");
             EnemySpawned();
             yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
         }
 
-        while (zombieSpawnOrder.Count > 0)
+        while (wavesZombies.Count > 0)
         {
-            int groupSize = UnityEngine.Random.Range(1, Mathf.Min(6, zombieSpawnOrder.Count));
+            int groupSize = UnityEngine.Random.Range(1, Mathf.Min(6, wavesZombies.Count));
 
             for (int i = 0; i < groupSize; i++)
             {
-                int zombieType = zombieSpawnOrder[0];
-                zombieSpawnOrder.RemoveAt(0);
+                int zombieType = wavesZombies[0];
+                wavesZombies.RemoveAt(0);
                 GetComponent<ZombieFactory>().SpawnZombie(waveIndex, zombieType);
                 EnemySpawned();
             }
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.3f, 0.6f));
         }
-        waveIndex++;
         GenerateNextWave();
     }
 
@@ -91,24 +87,24 @@ public class WaveSpawner : MonoBehaviour
 
     private void GenerateNextWave(){
         Wave newWave = new Wave();
-        newWave.count = CalculateZombiesForWave(generatedWaves.Count);
+        newWave.count = CalculateZombiesForWave(waveIndex);
 
         float zombie1Ratio = 1.0f, zombie2Ratio = 0.0f, zombie3Ratio = 0.0f, zombie4Ratio = 0.0f;
 
-        if (generatedWaves.Count >= 5)
+        if (waveIndex+1 >= 5)
         {
             zombie1Ratio = 0.8f;
             zombie2Ratio = 0.2f;
         }
-        if (generatedWaves.Count >= 10)
+        if (waveIndex+1 >= 10)
         {
             zombie1Ratio = 0.6f;
             zombie2Ratio = 0.25f;
             zombie3Ratio = 0.15f;
         }
-        if (generatedWaves.Count >= 15)
+        if (waveIndex+1 >= 15)
         {
-            zombie4Ratio = 0.1f; // Ajout des corbeaux à partir de la vague 15
+            zombie4Ratio = 0.1f;
         }
 
         if (UnityEngine.Random.value < 0.2f && waveIndex > 10)//10% de chance de vague spéciale
@@ -138,9 +134,9 @@ public class WaveSpawner : MonoBehaviour
 
                 case 3: // Vague Chaotique (répartition aléatoire)
                     newWave.specialWaveType = "Chaotique";
+                    newWave.zombieRatios.Add(2, UnityEngine.Random.Range(0.1f, 0.3f));
                     newWave.zombieRatios.Add(0, UnityEngine.Random.Range(0.3f, 0.5f));
                     newWave.zombieRatios.Add(1, UnityEngine.Random.Range(0.2f, 0.4f));
-                    newWave.zombieRatios.Add(2, UnityEngine.Random.Range(0.1f, 0.3f));
                     newWave.zombieRatios.Add(3, UnityEngine.Random.Range(0.1f, 0.2f));
                     break;
 
@@ -155,19 +151,20 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             newWave.zombieRatios.Add(0, zombie1Ratio);
-            if (generatedWaves.Count-1 >= 5) newWave.zombieRatios.Add(1, zombie2Ratio);
-            if (generatedWaves.Count-1 >= 10) newWave.zombieRatios.Add(2, zombie3Ratio);
-            if (generatedWaves.Count-1 >= 15) newWave.zombieRatios.Add(3, zombie4Ratio);
+            if (generatedWaves.Count >= 15) newWave.zombieRatios.Add(3, zombie4Ratio);
+            if (generatedWaves.Count >= 5) newWave.zombieRatios.Add(1, zombie2Ratio);
+            if (generatedWaves.Count >= 10) newWave.zombieRatios.Add(2, zombie3Ratio);
+            
         }
 
-        if ((generatedWaves.Count-1) % 15 == 0)
+        if ((waveIndex + 1) % 15 == 0)
         {
-            newWave.bossCount = Mathf.RoundToInt((generatedWaves.Count-1) / 20f * 1.5f);
+            newWave.bossCount = Mathf.RoundToInt((waveIndex + 1) / 20f * 1.5f);
             Debug.Log("Vague Boss !");
         }
 
         generatedWaves.Add(newWave);
-        Debug.Log("New generated wave n°" + generatedWaves.Count + " : " + newWave.count + " zombies.");
+        Debug.Log("New generated wave n°" + (waveIndex + 1) + " : " + newWave.count + " zombies.");
     }
 
     public int CalculateZombiesForWave(int waveNumber)
@@ -187,6 +184,13 @@ public class WaveSpawner : MonoBehaviour
     private float GetZombieSpeed(int zombieIndex)
     {
         GameObject zombiePrefab = GetComponent<ZombieFactory>().zombies[zombieIndex];
-        return zombiePrefab.GetComponent<AINavigationScript>().speed; // Assurez-vous que vos zombies ont une variable "speed"
+        NavMeshAgent walking = zombiePrefab.GetComponent<NavMeshAgent>();
+        FlyingEnemyNavigationScript flying = zombiePrefab.GetComponent<FlyingEnemyNavigationScript>();
+        if(walking != null){
+            return walking.speed;
+        }
+        else{
+            return flying.speed;
+        }
     }
 }

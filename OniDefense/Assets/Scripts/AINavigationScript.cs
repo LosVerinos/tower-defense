@@ -9,7 +9,6 @@ public class AINavigationScript : MonoBehaviour
 {
     public Transform objectivePoint;
     public NavMeshAgent agent;
-    public float speed = 5f;
 
     void Start()
     {
