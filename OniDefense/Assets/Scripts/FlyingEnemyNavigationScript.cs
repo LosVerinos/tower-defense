@@ -35,7 +35,7 @@ public class FlyingEnemyNavigationScript : MonoBehaviour
             MoveTowardsTarget();
         }
 
-        if (Vector3.Distance(gameObject.transform.position, objectivePoint.position) <= 2)
+        if (Vector3.Distance(gameObject.transform.position, new Vector3(objectivePoint.position.x, flightHeight, objectivePoint.position.z)) <= 2)
         {
             OnReachedDestination();
         }

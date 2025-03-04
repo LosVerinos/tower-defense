@@ -10,7 +10,8 @@ public class WaveSpawner : MonoBehaviour
 {
     public static int EnemiesAliveCount = 0;
     public Transform spawnPoint;
-    public Transform objectivePoint;
+    public Transform alternativeSpawnPoint;
+    private float altSpawnProbability = 0.3f;
     public float timeBetweenWaves = 1f;
     private List<Wave> generatedWaves = new List<Wave>();
     [DoNotSerialize] public static int waveIndex = 0;
@@ -31,6 +32,12 @@ public class WaveSpawner : MonoBehaviour
     IEnumerator SpawnWave()
     {
         waveIndex++;
+        if (waveIndex - 1 >= generatedWaves.Count)
+        {
+            Debug.LogError("❌ Erreur : waveIndex dépasse la taille de generatedWaves ! Génération forcée.");
+            GenerateNextWave(); // Génère une vague si elle n'existe pas encore
+        }
+
         Wave currentWave = generatedWaves[waveIndex - 1];
         ResetEnemiesAliveCount();
         List<int> wavesZombies = new List<int>();
@@ -45,7 +52,10 @@ public class WaveSpawner : MonoBehaviour
 
         for (int i = 0; i < currentWave.bossCount; i++)
         {
-            GetComponent<ZombieFactory>().SpawnZombie(waveIndex, 4);
+            Transform spawnLocation = (waveIndex >= 20 && UnityEngine.Random.value < altSpawnProbability) 
+            ? alternativeSpawnPoint : spawnPoint;
+
+            GetComponent<ZombieFactory>().SpawnZombie(waveIndex, 4, spawnLocation);
             Debug.Log("Spawn d'un boss !");
             EnemySpawned();
             yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
@@ -59,7 +69,11 @@ public class WaveSpawner : MonoBehaviour
             {
                 int zombieType = wavesZombies[0];
                 wavesZombies.RemoveAt(0);
-                GetComponent<ZombieFactory>().SpawnZombie(waveIndex, zombieType);
+
+                Transform spawnLocation = (waveIndex >= 20 && UnityEngine.Random.value < altSpawnProbability) 
+                ? alternativeSpawnPoint : spawnPoint;
+
+                GetComponent<ZombieFactory>().SpawnZombie(waveIndex, zombieType, spawnLocation);
                 EnemySpawned();
             }
 

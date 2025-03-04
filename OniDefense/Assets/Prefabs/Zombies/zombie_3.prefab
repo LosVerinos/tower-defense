@@ -51,7 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectivePoint: {fileID: 0}
   agent: {fileID: 0}
-  speed: 5
 --- !u!114 &7243718141615881986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 150
   reward: 25
-  damage: 1
+  damage: 3
   difficultyWeight: 3
   health: 0
   healthBar: {fileID: 7043250068097872513}

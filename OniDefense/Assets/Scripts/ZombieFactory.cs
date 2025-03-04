@@ -10,13 +10,13 @@ class ZombieFactory : MonoBehaviour
     // Variables pour la difficulté croissante
     private static float enemyHealthMultiplier = 1.1f;
     private static float enemySpeedMultiplier = 1.05f;
-    public Transform defaultSpawnPoint;
     public Transform defaultObjectivePoint;
     [SerializeField] public GameObject[] zombies;
 
-    public void SpawnZombie(int waveNumber, int selectedZombie){
-
-        GameObject spawnedZombie = Instantiate(zombies[selectedZombie], defaultSpawnPoint.position, defaultSpawnPoint.rotation);
+    public void SpawnZombie(int waveNumber, int selectedZombie, Transform spawnLocation)
+    {
+        GameObject spawnedZombie = Instantiate(zombies[selectedZombie], spawnLocation.position, spawnLocation.rotation);
+        
         if (spawnedZombie.tag.CompareTo("Classic Enemy") == 0)
         {
             var navigationScript = spawnedZombie.GetComponent<AINavigationScript>();
