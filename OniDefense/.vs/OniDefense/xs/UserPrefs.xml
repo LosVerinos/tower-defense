@@ -1,61 +1,26 @@
 ﻿<Properties StartupConfiguration="{F5CD1A3A-18C6-75AE-94C5-0350582BDEC5}|">
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1f62ed2d-fcbe-4d0f-832e-d69416204973" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/object/NewClass.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MainMenu.cs">
     <Files>
-      <File FileName="Assets/Scripts/AINavigationScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BuildManager.cs" />
-      <File FileName="Assets/Scripts/BulletScript.cs" />
-      <File FileName="Assets/Scripts/CameraControllerScript.cs" />
-      <File FileName="Assets/Scripts/DefenseClass.cs" Line="8" Column="32" />
-      <File FileName="Assets/Scripts/DefenseScript.cs" />
-      <File FileName="Assets/Scripts/EffectClass.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EnemyScript.cs" />
-      <File FileName="Assets/Scripts/ExplosiveZombie.cs" />
-      <File FileName="Assets/Scripts/FlyingEnemyNavigationScript.cs" />
-      <File FileName="Assets/Scripts/MoneyUIScript.cs" />
-      <File FileName="Assets/Scripts/NodeScript.cs" />
-      <File FileName="Assets/Scripts/ObusScript.cs" />
-      <File FileName="Assets/Scripts/PlayerStats.cs" />
-      <File FileName="Assets/Scripts/SelectUIScript.cs" />
-      <File FileName="Assets/Scripts/ShopScript.cs" />
-      <File FileName="Assets/Scripts/ShopUIScript.cs" />
-      <File FileName="Assets/Scripts/SlowEffect.cs" />
-      <File FileName="Assets/Scripts/TurretScript.cs" />
-      <File FileName="Assets/Scripts/WaveManagerScript.cs" />
-      <File FileName="Assets/Scripts/BonusShopScript.cs" />
-      <File FileName="Assets/object/Defense.cs" Line="15" Column="39" />
-      <File FileName="Assets/object/Ennemy.cs" Line="1" Column="15" />
-      <File FileName="Assets/object/NewInterface.cs" Line="13" Column="1" />
-      <File FileName="Assets/object/NewClass.cs" Line="16" Column="10" />
-      <File FileName="Assets/object/NewClass.cs" Line="6" Column="18" />
-      <File FileName="Assets/object/NewClass1.cs" Line="10" Column="34" />
-      <File FileName="Assets/object/NewClass.cs" Line="10" Column="34" />
-      <File FileName="Assets/object/NewClass.cs" Line="19" Column="10" />
-      <File FileName="Assets/object/NewClass.cs" Line="16" Column="8" />
+      <File FileName="Assets/PauseMenu.cs" Line="52" Column="6" />
+      <File FileName="Assets/MainMenu.cs" Line="10" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="OniDefense">
             <Node name="Assets" expanded="True">
-              <Node name="object" expanded="True" />
-              <Node name="Prefabs" expanded="True" />
               <Node name="Scripts" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="Unity" selected="True" />
-        </State>
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="72287f21-adce-46f9-a941-0661d8a66366" />
+  <MultiItemStartupConfigurations />
 </Properties>
