@@ -40,6 +40,7 @@ public class ExplosiveZombie : EnemyBase
                 }
             }
         }
+        Destroy(explosionEffect, 2f);
     }
 
 

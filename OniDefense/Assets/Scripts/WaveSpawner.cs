@@ -12,13 +12,11 @@ public class WaveSpawner : MonoBehaviour
     public Transform spawnPoint;
     public Transform alternativeSpawnPoint;
     private float altSpawnProbability = 0.3f;
-    public float timeBetweenWaves = 1f;
     private List<Wave> generatedWaves = new List<Wave>();
     [DoNotSerialize] public static int waveIndex = 0;
-    public float difficultyMultiplier = 1.3f;
 
     void Start(){
-        ResetEnemiesAliveCount();
+        ResetWaveSpawner();
         GenerateNextWave();
     }
 
@@ -34,8 +32,8 @@ public class WaveSpawner : MonoBehaviour
         waveIndex++;
         if (waveIndex - 1 >= generatedWaves.Count)
         {
-            Debug.LogError("❌ Erreur : waveIndex dépasse la taille de generatedWaves ! Génération forcée.");
-            GenerateNextWave(); // Génère une vague si elle n'existe pas encore
+            Debug.LogError("Erreur : waveIndex dépasse la taille de generatedWaves ! Génération forcée.");
+            GenerateNextWave();
         }
 
         Wave currentWave = generatedWaves[waveIndex - 1];
@@ -206,5 +204,11 @@ public class WaveSpawner : MonoBehaviour
         else{
             return flying.speed;
         }
+    }
+
+    private void ResetWaveSpawner(){
+        ResetEnemiesAliveCount();
+        waveIndex = 0;
+        generatedWaves.Clear();
     }
 }

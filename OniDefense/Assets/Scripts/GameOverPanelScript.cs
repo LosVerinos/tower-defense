@@ -12,7 +12,8 @@ public class GameOverPanelScript : MonoBehaviour
     {
         // var currentScene = SceneManager.GetActiveScene();
         // SceneManager.LoadScene(currentScene.name);
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Destroy(gameObject);
     }
 
