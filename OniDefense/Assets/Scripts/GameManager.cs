@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerStats.Lives <= 0 && isRunning)
         {
-            //EndGame();
+            EndGame();
         }
     }
 
@@ -36,6 +36,6 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame(){
         isRunning = true;
-        Time.timeScale = 3f;
+        Time.timeScale = 1f;
     }
 }

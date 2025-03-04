@@ -27,7 +27,7 @@ class ZombieFactory : MonoBehaviour
         if (spawnedZombie.tag.CompareTo("Flying Enemy") == 0)
         {
             var flyingScript = spawnedZombie.GetComponent<FlyingEnemyNavigationScript>();
-            flyingScript.target = defaultObjectivePoint;
+            flyingScript.objectivePoint = defaultObjectivePoint;
             flyingScript.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
         }
         spawnedZombie.GetComponent<EnemyBase>().health *= Mathf.Pow(enemyHealthMultiplier, waveNumber);

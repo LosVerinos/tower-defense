@@ -107,7 +107,7 @@ public class WaveSpawner : MonoBehaviour
             zombie4Ratio = 0.1f;
         }
 
-        if (UnityEngine.Random.value < 0.2f && waveIndex > 10)//10% de chance de vague spéciale
+        if (UnityEngine.Random.value < 0.2f && waveIndex > 10)
         {
             newWave.isSpecialWave = true;
             int specialType = UnityEngine.Random.Range(0, 5);
@@ -151,9 +151,9 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             newWave.zombieRatios.Add(0, zombie1Ratio);
-            if (generatedWaves.Count >= 15) newWave.zombieRatios.Add(3, zombie4Ratio);
-            if (generatedWaves.Count >= 5) newWave.zombieRatios.Add(1, zombie2Ratio);
-            if (generatedWaves.Count >= 10) newWave.zombieRatios.Add(2, zombie3Ratio);
+            if (zombie4Ratio != 0) newWave.zombieRatios.Add(3, zombie4Ratio);
+            if (zombie2Ratio != 0) newWave.zombieRatios.Add(1, zombie2Ratio);
+            if (zombie3Ratio != 0) newWave.zombieRatios.Add(2, zombie3Ratio);
             
         }
 
