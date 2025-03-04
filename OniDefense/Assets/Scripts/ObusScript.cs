@@ -89,15 +89,15 @@ public class ObusScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //Calcule les dégats en fonction de la distance de la cible 0%->50% du rayon dégat 100% puis diminue petit a petit sur la 50% restant de rayon 
+    //Calcule les dégats en fonction de la distance de la cible 0%->75% du rayon dégat à 100% puis diminue petit a petit sur les 25% restant de rayon 
     float CalculateDamageMultiplier(float distance){
-        if (distance <= damagesRadius * 0.5f)
+        if (distance <= damagesRadius * 0.75f)
         {
             return 1f; 
         }
         else if (distance <= damagesRadius)
         {
-            float normalizedDistance = (distance - (damagesRadius * 0.5f)) / (damagesRadius * 0.5f);
+            float normalizedDistance = (distance - (damagesRadius * 0.75f)) / (damagesRadius * 0.75f);
             return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
         }
         

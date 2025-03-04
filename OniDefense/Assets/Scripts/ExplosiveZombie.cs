@@ -44,13 +44,13 @@ public class ExplosiveZombie : EnemyBase
 
 
     float CalculateDamageMultiplier(float distance){
-        if (distance <= explosionRadius * 0.5f)
+        if (distance <= explosionRadius * 0.75f)
         {
             return 1f; 
         }
         else if (distance <= explosionRadius)
         {
-            float normalizedDistance = (distance - (explosionRadius * 0.5f)) / (explosionRadius * 0.5f);
+            float normalizedDistance = (distance - (explosionRadius * 0.75f)) / (explosionRadius * 0.75f);
             return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
         }
         
