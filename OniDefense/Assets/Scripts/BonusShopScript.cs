@@ -14,7 +14,7 @@ public class BonusShopScript : MonoBehaviour
     {
         if (PlayerStats.Money >= surplusCost)
         {
-            PlayerStats.Money -= surplusCost;
+            PlayerStats.DecreaseMoney(surplusCost);
             StartCoroutine(ActivateSurplusAmmo());
         }
     }
@@ -31,7 +31,7 @@ public class BonusShopScript : MonoBehaviour
     {
         if (PlayerStats.Money >= richZombieCost)
         {
-            PlayerStats.Money -= richZombieCost;
+            PlayerStats.DecreaseMoney(richZombieCost);
             StartCoroutine(ActivateRichZombie());
         }
     }

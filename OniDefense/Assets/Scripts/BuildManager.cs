@@ -116,10 +116,12 @@ public class BuildManager : MonoBehaviour
             if (!isUpgrade) {
                 node.defenseClass = new DefenseClass();
                 node.defenseClass.upgradeStates = defenseToBuild.upgradeStates;
-                node.defenseClass.upgradeLevel = 0; 
+                node.defenseClass.upgradeLevel = 0;
+
+                PlayerStats.BuiltDefenses++;
             }
             
-            PlayerStats.Money -= defenseState.cost;
+            PlayerStats.DecreaseMoney(defenseState.cost);
             //Debug.Log("Defense construite. Monnaie restante : " + PlayerStats.Money);
         }
 

@@ -104,15 +104,16 @@ public class ObusScript : MonoBehaviour
         return 0f;
     }
 
-    void Damage(Transform colliderTransform, float damgesTaken){
+    void Damage(Transform colliderTransform, float damagesTaken){
         EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
             if(e != null){
-                e.TakeDamages(damgesTaken);
+                e.TakeDamages(damagesTaken);
+                PlayerStats.DamagesGiven += damagesTaken;
             }
         DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
             if (defense != null)
             {
-                defense.TakeDamage(damgesTaken);
+                defense.TakeDamage(damagesTaken);
             }
     }
 
