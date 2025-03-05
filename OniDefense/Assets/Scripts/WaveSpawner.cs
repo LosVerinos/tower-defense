@@ -8,6 +8,18 @@ using UnityEngine.UI;
 
 public class WaveSpawner : MonoBehaviour
 {
+    public static WaveSpawner Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     public static int EnemiesAliveCount = 0;
     public Transform spawnPoint;
     public Transform alternativeSpawnPoint;
@@ -126,19 +138,6 @@ public class WaveSpawner : MonoBehaviour
         int zombieCount = (int)Math.Max(1, baseCount + variation);
 
         return zombieCount;
-    }
-
-    private float GetZombieSpeed(int zombieIndex)
-    {
-        GameObject zombiePrefab = GetComponent<ZombieFactory>().zombies[zombieIndex];
-        NavMeshAgent walking = zombiePrefab.GetComponent<NavMeshAgent>();
-        FlyingEnemyNavigationScript flying = zombiePrefab.GetComponent<FlyingEnemyNavigationScript>();
-        if(walking != null){
-            return walking.speed;
-        }
-        else{
-            return flying.speed;
-        }
     }
 
     private void ResetWaveSpawner(){
