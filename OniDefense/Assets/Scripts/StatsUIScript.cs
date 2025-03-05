@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEditor.Build.Content;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class StatsUIScript : MonoBehaviour
 {
@@ -12,7 +8,7 @@ public class StatsUIScript : MonoBehaviour
     public void DisplayStats(){
         statsText.text = $"Vagues survécues : {PlayerStats.PassedWaves} \n" +
                          $"Argent dépensé : {PlayerStats.MoneySpent} \n" +
-                         $"Zombies tués : {PlayerStats.NbKilledEmenies} \n" +
+                         $"Zombies tués : {PlayerStats.NbKilledEnemies} \n" +
                          $"Dégats infligés : {PlayerStats.DamagesGiven} \n" +
                          $"Défenses construites : {PlayerStats.BuiltDefenses}";
     }

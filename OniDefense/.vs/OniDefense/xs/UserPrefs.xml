@@ -4,15 +4,15 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MainMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameOverPanelScript.cs">
     <Files>
-      <File FileName="Assets/PauseMenu.cs" Line="52" Column="6" />
-      <File FileName="Assets/MainMenu.cs" Line="10" Column="6" />
+      <File FileName="Assets/Scripts/MainMenu.cs" Line="58" Column="39" />
+      <File FileName="Assets/Scripts/GameOverPanelScript.cs" Line="27" Column="67" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="OniDefense">
+          <Node name="OniDefense" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True" />
             </Node>
