@@ -97,86 +97,21 @@ public class WaveSpawner : MonoBehaviour
         EnemiesAliveCount = 0;
     }
 
-    private void GenerateNextWave(){
-        Wave newWave = new Wave();
-        newWave.count = CalculateZombiesForWave(waveIndex);
+    private void GenerateNextWave()
+    {
+        WaveFactory factory = (UnityEngine.Random.value < 0.2f && waveIndex > 10) 
+            ? new SpecialWaveFactory() 
+            : new StandardWaveFactory();
 
-        float zombie1Ratio = 1.0f, zombie2Ratio = 0.0f, zombie3Ratio = 0.0f, zombie4Ratio = 0.0f;
+        Wave newWave = factory.CreateWave(waveIndex);
 
-        if (waveIndex+1 >= 5)
-        {
-            zombie1Ratio = 0.8f;
-            zombie2Ratio = 0.2f;
-        }
-        if (waveIndex+1 >= 10)
-        {
-            zombie1Ratio = 0.6f;
-            zombie2Ratio = 0.25f;
-            zombie3Ratio = 0.15f;
-        }
-        if (waveIndex+1 >= 15)
-        {
-            zombie4Ratio = 0.1f;
-        }
-
-        if (UnityEngine.Random.value < 0.2f && waveIndex > 10)
-        {
-            newWave.isSpecialWave = true;
-            int specialType = UnityEngine.Random.Range(0, 5);
-
-            switch (specialType)
-            {
-                case 0: // Vague Sprint (100% zombies rapides)
-                    newWave.specialWaveType = "Sprint";
-                    newWave.zombieRatios.Add(1, 1.0f);
-                    break;
-
-                case 1: // Vague Tank (100% zombies résistants)
-                    newWave.specialWaveType = "Tank";
-                    newWave.zombieRatios.Add(2, 1.0f);
-                    break;
-
-                case 2: // Vague Tsunami (90% zombies classiques & 1,5x plus de zombie)
-                    newWave.specialWaveType = "Tsunami";
-                    newWave.count = (int)(newWave.count*1.5f);
-                    newWave.zombieRatios.Add(0, 0.9f);
-                    newWave.zombieRatios.Add(1, 0.1f);
-                    break;
-
-
-                case 3: // Vague Chaotique (répartition aléatoire)
-                    newWave.specialWaveType = "Chaotique";
-                    newWave.zombieRatios.Add(2, UnityEngine.Random.Range(0.1f, 0.3f));
-                    newWave.zombieRatios.Add(0, UnityEngine.Random.Range(0.3f, 0.5f));
-                    newWave.zombieRatios.Add(1, UnityEngine.Random.Range(0.2f, 0.4f));
-                    newWave.zombieRatios.Add(3, UnityEngine.Random.Range(0.1f, 0.2f));
-                    break;
-
-                case 4: // "Volants"
-                    newWave.specialWaveType = "Volants";
-                    newWave.zombieRatios.Add(3, 1.0f); // 100% Corbeaux (pour l'instant)
-                break;
-            }
-
-            Debug.Log("Vague spéciale détectée : " + newWave.specialWaveType);
-        }
-        else
-        {
-            newWave.zombieRatios.Add(0, zombie1Ratio);
-            if (zombie4Ratio != 0) newWave.zombieRatios.Add(3, zombie4Ratio);
-            if (zombie2Ratio != 0) newWave.zombieRatios.Add(1, zombie2Ratio);
-            if (zombie3Ratio != 0) newWave.zombieRatios.Add(2, zombie3Ratio);
-            
-        }
-
-        if ((waveIndex + 1) % 15 == 0)
+        if ((waveIndex + 1) % 15 == 0) // Ajout d'une vague Boss
         {
             newWave.bossCount = Mathf.RoundToInt((waveIndex + 1) / 20f * 1.5f);
-            Debug.Log("Vague Boss !");
         }
 
         generatedWaves.Add(newWave);
-        Debug.Log("New generated wave n°" + (waveIndex + 1) + " : " + newWave.count + " zombies.");
+        Debug.Log($"Nouvelle vague n°{waveIndex + 1} - {newWave.specialWaveType}");
     }
 
     public int CalculateZombiesForWave(int waveNumber)
