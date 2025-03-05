@@ -10,16 +10,21 @@ public class PlayerStats : MonoBehaviour
     public static float fireRateMultiplier = 1;
 
     public static int Lives;
-    public static int PassedWaves = 0; 
-    public static int NbKilledEnemies = 0; 
-    public static int BuiltDefenses = 0; 
-    public static float DamagesGiven = 0f; 
+    public static int PassedWaves = 0;
+    public static int NbKilledEnemies = 0;
+    public static int BuiltDefenses = 0;
+    public static float DamagesGiven = 0f;
     public static int MoneySpent = 0;
+
     void Start()
     {
-        Money = startMoney;
+        ResetStats();
+    }
+
+    public static void ResetStats()
+    {
+        Money = 400;
         Lives = 1;
-        //Debug.Log("Starting Lives: " + Lives);
         PassedWaves = 0;
         NbKilledEnemies = 0;
         BuiltDefenses = 0;
@@ -27,11 +32,10 @@ public class PlayerStats : MonoBehaviour
         MoneySpent = 0;
     }
 
-    // Life-related methods
     public static void DecreaseLives(int _lives)
     {
         Lives -= _lives;
-        if (Lives < 0) Lives = 0; 
+        if (Lives < 0) Lives = 0;
     }
 
     public static void IncreaseLives(int _lives)
@@ -39,12 +43,11 @@ public class PlayerStats : MonoBehaviour
         Lives += _lives;
     }
 
-    // Money-related methods
     public static void DecreaseMoney(int _money)
     {
         Money -= _money;
         MoneySpent += _money;
-        if (Money < 0) Money = 0; 
+        if (Money < 0) Money = 0;
     }
 
     public static void IncreaseMoney(int _money)
