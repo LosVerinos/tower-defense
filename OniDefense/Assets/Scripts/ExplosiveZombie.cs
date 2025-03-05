@@ -19,9 +19,10 @@ public class ExplosiveZombie : EnemyBase
         Debug.Log("Le boss explose à sa mort !");
         
         // Création de l'effet visuel
+        GameObject effect = null;
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
+            effect = Instantiate(explosionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         }
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
@@ -40,7 +41,9 @@ public class ExplosiveZombie : EnemyBase
                 }
             }
         }
-        Destroy(explosionEffect, 2f);
+
+        if(effect != null)
+            Destroy(explosionEffect, 2f);
     }
 
 
