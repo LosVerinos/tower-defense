@@ -97,33 +97,31 @@ namespace Game
             Destroy(gameObject);
         }
 
-        //Calcule les dégats en fonction de la distance de la cible 0%->50% du rayon dégat 100% puis diminue petit a petit sur la 50% restant de rayon 
-        float CalculateDamageMultiplier(float distance)
+    //Calcule les dégats en fonction de la distance de la cible 0%->75% du rayon dégat à 100% puis diminue petit a petit sur les 25% restant de rayon 
+    float CalculateDamageMultiplier(float distance){
+        if (distance <= damagesRadius * 0.75f)
         {
-            if (distance <= damagesRadius * 0.5f)
-            {
-                return 1f;
-            }
-            else if (distance <= damagesRadius)
-            {
-                float normalizedDistance = (distance - (damagesRadius * 0.5f)) / (damagesRadius * 0.5f);
-                return Mathf.Lerp(1f, 0.1f, normalizedDistance);
-            }
-
-            return 0f;
+            return 1f; 
         }
-
-        void Damage(Transform colliderTransform, float damgesTaken)
+        else if (distance <= damagesRadius)
         {
-            EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
-            if (e != null)
-            {
-                e.TakeDamages(damgesTaken);
+            float normalizedDistance = (distance - (damagesRadius * 0.75f)) / (damagesRadius * 0.75f);
+            return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
+        }
+        
+        return 0f;
+    }
+
+    void Damage(Transform colliderTransform, float damagesTaken){
+        EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
+            if(e != null){
+                e.TakeDamages(damagesTaken);
+                PlayerStats.DamagesGiven += damagesTaken;
             }
             DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
             if (defense != null)
             {
-                defense.TakeDamage(damgesTaken);
+                defense.TakeDamage(damagesTaken);
             }
         }
 

@@ -227,7 +227,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 100
   reward: 10
+  damage: 1
+  difficultyWeight: 10
+  health: 0
   healthBar: {fileID: 8021862753797592776}
+  agent: {fileID: 0}
 --- !u!114 &-5042420673518306960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1de083ffab504e9284f55f5fb95d268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  objectivePoint: {fileID: 0}
   speed: 5
 --- !u!65 &333817021490533619
 BoxCollider:

@@ -75,15 +75,16 @@ namespace Game
             if (!buildManager.CanBuild)
                 return;
 
-            Destroy(tempDefense);
-            buildManager.BuildDefenseOn(this, true, false);
-            DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
-            if (defenseScript != null)
-                defenseScript.Initialize(buildManager.GetDefenseToBuild());
-
-            buildManager.SelectDefenseToBuild(null);
-            tempDefense = null;
-        }
+        Destroy(tempDefense);
+        buildManager.BuildDefenseOn(this, true, false);
+        PlayerStats.BuiltDefenses++;
+        DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
+        if(defenseScript != null)
+            defenseScript.Initialize(buildManager.GetDefenseToBuild());
+                
+        buildManager.SelectDefenseToBuild(null);
+        tempDefense = null;
+    }
 
         bool IsPointerOverUIElement()
         {

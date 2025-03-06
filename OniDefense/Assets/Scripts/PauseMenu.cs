@@ -27,11 +27,11 @@ public class PauseMenu : MonoBehaviour
 
         if (ui.activeSelf)
         {
-            Time.timeScale = 0f;
+            GameManager.PauseGame();
         }
         else
         {
-            Time.timeScale = 1f;
+            GameManager.StartGame();
         }
     }
 

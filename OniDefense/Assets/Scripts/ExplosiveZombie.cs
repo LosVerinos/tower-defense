@@ -16,50 +16,50 @@ namespace Game
             base.Die();
         }
 
-        void Explode()
+    void Explode()
+    {
+        Debug.Log("Le boss explose à sa mort !");
+        
+        // Création de l'effet visuel
+        GameObject effect = null;
+        if (explosionEffect != null)
         {
-            Debug.Log("Le boss explose à sa mort !");
+            effect = Instantiate(explosionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
+        }
 
-            // Création de l'effet visuel
-            if (explosionEffect != null)
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("destructible"))
             {
-                Instantiate(explosionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
-            }
-
-            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
-            foreach (Collider collider in colliders)
-            {
-                if (collider.CompareTag("destructible"))
+                DefenseScript defense = collider.GetComponent<DefenseScript>();
+                if (defense != null)
                 {
-                    DefenseScript defense = collider.GetComponent<DefenseScript>();
-                    if (defense != null)
-                    {
-                        float distance = Vector3.Distance(transform.position, defense.transform.position);
-                        float damageMultiplier = CalculateDamageMultiplier(distance);
-                        float finalDamage = explosionDamage * damageMultiplier;
-
-                        defense.TakeDamage(finalDamage);
-                    }
+                    float distance = Vector3.Distance(transform.position, defense.transform.position);
+                    float damageMultiplier = CalculateDamageMultiplier(distance);
+                    float finalDamage = explosionDamage * damageMultiplier;
+                
+                    defense.TakeDamage(finalDamage);
                 }
             }
         }
 
-
-        float CalculateDamageMultiplier(float distance)
-        {
-            if (distance <= explosionRadius * 0.5f)
-            {
-                return 1f;
-            }
-            else if (distance <= explosionRadius)
-            {
-                float normalizedDistance = (distance - (explosionRadius * 0.5f)) / (explosionRadius * 0.5f);
-                return Mathf.Lerp(1f, 0.1f, normalizedDistance);
-            }
-
-            return 0f;
-        }
+        if(effect != null)
+            Destroy(explosionEffect, 2f);
     }
 
-}
 
+    float CalculateDamageMultiplier(float distance){
+        if (distance <= explosionRadius * 0.75f)
+        {
+            return 1f; 
+        }
+        else if (distance <= explosionRadius)
+        {
+            float normalizedDistance = (distance - (explosionRadius * 0.75f)) / (explosionRadius * 0.75f);
+            return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
+        }
+        
+        return 0f;
+    }
+}

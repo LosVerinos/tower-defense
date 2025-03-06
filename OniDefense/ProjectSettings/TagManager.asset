@@ -9,6 +9,7 @@ TagManager:
   - Classic Enemy
   - Flying Enemy
   - Node
+  - GOPanel
   layers:
   - Default
   - TransparentFX

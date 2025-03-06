@@ -76,21 +76,18 @@ namespace Game
             selectUI.Hide();
         }
 
-        public void BuildDefenseOn(Node node, bool activate, bool isUpgrade)
-        {
-            Debug.Log("Defense Level : " + defenseToBuild.upgradeLevel);
-            int defenseLevel = 0;
-            DefenseUpgradeState defenseState = null;
-            if (isUpgrade)
-            {
-                defenseLevel = node.defenseClass.upgradeLevel;
-                Debug.Log("Defense Level upgraded : " + defenseLevel);
-                defenseState = node.defenseClass.upgradeStates[defenseLevel];
-            }
-            else
-            {
-                defenseState = defenseToBuild.upgradeStates[defenseLevel];
-            }
+    public void BuildDefenseOn(NodeScript node, bool activate, bool isUpgrade){
+        //Debug.Log("Defense Level : " + defenseToBuild.upgradeLevel);
+        int defenseLevel = 0;
+        DefenseUpgradeState defenseState = null;
+        if(isUpgrade){
+            defenseLevel = node.defenseClass.upgradeLevel;
+            //Debug.Log("Defense Level upgraded : " + defenseLevel);
+            defenseState = node.defenseClass.upgradeStates[defenseLevel];
+        }
+        else{
+            defenseState = defenseToBuild.upgradeStates[defenseLevel];
+        }
 
 
             if (PlayerStats.Money >= defenseState.cost || isUpgrade)
@@ -136,19 +133,20 @@ namespace Game
                     boxCollider.enabled = true;
                 }
 
-                node.defense = defense;
+            node.defense = defense;
+            
+            
+            if (!isUpgrade) {
+                node.defenseClass = new DefenseClass();
+                node.defenseClass.upgradeStates = defenseToBuild.upgradeStates;
+                node.defenseClass.upgradeLevel = 0;
 
-
-                if (!isUpgrade)
-                {
-                    node.defenseClass = new Defense();
-                    node.defenseClass.upgradeStates = defenseToBuild.upgradeStates;
-                    node.defenseClass.upgradeLevel = 0;
-                }
-
-                PlayerStats.Money -= defenseState.cost;
-                //Debug.Log("Defense construite. Monnaie restante : " + PlayerStats.Money);
+                PlayerStats.DefenseBuilt();
             }
+            
+            PlayerStats.DecreaseMoney(defenseState.cost);
+            //Debug.Log("Defense construite. Monnaie restante : " + PlayerStats.Money);
+        }
 
         }
     }

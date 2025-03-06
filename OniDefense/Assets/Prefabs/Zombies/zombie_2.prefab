@@ -201,6 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectivePoint: {fileID: 0}
+  agent: {fileID: 0}
+  speed: 5
 --- !u!114 &7243718141615881986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +217,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 30
   reward: 15
+  damage: 1
+  difficultyWeight: 2
+  health: 0
   healthBar: {fileID: 1207884745767622848}
+  agent: {fileID: 0}
 --- !u!195 &1129238645226254969
 NavMeshAgent:
   m_ObjectHideFlags: 0

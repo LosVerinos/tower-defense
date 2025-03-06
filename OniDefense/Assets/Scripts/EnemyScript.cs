@@ -11,12 +11,15 @@ namespace Game
     public class EnemyBase : MonoBehaviour
     {
 
-        [SerializeField] protected float baseHealth;
-        [SerializeField] protected int reward;
-        protected float health;
-        public UnityEngine.UI.Image healthBar;
-        private Canvas canvas;
-        protected NavMeshAgent agent;
+    [SerializeField] public float baseHealth;
+    [SerializeField] public int reward;
+    [SerializeField] public int damage;
+    [SerializeField] public float difficultyWeight;
+    private bool isDead = false;
+    public float health;
+    public UnityEngine.UI.Image healthBar;
+    private Canvas canvas;
+    public NavMeshAgent agent;
 
         protected virtual void Start()
         {
@@ -24,28 +27,31 @@ namespace Game
             health = baseHealth;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
+    // Update is called once per frame
+    void Update()
+    {
 
         }
 
-        public virtual void TakeDamages(float damages)
-        {
-            health -= damages;
-            canvas.enabled = true;
-            healthBar.fillAmount = health / baseHealth;
-            if (health <= 0)
-                Die();
-        }
+    public virtual void TakeDamages(float damages)
+    {
+        health -= damages;
+        canvas.enabled = true;
+        healthBar.fillAmount = health / baseHealth;
 
-        protected virtual void Die()
-        {
-            Destroy(gameObject);
-            PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
-            //Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
-        }
+        PlayerStats.AddDamage(damage);
+        if (health <= 0)
+            Die();
     }
 
+    protected virtual void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+        PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
+        PlayerStats.EnemyKilled();
+        //Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
+        WaveSpawner.EnemyDied();
+        Destroy(gameObject);
+    }
 }

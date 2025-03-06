@@ -13,14 +13,14 @@ namespace Game
         public int richZombieCost = 75;
         public float bonusDuration = 10f;
 
-        public void BuySurplusAmmo()
+    public void BuySurplusAmmo()
+    {
+        if (PlayerStats.Money >= surplusCost)
         {
-            if (PlayerStats.Money >= surplusCost)
-            {
-                PlayerStats.Money -= surplusCost;
-                StartCoroutine(ActivateSurplusAmmo());
-            }
+            PlayerStats.DecreaseMoney(surplusCost);
+            StartCoroutine(ActivateSurplusAmmo());
         }
+    }
 
         IEnumerator ActivateSurplusAmmo()
         {
@@ -30,14 +30,14 @@ namespace Game
             PlayerStats.fireRateMultiplier = 1f;
         }
 
-        public void BuyRichZombie()
+    public void BuyRichZombie()
+    {
+        if (PlayerStats.Money >= richZombieCost)
         {
-            if (PlayerStats.Money >= richZombieCost)
-            {
-                PlayerStats.Money -= richZombieCost;
-                StartCoroutine(ActivateRichZombie());
-            }
+            PlayerStats.DecreaseMoney(richZombieCost);
+            StartCoroutine(ActivateRichZombie());
         }
+    }
 
         IEnumerator ActivateRichZombie()
         {
