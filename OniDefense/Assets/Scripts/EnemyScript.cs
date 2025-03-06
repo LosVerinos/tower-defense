@@ -11,47 +11,48 @@ namespace Game
     public class EnemyBase : MonoBehaviour
     {
 
-    [SerializeField] public float baseHealth;
-    [SerializeField] public int reward;
-    [SerializeField] public int damage;
-    [SerializeField] public float difficultyWeight;
-    private bool isDead = false;
-    public float health;
-    public UnityEngine.UI.Image healthBar;
-    private Canvas canvas;
-    public NavMeshAgent agent;
+        [SerializeField] public float baseHealth;
+        [SerializeField] public int reward;
+        [SerializeField] public int damage;
+        [SerializeField] public float difficultyWeight;
+        private bool isDead = false;
+        public float health;
+        public UnityEngine.UI.Image healthBar;
+        private Canvas canvas;
+        public NavMeshAgent agent;
 
-        protected virtual void Start()
+            protected virtual void Start()
+            {
+                canvas = GetComponentInChildren<Canvas>();
+                health = baseHealth;
+            }
+
+        // Update is called once per frame
+        void Update()
         {
-            canvas = GetComponentInChildren<Canvas>();
-            health = baseHealth;
+
+            }
+
+        public virtual void TakeDamages(float damages)
+        {
+            health -= damages;
+            canvas.enabled = true;
+            healthBar.fillAmount = health / baseHealth;
+
+            PlayerStats.AddDamage(damage);
+            if (health <= 0)
+                Die();
         }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+        protected virtual void Die()
+        {
+            if (isDead) return;
+            isDead = true;
+            PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
+            PlayerStats.EnemyKilled();
+            //Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
+            WaveSpawner.EnemyDied();
+            Destroy(gameObject);
         }
-
-    public virtual void TakeDamages(float damages)
-    {
-        health -= damages;
-        canvas.enabled = true;
-        healthBar.fillAmount = health / baseHealth;
-
-        PlayerStats.AddDamage(damage);
-        if (health <= 0)
-            Die();
-    }
-
-    protected virtual void Die()
-    {
-        if (isDead) return;
-        isDead = true;
-        PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
-        PlayerStats.EnemyKilled();
-        //Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
-        WaveSpawner.EnemyDied();
-        Destroy(gameObject);
     }
 }

@@ -10,7 +10,7 @@ namespace Game
     public class AINavigationScript : MonoBehaviour
     {
         public Transform objectivePoint;
-        private NavMeshAgent agent;
+        public NavMeshAgent agent;
 
         void Start()
         {

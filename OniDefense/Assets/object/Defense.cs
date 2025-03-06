@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Game
 {
+    [System.Serializable]
     public class Defense
     {
         public string name;

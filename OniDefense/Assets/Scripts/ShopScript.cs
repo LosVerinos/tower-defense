@@ -5,10 +5,10 @@ namespace Game
 {
     public class ShopScript : MonoBehaviour
     {
-        public Defense object1;
-        public Defense object2;
-        public Defense object3;
-        public Defense object4;
+         public Defense object1;
+         public Defense object2;
+         public Defense object3;
+         public Defense object4;
         BuildManager buildManager;
 
         // Références aux boutons

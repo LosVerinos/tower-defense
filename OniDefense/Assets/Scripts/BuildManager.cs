@@ -76,7 +76,7 @@ namespace Game
             selectUI.Hide();
         }
 
-    public void BuildDefenseOn(NodeScript node, bool activate, bool isUpgrade){
+    public void BuildDefenseOn(Node node, bool activate, bool isUpgrade){
         //Debug.Log("Defense Level : " + defenseToBuild.upgradeLevel);
         int defenseLevel = 0;
         DefenseUpgradeState defenseState = null;
@@ -137,7 +137,7 @@ namespace Game
             
             
             if (!isUpgrade) {
-                node.defenseClass = new DefenseClass();
+                node.defenseClass = new Defense();
                 node.defenseClass.upgradeStates = defenseToBuild.upgradeStates;
                 node.defenseClass.upgradeLevel = 0;
 

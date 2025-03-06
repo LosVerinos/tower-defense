@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Gamex
 {
+    [System.Serializable]
     public class DefenseUpgradeState
     {
         public GameObject prefab;

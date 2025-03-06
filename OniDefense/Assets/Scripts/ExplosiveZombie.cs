@@ -49,17 +49,18 @@ namespace Game
     }
 
 
-    float CalculateDamageMultiplier(float distance){
-        if (distance <= explosionRadius * 0.75f)
-        {
-            return 1f; 
-        }
-        else if (distance <= explosionRadius)
-        {
-            float normalizedDistance = (distance - (explosionRadius * 0.75f)) / (explosionRadius * 0.75f);
-            return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
-        }
+        float CalculateDamageMultiplier(float distance){
+            if (distance <= explosionRadius * 0.75f)
+            {
+                return 1f; 
+            }
+            else if (distance <= explosionRadius)
+            {
+                float normalizedDistance = (distance - (explosionRadius * 0.75f)) / (explosionRadius * 0.75f);
+                return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
+            }
         
-        return 0f;
+            return 0f;
+        }
     }
 }
