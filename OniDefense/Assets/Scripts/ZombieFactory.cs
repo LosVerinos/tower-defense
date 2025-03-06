@@ -10,18 +10,13 @@ class ZombieFactory : MonoBehaviour
     // Variables pour la difficulté croissante
     private static float enemyHealthMultiplier = 1.1f;
     private static float enemySpeedMultiplier = 1.05f;
-    public Transform defaultSpawnPoint;
     public Transform defaultObjectivePoint;
     [SerializeField] public GameObject[] zombies;
 
-    public GameObject CreateRandomZombieByDifficulty(int maxDifficulty, int waveNumber)
+    public void SpawnZombie(int waveNumber, int selectedZombie, Transform spawnLocation)
     {
-        var filteredZombies = zombies.Where(zombie => zombie.GetComponent<EnemyBase>().difficultyWeight <= maxDifficulty).ToArray();
-        if (filteredZombies.Length == 0)
-        {
-            return null;
-        }
-        GameObject spawnedZombie = Instantiate(filteredZombies[Random.Range(0, filteredZombies.Length)], defaultSpawnPoint.position, defaultSpawnPoint.rotation);
+        GameObject spawnedZombie = Instantiate(zombies[selectedZombie], spawnLocation.position, spawnLocation.rotation);
+        
         if (spawnedZombie.tag.CompareTo("Classic Enemy") == 0)
         {
             var navigationScript = spawnedZombie.GetComponent<AINavigationScript>();
@@ -32,28 +27,7 @@ class ZombieFactory : MonoBehaviour
         if (spawnedZombie.tag.CompareTo("Flying Enemy") == 0)
         {
             var flyingScript = spawnedZombie.GetComponent<FlyingEnemyNavigationScript>();
-            flyingScript.target = defaultObjectivePoint;
-            flyingScript.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
-        }
-        spawnedZombie.GetComponent<EnemyBase>().health *= Mathf.Pow(enemyHealthMultiplier, waveNumber);
-
-        return spawnedZombie;
-    }
-
-    public void SpawnZombie(int waveNumber, int selectedZombie){
-
-        GameObject spawnedZombie = Instantiate(zombies[selectedZombie], defaultSpawnPoint.position, defaultSpawnPoint.rotation);
-        if (spawnedZombie.tag.CompareTo("Classic Enemy") == 0)
-        {
-            var navigationScript = spawnedZombie.GetComponent<AINavigationScript>();
-            navigationScript.objectivePoint = defaultObjectivePoint;
-            navigationScript.agent = spawnedZombie.GetComponent<UnityEngine.AI.NavMeshAgent>();
-            navigationScript.agent.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
-        }
-        if (spawnedZombie.tag.CompareTo("Flying Enemy") == 0)
-        {
-            var flyingScript = spawnedZombie.GetComponent<FlyingEnemyNavigationScript>();
-            flyingScript.target = defaultObjectivePoint;
+            flyingScript.objectivePoint = defaultObjectivePoint;
             flyingScript.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
         }
         spawnedZombie.GetComponent<EnemyBase>().health *= Mathf.Pow(enemyHealthMultiplier, waveNumber);

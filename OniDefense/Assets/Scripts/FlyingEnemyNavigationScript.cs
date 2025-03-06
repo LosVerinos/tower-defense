@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FlyingEnemyNavigationScript : MonoBehaviour
 {
-    public Transform target;
+    public Transform objectivePoint;
     public float speed = 5f;
     private float flightHeight = 10.5f;
     private float smoothRotationSpeed = 5f;
@@ -14,12 +14,12 @@ public class FlyingEnemyNavigationScript : MonoBehaviour
 
     void Start()
     {
-        if (target == null)
+        if (objectivePoint == null)
         {
             GameObject baseTarget = GameObject.FindGameObjectWithTag("Base");
             if (baseTarget != null)
             {
-                target = baseTarget.transform;
+                objectivePoint = baseTarget.transform;
             }
         }
         
@@ -30,15 +30,27 @@ public class FlyingEnemyNavigationScript : MonoBehaviour
 
     void Update()
     {
-        if (target != null)
+        if (objectivePoint != null)
         {
             MoveTowardsTarget();
         }
+
+        if (Vector3.Distance(gameObject.transform.position, new Vector3(objectivePoint.position.x, flightHeight, objectivePoint.position.z)) <= 2)
+        {
+            OnReachedDestination();
+        }
+    }
+
+    void OnReachedDestination()
+    {
+        PlayerStats.DecreaseLives(GetComponent<EnemyBase>().damage);
+        WaveSpawner.EnemyDied();
+        Destroy(gameObject);
     }
 
     void MoveTowardsTarget()
     {
-        Vector3 targetPosition = new Vector3(target.position.x, flightHeight, target.position.z);
+        Vector3 targetPosition = new Vector3(objectivePoint.position.x, flightHeight, objectivePoint.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.5f, speed);
         Vector3 direction = targetPosition - transform.position;
         if (direction != Vector3.zero)

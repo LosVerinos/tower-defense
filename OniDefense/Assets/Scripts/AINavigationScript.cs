@@ -9,7 +9,6 @@ public class AINavigationScript : MonoBehaviour
 {
     public Transform objectivePoint;
     public NavMeshAgent agent;
-    public float speed = 5f;
 
     void Start()
     {
@@ -28,10 +27,8 @@ public class AINavigationScript : MonoBehaviour
 
     void OnReachedDestination()
     {
-        // Décrémenter les vies
         PlayerStats.DecreaseLives(GetComponent<EnemyBase>().damage);
         WaveSpawner.EnemyDied();
-        // Tuer le zombie
         Destroy(gameObject);
     }
 }

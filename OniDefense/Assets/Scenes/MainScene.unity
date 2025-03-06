@@ -5836,7 +5836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1986821949}
-  objectivePoint: {fileID: 1474339611}
+  alternativeSpawnPoint: {fileID: 1999638147}
   timeBetweenWaves: 1
   difficultyMultiplier: 1.2
 --- !u!4 &851428409
@@ -5922,12 +5922,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7464bc2197827c4aaeffe5533c1985d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSpawnPoint: {fileID: 1986821949}
   defaultObjectivePoint: {fileID: 1474339611}
   zombies:
   - {fileID: 2734810277367927149, guid: 0f71907b5fb9c48e39dc280ea560110d, type: 3}
   - {fileID: 2734810277367927149, guid: 2656ec92e12454697a4c89b25037ec08, type: 3}
   - {fileID: 2734810277367927149, guid: 57fa97bd6ca8a47c0805deefb0590586, type: 3}
+  - {fileID: 2734810277367927149, guid: 4709aa8964f334d31afc9d14e5b4ba4a, type: 3}
   - {fileID: 2734810277367927149, guid: 6cd34bdbdda5b4e1abf7eceed3ddf176, type: 3}
 --- !u!114 &851428415
 MonoBehaviour:
@@ -14089,6 +14089,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1999638146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999638147}
+  m_Layer: 0
+  m_Name: AlternativeStartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1999638147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999638146}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.8, y: 0, z: 73.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1999861898
 GameObject:
   m_ObjectHideFlags: 0
@@ -15221,6 +15252,7 @@ SceneRoots:
   - {fileID: 851428409}
   - {fileID: 1474339611}
   - {fileID: 1986821949}
+  - {fileID: 1999638147}
   - {fileID: 473502091}
   - {fileID: 1168171810}
   - {fileID: 368335781}

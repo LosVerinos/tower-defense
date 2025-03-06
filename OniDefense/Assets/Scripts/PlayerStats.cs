@@ -24,7 +24,7 @@ public class PlayerStats : MonoBehaviour
     public static void ResetStats()
     {
         Money = 400;
-        Lives = 1;
+        Lives = 20;
         PassedWaves = 0;
         NbKilledEnemies = 0;
         BuiltDefenses = 0;

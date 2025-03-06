@@ -13,6 +13,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] public int reward;
     [SerializeField] public int damage;
     [SerializeField] public float difficultyWeight;
+    private bool isDead = false;
     public float health;
     public UnityEngine.UI.Image healthBar;
     private Canvas canvas;
@@ -36,17 +37,19 @@ public class EnemyBase : MonoBehaviour
         canvas.enabled = true;
         healthBar.fillAmount = health / baseHealth;
 
-        PlayerStats.DamagesGiven += damages;
+        PlayerStats.AddDamage(damage);
         if (health <= 0)
             Die();
     }
 
     protected virtual void Die()
     {
-        Destroy(gameObject);
+        if (isDead) return;
+        isDead = true;
         PlayerStats.Money += reward * PlayerStats.moneyMultiplier;
-        PlayerStats.NbKilledEnemies++;
+        PlayerStats.EnemyKilled();
         //Debug.Log("Zombie tué ! +" + reward * PlayerStats.moneyMultiplier + "$ ! Monnaie actuelle : " + PlayerStats.Money);
         WaveSpawner.EnemyDied();
+        Destroy(gameObject);
     }
 }

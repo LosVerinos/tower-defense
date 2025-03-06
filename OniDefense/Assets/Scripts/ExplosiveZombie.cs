@@ -19,9 +19,10 @@ public class ExplosiveZombie : EnemyBase
         Debug.Log("Le boss explose à sa mort !");
         
         // Création de l'effet visuel
+        GameObject effect = null;
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
+            effect = Instantiate(explosionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         }
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
@@ -40,17 +41,20 @@ public class ExplosiveZombie : EnemyBase
                 }
             }
         }
+
+        if(effect != null)
+            Destroy(explosionEffect, 2f);
     }
 
 
     float CalculateDamageMultiplier(float distance){
-        if (distance <= explosionRadius * 0.5f)
+        if (distance <= explosionRadius * 0.75f)
         {
             return 1f; 
         }
         else if (distance <= explosionRadius)
         {
-            float normalizedDistance = (distance - (explosionRadius * 0.5f)) / (explosionRadius * 0.5f);
+            float normalizedDistance = (distance - (explosionRadius * 0.75f)) / (explosionRadius * 0.75f);
             return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
         }
         
