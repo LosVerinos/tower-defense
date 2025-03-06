@@ -1,18 +1,18 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game
+namespace Gamex
 {
     public class DefenseUpgradeState
     {
-        private GameObject prefab;
-        private float maximumRange;
-        private float minimumRange;
-        private float damages;
-        private float firerate;
-        private int cost;
-        private float health;
-        private float turningSpeed;
+        public GameObject prefab;
+        public float maximumRange;
+        public float minimumRange;
+        public float damages;
+        public float fireRate;
+        public int cost;
+        public float health;
+        public float turningSpeed;
        
 
 

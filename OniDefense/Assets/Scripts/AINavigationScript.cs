@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AINavigationScript : MonoBehaviour
+namespace Game
 {
-    public Transform objectivePoint;
-    private NavMeshAgent agent;
-    
-    void Start()
+    public class AINavigationScript : MonoBehaviour
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.destination = objectivePoint.position;
-        
+        public Transform objectivePoint;
+        private NavMeshAgent agent;
+
+        void Start()
+        {
+            agent = GetComponent<NavMeshAgent>();
+            agent.destination = objectivePoint.position;
+
+        }
     }
 }
+

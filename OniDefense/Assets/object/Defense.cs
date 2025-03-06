@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game
 {
-    public abstract class Defense
+    public class Defense
     {
-        private string name;
-        private int upgradeLevel;
-        private List<DefenseUpgradeState> upgradeState;
-        private Transform target;
-        private LayerMask ennemyLayer;
-        private Transform movingPartx;
-        private Transform movingParty;
-        private bool active;
+        public string name;
+        public int upgradeLevel;
+        public List<DefenseUpgradeState> upgradeStates;
+        public Transform target;
+        public LayerMask ennemyLayer;
+        public Transform movingPartx;
+        public Transform movingParty;
+        public bool active;
 
         public Defense()
         {
@@ -27,6 +28,12 @@ namespace Game
         public Transform findTarget()
         {
             return null;
+        }
+
+        public int GetSellAmount()
+        {
+            return upgradeStates[upgradeLevel].cost;
+            
         }
 
     }

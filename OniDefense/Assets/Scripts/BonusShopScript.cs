@@ -3,45 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BonusShopScript : MonoBehaviour
+namespace Game
 {
 
-    public int surplusCost = 50;
-    public int richZombieCost = 75;
-    public float bonusDuration = 10f;
-
-    public void BuySurplusAmmo()
+    public class BonusShopScript : MonoBehaviour
     {
-        if (PlayerStats.Money >= surplusCost)
+
+        public int surplusCost = 50;
+        public int richZombieCost = 75;
+        public float bonusDuration = 10f;
+
+        public void BuySurplusAmmo()
         {
-            PlayerStats.Money -= surplusCost;
-            StartCoroutine(ActivateSurplusAmmo());
+            if (PlayerStats.Money >= surplusCost)
+            {
+                PlayerStats.Money -= surplusCost;
+                StartCoroutine(ActivateSurplusAmmo());
+            }
         }
-    }
 
-    IEnumerator ActivateSurplusAmmo()
-    {
-        Debug.Log("Surplus de munitions activé");
-        PlayerStats.fireRateMultiplier = 10f;
-        yield return new WaitForSeconds(bonusDuration);
-        PlayerStats.fireRateMultiplier = 1f;
-    }
-
-    public void BuyRichZombie()
-    {
-        if (PlayerStats.Money >= richZombieCost)
+        IEnumerator ActivateSurplusAmmo()
         {
-            PlayerStats.Money -= richZombieCost;
-            StartCoroutine(ActivateRichZombie());
+            Debug.Log("Surplus de munitions activé");
+            PlayerStats.fireRateMultiplier = 10f;
+            yield return new WaitForSeconds(bonusDuration);
+            PlayerStats.fireRateMultiplier = 1f;
         }
-    }
 
-    IEnumerator ActivateRichZombie()
-    {
-        Debug.Log("Riches zombies activé");
-        PlayerStats.moneyMultiplier = 5; // Double le gain d'argent
-        yield return new WaitForSeconds(bonusDuration);
-        PlayerStats.moneyMultiplier = 1;
-    }
+        public void BuyRichZombie()
+        {
+            if (PlayerStats.Money >= richZombieCost)
+            {
+                PlayerStats.Money -= richZombieCost;
+                StartCoroutine(ActivateRichZombie());
+            }
+        }
 
+        IEnumerator ActivateRichZombie()
+        {
+            Debug.Log("Riches zombies activé");
+            PlayerStats.moneyMultiplier = 5; // Double le gain d'argent
+            yield return new WaitForSeconds(bonusDuration);
+            PlayerStats.moneyMultiplier = 1;
+        }
+
+    }
 }
+

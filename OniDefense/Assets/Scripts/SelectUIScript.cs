@@ -1,35 +1,41 @@
 using UnityEngine;
 
-public class SelectUIScript : MonoBehaviour
+
+namespace Game
 {
-    private NodeScript target;
-
-    public GameObject ui;
-
-    public void SetTarget(NodeScript _target)
+    public class SelectUIScript : MonoBehaviour
     {
-        target = _target;
+        private Node target;
 
-        transform.position = target.transform.position;
+        public GameObject ui;
 
-        ui.SetActive(true);
+        public void SetTarget(Node _target)
+        {
+            target = _target;
 
-    }
+            transform.position = target.transform.position;
 
-    public void Hide()
-    {
-        ui.SetActive(false);
-    }
+            ui.SetActive(true);
 
-    public void Upgrade()
-    {
-        target.UpgradeDefense();
-        BuildManager.instance.DeselectNode();
-    }
+        }
 
-    public void Sell()
-    {
-        target.SellDefense();
-        BuildManager.instance.DeselectNode();
+        public void Hide()
+        {
+            ui.SetActive(false);
+        }
+
+        public void Upgrade()
+        {
+            target.UpgradeDefense();
+            BuildManager.instance.DeselectNode();
+        }
+
+        public void Sell()
+        {
+            target.SellDefense();
+            BuildManager.instance.DeselectNode();
+        }
     }
 }
+
+

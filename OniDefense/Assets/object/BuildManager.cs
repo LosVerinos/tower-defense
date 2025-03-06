@@ -1,43 +1,53 @@
 ﻿using System;
+using Unity.VisualScripting;
 
-namespace Game
+namespace Gamex
 {
     public class BuildManager
     {
-        private BuildManager buildManager;
+        private static BuildManager buildManager;
         private Defense defenseToBuild;
         private Node selectedNode;
         private SelectUIScript selectUI;
+
+        public static BuildManager GetInstance()
+        {
+            if (buildManager == null)
+            {
+                return new BuildManager();
+            }
+            return buildManager;
+        }
 
         public BuildManager()
         {
         }
 
-        private Defense GetDefenseToBuild()
+        public Defense GetDefenseToBuild()
         {
             return null;
         }
-        private bool CanBuild()
+        public bool CanBuild()
         {
             return true;
         }
 
-        private void SelectNode(Node node)
+        public void SelectNode(Node node)
         {
             
         }
 
-        private void DeSelectNode()
+        public void DeSelectNode()
         {
 
         }
 
-        private void selectDefenseToBuild(Defense defense)
+        public void SelectDefenseToBuild(Defense defense)
         {
 
         }
 
-        private void BuildDefenseOn(bool activate, bool upgrade)
+        public void BuildDefenseOn(bool activate, bool upgrade, bool JSP)
         {
 
         }
