@@ -1,40 +1,43 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class SelectUIScript : MonoBehaviour
+namespace Game
 {
-    private NodeScript target;
 
-    public GameObject ui;
-
-    public void SetTarget(NodeScript _target)
+    public class SelectUIScript : MonoBehaviour
     {
-        target = _target;
+        private Node target;
 
-        transform.position = target.transform.position;
+        public GameObject ui;
 
-        ui.SetActive(true);
-        var next = Instantiate(target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].prefab);
-        // wait to get the AssetPreview of the next defense and set it to the RawImage
-        GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(next) as Texture;
-        Destroy(next);
-    }
+        public void SetTarget(Node _target)
+        {
+            target = _target;
 
-    public void Hide()
-    {
-        ui.SetActive(false);
-    }
+            transform.position = target.transform.position;
 
-    public void Upgrade()
-    {
-        target.UpgradeDefense();
-        BuildManager.instance.DeselectNode();
-    }
+            ui.SetActive(true);
+            var next = Instantiate(target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].prefab);
+            // wait to get the AssetPreview of the next defense and set it to the RawImage
+            GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(next) as Texture;
+            Destroy(next);
+        }
 
-    public void Sell()
-    {
-        target.SellDefense();
-        BuildManager.instance.DeselectNode();
+        public void Hide()
+        {
+            ui.SetActive(false);
+        }
+
+        public void Upgrade()
+        {
+            target.UpgradeDefense();
+            BuildManager.instance.DeselectNode();
+        }
+
+        public void Sell()
+        {
+            target.SellDefense();
+            BuildManager.instance.DeselectNode();
+        }
     }
 }

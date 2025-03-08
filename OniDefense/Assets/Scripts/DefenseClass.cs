@@ -4,29 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-[System.Serializable]
-public class DefenseUpgradeState
+namespace Game
 {
-    public GameObject prefab;
-    public float maximumRange;
-    public float damages;
-    public float fireRate;
-    public int cost;
-    public float health;
-}
-
-[System.Serializable]
-public class DefenseClass
-{
-    //public GameObject prefab;                    
-    //public int cost;                               
-    public List<DefenseUpgradeState> upgradeStates;
-    //public int[] upgradeCosts;
-    [DoNotSerialize] public int upgradeLevel = 0;
-
-    public int GetSellAmount()
+    [System.Serializable]
+    public class DefenseUpgradeState
     {
-        return upgradeStates[upgradeLevel].cost / 2;
+        public GameObject prefab;
+        public float maximumRange;
+        public float damages;
+        public float fireRate;
+        public int cost;
+        public float health;
     }
 }

@@ -1,8 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class WaveFactory
+namespace Game
 {
-    public abstract Wave CreateWave(int waveNumber);
+    public abstract class WaveFactory
+    {
+        public abstract Wave CreateWave(int waveNumber);
+    }
+
 }
+
 

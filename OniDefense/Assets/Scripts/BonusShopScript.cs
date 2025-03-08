@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BonusShopScript : MonoBehaviour
+namespace Game
 {
 
-    public int surplusCost = 50;
-    public int richZombieCost = 75;
-    public float bonusDuration = 10f;
+    public class BonusShopScript : MonoBehaviour
+    {
+
+        public int surplusCost = 50;
+        public int richZombieCost = 75;
+        public float bonusDuration = 10f;
 
     public void BuySurplusAmmo()
     {
@@ -19,13 +22,13 @@ public class BonusShopScript : MonoBehaviour
         }
     }
 
-    IEnumerator ActivateSurplusAmmo()
-    {
-        Debug.Log("Surplus de munitions activé");
-        PlayerStats.fireRateMultiplier = 10f;
-        yield return new WaitForSeconds(bonusDuration);
-        PlayerStats.fireRateMultiplier = 1f;
-    }
+        IEnumerator ActivateSurplusAmmo()
+        {
+            Debug.Log("Surplus de munitions activé");
+            PlayerStats.fireRateMultiplier = 10f;
+            yield return new WaitForSeconds(bonusDuration);
+            PlayerStats.fireRateMultiplier = 1f;
+        }
 
     public void BuyRichZombie()
     {
@@ -36,12 +39,14 @@ public class BonusShopScript : MonoBehaviour
         }
     }
 
-    IEnumerator ActivateRichZombie()
-    {
-        Debug.Log("Riches zombies activé");
-        PlayerStats.moneyMultiplier = 5; // Double le gain d'argent
-        yield return new WaitForSeconds(bonusDuration);
-        PlayerStats.moneyMultiplier = 1;
-    }
+        IEnumerator ActivateRichZombie()
+        {
+            Debug.Log("Riches zombies activé");
+            PlayerStats.moneyMultiplier = 5; // Double le gain d'argent
+            yield return new WaitForSeconds(bonusDuration);
+            PlayerStats.moneyMultiplier = 1;
+        }
 
+    }
 }
+

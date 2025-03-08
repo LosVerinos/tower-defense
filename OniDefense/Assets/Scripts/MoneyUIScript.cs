@@ -4,18 +4,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoneyUIScript : MonoBehaviour
+namespace Game
 {
-    public TextMeshProUGUI moneyText;
-    // Start is called before the first frame update
-    void Start()
+    public class MoneyUIScript : MonoBehaviour
     {
-        
+        public TextMeshProUGUI moneyText;
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            moneyText.text = " $ " + PlayerStats.Money.ToString();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        moneyText.text = " $ " + PlayerStats.Money.ToString();
-    }
 }
+

@@ -5,19 +5,24 @@ using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WaveUIScript : MonoBehaviour
+namespace Game
 {
-    public TextMeshProUGUI waveText;
-    [SerializeField] public WaveSpawner waveManager;
-    // Start is called before the first frame update
-    void Start()
+    public class WaveUIScript : MonoBehaviour
     {
-        waveText.text = " Vague :" + WaveSpawner.waveIndex.ToString();
-    }
+        public TextMeshProUGUI waveText;
+        [SerializeField] public WaveSpawner waveManager;
+        // Start is called before the first frame update
+        void Start()
+        {
+            waveText.text = " Vague :" + WaveSpawner.waveIndex.ToString();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        waveText.text = " Vague :" + WaveSpawner.waveIndex.ToString();
+        // Update is called once per frame
+        void Update()
+        {
+            waveText.text = " Vague :" + WaveSpawner.waveIndex.ToString();
+        }
     }
 }
+
+

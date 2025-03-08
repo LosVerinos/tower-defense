@@ -3,138 +3,116 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ObusScript : MonoBehaviour
+namespace Game
 {
-    private Transform target;
-    public float speed = 70f;
-    public GameObject bulletImpact;
-    public float damagesRadius;
-    private float damages;
-    private Vector3 destination;
-    private Vector3 startPosition;
-    private float flightTime;
-    private float elapsedTime;
-    public float arcHeight; // Hauteur maximale de l'obus
-    private Vector3 previousPosition;
-    private bool aerialLaunch = false;
-
-    public void Find(Transform _target)
+    public class ObusScript : Projectile
     {
-        target = _target;
+        public float damagesRadius;
+        private Vector3 destination;
+        private Vector3 startPosition;
+        private float flightTime;
+        private float elapsedTime;
+        public float arcHeight; // Hauteur maximale de l'obus
+        private Vector3 previousPosition;
+        private bool aerialLaunch = false;
 
-        destination = new Vector3(target.position.x, 0, target.position.z);
-        startPosition = transform.position;
-        float distance = Vector3.Distance(startPosition, destination);
-        flightTime = distance / speed;
-
-        elapsedTime = 0f;
-
-        previousPosition = startPosition;
-    }
-
-    public void SetDamage(float _damages)
-    {
-        damages = _damages;
-    }
-
-    void Update()
-    {
-        if (!aerialLaunch)
+        public new void Find(Transform _target)
         {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= flightTime || transform.position.y < 0f)
-            {
-                Explode();
-                return;
-            }
+            base.Find(_target);
 
-            float progress = elapsedTime / flightTime;
-            Vector3 horizontalPosition = Vector3.Lerp(startPosition, destination, progress);
+            destination = new Vector3(target.position.x, 0, target.position.z);
+            startPosition = transform.position;
+            float distance = Vector3.Distance(startPosition, destination);
+            flightTime = distance / speed;
 
-            float verticalOffset = Mathf.Sin(progress * Mathf.PI) * arcHeight;
+            elapsedTime = 0f;
 
-            Vector3 newPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + verticalOffset, horizontalPosition.z);
-            transform.position = newPosition;
-
-            Vector3 direction = (newPosition - previousPosition).normalized;
-
-            if (direction != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(direction);
-            }
-            previousPosition = newPosition;
+            previousPosition = startPosition;
         }
-        else
+
+        protected override void Update()
         {
-            transform.position += Vector3.down * speed * Time.deltaTime;
-            transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-            if (transform.position.y <= 2f)
+            if (!aerialLaunch)
             {
-                Explode();
+                elapsedTime += Time.deltaTime;
+                if (elapsedTime >= flightTime || transform.position.y < 0f)
+                {
+                    Explode();
+                    return;
+                }
+
+                float progress = elapsedTime / flightTime;
+                Vector3 horizontalPosition = Vector3.Lerp(startPosition, destination, progress);
+
+                float verticalOffset = Mathf.Sin(progress * Mathf.PI) * arcHeight;
+
+                Vector3 newPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + verticalOffset, horizontalPosition.z);
+                transform.position = newPosition;
+
+                Vector3 direction = (newPosition - previousPosition).normalized;
+
+                if (direction != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.LookRotation(direction);
+                }
+                previousPosition = newPosition;
+            }
+            else
+            {
+                transform.position += Vector3.down * speed * Time.deltaTime;
+                transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+                if (transform.position.y <= 2f)
+                {
+                    Explode();
+                }
             }
         }
-    }
 
-    void Explode()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, damagesRadius);
-        foreach (Collider collider in colliders)
+        void Explode()
         {
-            if (collider.tag == "Classic Enemy" || collider.tag == "destructible")
+            Collider[] colliders = Physics.OverlapSphere(transform.position, damagesRadius);
+            foreach (Collider collider in colliders)
             {
-                Debug.Log("Zombie touché par l'explosion !");
-                float distance = Vector3.Distance(transform.position, collider.transform.position);
-                float damageMultiplier = CalculateDamageMultiplier(distance);
-                float finalDamage = damages * damageMultiplier;
+                if (collider.tag == "Classic Enemy" || collider.tag == "destructible")
+                {
+                    Debug.Log("Zombie touché par l'explosion !");
+                    float distance = Vector3.Distance(transform.position, collider.transform.position);
+                    float damageMultiplier = CalculateDamageMultiplier(distance);
+                    float finalDamage = damages * damageMultiplier;
 
-                Damage(collider.transform, finalDamage);
+                    Damage(collider.transform, finalDamage);
+                }
             }
+            GameObject audioSource = GetComponent<AudioSource>().gameObject;
+            audioSource.GetComponent<AudioSource>().Play();
+            GameObject effect = Instantiate(bulletImpact, transform.position, Quaternion.Euler(-90, 0, 0));
+            Destroy(effect, 2f);
+            Destroy(gameObject);
         }
-        GameObject audioSource = GetComponent<AudioSource>().gameObject;
-        audioSource.GetComponent<AudioSource>().Play();
-        GameObject effect = Instantiate(bulletImpact, transform.position, Quaternion.Euler(-90, 0, 0));
-        Destroy(effect, 2f);
-        Destroy(gameObject);
-    }
 
-    //Calcule les dégats en fonction de la distance de la cible 0%->75% du rayon dégat à 100% puis diminue petit a petit sur les 25% restant de rayon 
-    float CalculateDamageMultiplier(float distance)
-    {
-        if (distance <= damagesRadius * 0.75f)
+        float CalculateDamageMultiplier(float distance)
         {
-            return 1f;
+            if (distance <= damagesRadius * 0.75f)
+            {
+                return 1f;
+            }
+            else if (distance <= damagesRadius)
+            {
+                float normalizedDistance = (distance - (damagesRadius * 0.75f)) / (damagesRadius * 0.75f);
+                return Mathf.Lerp(1f, 0.1f, normalizedDistance);
+            }
+
+            return 0f;
         }
-        else if (distance <= damagesRadius)
+
+        public void SetAerialLaunch(bool _aerialLaunch)
         {
-            float normalizedDistance = (distance - (damagesRadius * 0.75f)) / (damagesRadius * 0.75f);
-            return Mathf.Lerp(1f, 0.1f, normalizedDistance);
+            aerialLaunch = _aerialLaunch;
         }
 
-        return 0f;
-    }
-
-    void Damage(Transform colliderTransform, float damagesTaken)
-    {
-        EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
-        if (e != null)
+        public void SetSpeed(float _newSpeed)
         {
-            e.TakeDamages(damagesTaken);
-            PlayerStats.DamagesGiven += damagesTaken;
+            speed = _newSpeed;
         }
-        DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
-        if (defense != null)
-        {
-            defense.TakeDamage(damagesTaken);
-        }
-    }
-
-    public void SetAerialLaunch(bool _aerialLaunch)
-    {
-        aerialLaunch = _aerialLaunch;
-    }
-
-    public void SetSpeed(float _newSpeed)
-    {
-        speed = _newSpeed;
     }
 }
