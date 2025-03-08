@@ -2011,7 +2011,7 @@ GameObject:
   - component: {fileID: 273166068}
   - component: {fileID: 273166072}
   m_Layer: 5
-  m_Name: CanvasUI
+  m_Name: GeneralUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3649,7 +3649,7 @@ GameObject:
   - component: {fileID: 483642060}
   - component: {fileID: 483642061}
   m_Layer: 0
-  m_Name: SelectUI
+  m_Name: NodeUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3691,6 +3691,7 @@ MonoBehaviour:
   fireRateText: {fileID: 466746456}
   upgradeButton: {fileID: 80840825}
   sellButton: {fileID: 911405675}
+  generalUI: {fileID: 273166067}
 --- !u!1001 &487167475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16338,7 +16339,6 @@ SceneRoots:
   - {fileID: 1658387096}
   - {fileID: 1279315029}
   - {fileID: 1998653165}
-  - {fileID: 483642060}
   - {fileID: 1511750152}
   - {fileID: 851428409}
   - {fileID: 1474339611}
@@ -16347,5 +16347,6 @@ SceneRoots:
   - {fileID: 473502091}
   - {fileID: 1168171810}
   - {fileID: 368335781}
+  - {fileID: 483642060}
   - {fileID: 273166071}
   - {fileID: 587084950}

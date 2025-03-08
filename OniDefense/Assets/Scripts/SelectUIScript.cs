@@ -16,6 +16,7 @@ namespace Game
         public TextMeshProUGUI fireRateText;
         public Button upgradeButton;
         public Button sellButton;
+        public GameObject generalUI;
 
         public void SetTarget(Node _target)
         {
@@ -45,6 +46,7 @@ namespace Game
         public void Display()
         {
             ui.SetActive(true);
+            generalUI.GetComponent<ShopUIScript>().ShrinkAll();
         }
 
         private void UpdateUI()
