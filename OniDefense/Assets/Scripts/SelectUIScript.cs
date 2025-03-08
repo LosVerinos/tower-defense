@@ -23,12 +23,22 @@ namespace Game
             target = _target;
             Display();
             UpdateUI();
+            if (_target.defenseClass != null)
+            {
+                float maxRange = _target.defenseClass.upgradeStates[_target.defenseClass.upgradeLevel].maximumRange;
+                float minRange = _target.defenseClass.upgradeStates[_target.defenseClass.upgradeLevel].prefab.GetComponent<TurretScript>().minimumRange;
+                _target.GetComponent<RangeIndicator>().ShowRange(maxRange, minRange, _target.transform);
+            }
         }
 
         public void Hide()
         {
             Debug.Log("Deselect node");
             ui.SetActive(false);
+            if (target != null)
+            {
+                target.GetComponent<RangeIndicator>().HideRange();
+            }
         }
 
         public void Upgrade()
@@ -82,13 +92,14 @@ namespace Game
         private void CheckButtonActivation(){
             Debug.Log("Level : " + target.defenseClass.upgradeLevel+1 + ", count : " + target.defenseClass.upgradeStates.Count);
             if (
-                //PlayerStats.Money < target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].cost || 
+                PlayerStats.Money < target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].cost || 
                 target.defenseClass.upgradeLevel+1 == target.defenseClass.upgradeStates.Count)
 
                 upgradeButton.interactable = false;
             else
                 upgradeButton.interactable = true;
         }
+
     }
 }
 

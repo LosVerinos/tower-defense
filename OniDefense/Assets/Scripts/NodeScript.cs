@@ -19,7 +19,9 @@ namespace Game
         [DoNotSerialize] public Defense defenseClass;
         public Vector3 positionOffset;
         BuildManager buildManager;
-
+        private GameObject maxRangeIndicator;
+        private GameObject minRangeIndicator;
+        private RangeIndicator rangeIndicator;
         public int currentUpgradeState = 0;
         public bool isUpgraded = false;
 
@@ -27,7 +29,7 @@ namespace Game
         {
             rend = GetComponent<Renderer>();
             defaultMaterial = rend.material;
-
+            rangeIndicator = gameObject.AddComponent<RangeIndicator>();
             buildManager = BuildManager.instance;
         }
 
@@ -48,11 +50,16 @@ namespace Game
             if (state)
             {
                 rend.material = hoverMaterial;
-                if (defense == null && buildManager.CanBuild)
+                if (defense == null && buildManager.CanBuild){
                     buildManager.BuildDefenseOn(this, false, false);
+                    rangeIndicator.ShowRange(tempDefense.GetComponent<TurretScript>().maximumRange, tempDefense.GetComponent<TurretScript>().minimumRange, gameObject.transform);
+                }
+                
             }
             else
             {
+                if(rangeIndicator != null && tempDefense != null)
+                    rangeIndicator.HideRange();
                 rend.material = defaultMaterial;
                 Destroy(tempDefense);
             }
@@ -74,17 +81,18 @@ namespace Game
 
             if (!buildManager.CanBuild)
                 return;
-
-        Destroy(tempDefense);
-        buildManager.BuildDefenseOn(this, true, false);
-        PlayerStats.BuiltDefenses++;
-        DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
-        if(defenseScript != null)
-            defenseScript.Initialize(buildManager.GetDefenseToBuild());
-                
-        buildManager.SelectDefenseToBuild(null);
-        tempDefense = null;
-    }
+            if(rangeIndicator != null && tempDefense != null)
+                        rangeIndicator.HideRange();
+            Destroy(tempDefense);
+            buildManager.BuildDefenseOn(this, true, false);
+            PlayerStats.BuiltDefenses++;
+            DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
+            if(defenseScript != null)
+                defenseScript.Initialize(buildManager.GetDefenseToBuild());
+                    
+            buildManager.SelectDefenseToBuild(null);
+            tempDefense = null;
+        }
 
         bool IsPointerOverUIElement()
         {
@@ -163,7 +171,6 @@ namespace Game
             Destroy(defense);
             defenseClass = null;
         }
-
     }
 
 }
