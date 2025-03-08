@@ -48,7 +48,7 @@ class AirStrikeEffect {
 AirStrikeEffect --|> Effect
 
 
-class BonusShopScript {
+class BonusShop {
     + int surplusCost = 50
     + int richZombieCost = 75
     + float bonusDuration = 10f
@@ -64,7 +64,7 @@ class BuildManager {
     - static BuildManager instance
     - Defense defenseToBuild
     - Node selectedNode
-    + SelectUIScript selectUI
+    + SelectUI selectUI
 
     + void Awake()
     + void Start()
@@ -78,7 +78,7 @@ class BuildManager {
 }
 
 
-class CameraControllerScript {
+class CameraController {
     + float panSpeed = 30f
     + float panBorderThickness = 10f
     + float scrollSpeed = 5000f
@@ -114,7 +114,7 @@ class Defense {
 }
 
 
-class DefenseScript {
+class Defense {
     - float currentHealth
     - Defense defenseData
     - float baseHealth
@@ -193,7 +193,7 @@ class ExplosiveZombie {
     - CalculateDamageMultiplier(distance : float) : float
 }
 
-class FlyingEnemyNavigationScript {
+class FlyingEnemyNavigation {
     - objectivePoint : Transform
     - speed : float
     - flightHeight : float
@@ -215,8 +215,8 @@ class GameManager {
     + StartGame() : void
 }
 
-class GameOverPanelScript {
-    - stats : StatsUIScript
+class GameOverPanel {
+    - stats : StatsUI
     - mainMenuUI : GameObject
     - rankingText : TextMeshProUGUI
     + OnRestartButtonClick() : void
@@ -225,7 +225,7 @@ class GameOverPanelScript {
     - UpdateRankingDisplay() : void
 }
 
-class LivesUIScript {
+class LivesUI {
     - livesText : TextMeshProUGUI
     + Start() : void
     + Update() : void
@@ -242,13 +242,13 @@ class MainMenu {
     - DisplayRanking() : void
 }
 
-class MoneyUIScript {
+class MoneyUI {
     - moneyText : TextMeshProUGUI
     + Start() : void
     + Update() : void
 }
 
-class ObusScript {
+class Obus {
     - target : Transform
     - speed : float
     - bulletImpact : GameObject
@@ -286,7 +286,7 @@ class RankingSystem {
     + AddNewScore(playerName : string, newScore : int) : void
 }
 
-class SelectUIScript {
+class SelectUI {
     - target : Node
     - ui : GameObject
     + SetTarget(target : Node) : void
@@ -295,7 +295,7 @@ class SelectUIScript {
     + Sell() : void
 }
 
-class ShopScript {
+class Shop {
     - object1 : Defense
     - object2 : Defense
     - object3 : Defense
@@ -313,7 +313,7 @@ class ShopScript {
     + Update() : void
 }
 
-class ShopUIScript {
+class ShopUI {
     - defensesButton : GameObject
     - supportButton : GameObject
     - bonusButton : GameObject
@@ -342,12 +342,12 @@ class StandardWaveFactory {
     + CalculateZombiesForWave(waveNumber : int) : int
 }
 
-class StatsUIScript {
+class StatsUI {
     - statsText : TextMeshProUGUI
     + DisplayStats() : void
 }
 
-class TurretScript {
+class Turret {
     - target : Transform
     - maximumRange : float
     - minimumRange : float
@@ -414,7 +414,7 @@ class WaveSpawner {
     + ResetWaveSpawner() : void
 }
 
-class WaveUIScript {
+class WaveUI {
     - waveText : TextMeshProUGUI
     - waveManager : WaveSpawner
     + Start() : void
@@ -430,72 +430,49 @@ class ZombieFactory {
 }
 
 EnemyBase <|-- ExplosiveZombie
-EnemyBase <-- FlyingEnemyNavigationScript
-DefenseScript --> Defense
-DefenseScript --> Image
-DefenseScript --> Canvas
-DefenseScript --> Coroutine
-DefenseScript --> CanvasGroup
-DefenseScript --> GameObject
-DefenseScript --> Effect
+EnemyBase <-- FlyingEnemyNavigation
+Defense --> Effect
 Node --> Defense
-NodeScript --> Node
-NodeScript --> BuildManager
 EnemyBase --> PlayerStats
 EnemyBase --> WaveSpawner
 
 PlayerStats --> BuildManager
 BuildManager --> Defense
 BuildManager --> Node
-BuildManager --> SelectUIScript
+BuildManager --> SelectUI
 BuildManager --> DefenseUpgradeState
 AirStrikeEffect --> Node
-BonusShopScript --> PlayerStats
-GameManager --> GameOverPanelScript
-GameOverPanelScript --> StatsUIScript
-GameOverPanelScript --> PlayerStats
+BonusShop --> PlayerStats
+GameManager --> GameOverPanel
+GameOverPanel --> StatsUI
+GameOverPanel --> PlayerStats
 MainMenu --> GameManager
-MainMenu --> RankingSystem
-MainMenu --> PlayerPrefs
-MoneyUIScript --> PlayerStats
-LivesUIScript --> PlayerStats
-ObusScript --> PlayerStats
+MoneyUI --> PlayerStats
+LivesUI --> PlayerStats
+Obus --> PlayerStats
 PauseMenu --> GameManager
-PauseMenu --> SceneManager
 RankingSystem --> MainMenu
-SelectUIScript --> Node
-SelectUIScript --> BuildManager
-ShopScript --> PlayerStats
-ShopScript --> BuildManager
-ShopScript --> Defense
-ShopUIScript --> GameObject
-ShopUIScript --> Vector3
+SelectUI --> Node
+Shop --> PlayerStats
+Shop --> BuildManager
+Shop --> Defense
 SlowEffect --> Effect
 SlowEffect --> Node
-SlowEffect --> NavMeshAgent
-SpecialWaveFactory --> WaveFactory
 SpecialWaveFactory --> WaveBuilder
-StandardWaveFactory --> WaveFactory
 StandardWaveFactory --> WaveBuilder
-StatsUIScript --> PlayerStats
-StatsUIScript --> TextMeshProUGUI
-TurretScript --> PlayerStats
-TurretScript --> GameObject
-TurretScript --> BulletScript
-TurretScript --> ObusScript
+StatsUI --> PlayerStats
+Turret --> PlayerStats
+Turret --> Bullet
+Turret --> Obus
 WaveBuilder --> Wave
 WaveBuilder --> WaveFactory
 WaveFactory <|-- SpecialWaveFactory
 WaveFactory <|-- StandardWaveFactory
 WaveSpawner --> Wave
-WaveSpawner --> ZombieFactory
 WaveSpawner --> GameManager
 WaveSpawner --> PlayerStats
-WaveUIScript --> WaveSpawner
-WaveUIScript --> TextMeshProUGUI
+WaveUI --> WaveSpawner
 ZombieFactory --> WaveSpawner
-ZombieFactory --> GameObject
-ZombieFactory --> AINavigationScript
-ZombieFactory --> FlyingEnemyNavigationScript
+ZombieFactory --> FlyingEnemyNavigation
 
 @enduml
