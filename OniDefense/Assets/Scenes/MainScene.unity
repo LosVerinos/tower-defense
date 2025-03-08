@@ -6427,6 +6427,7 @@ GameObject:
   - component: {fileID: 851428413}
   - component: {fileID: 851428414}
   - component: {fileID: 851428415}
+  - component: {fileID: 851428416}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6476,6 +6477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectUI: {fileID: 483642061}
+  upgradeEffect: {fileID: 686476632177294573, guid: 63a5fc69536954685b4040b7f3f1f38b, type: 3}
 --- !u!114 &851428411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6551,6 +6553,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1226089053}
+--- !u!114 &851428416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851428407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ee437db56d14744a8ab9b9601a5caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertPrefab: {fileID: 6918235817742307484, guid: ccb99358e641543ff84ae0fcb9f06206, type: 3}
+  alertParent: {fileID: 273166071}
 --- !u!1001 &864363193
 PrefabInstance:
   m_ObjectHideFlags: 0
