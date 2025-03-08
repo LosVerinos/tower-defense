@@ -13,7 +13,7 @@ public class ObusScript : MonoBehaviour
     private Vector3 destination;
     private Vector3 startPosition;
     private float flightTime;
-    private float elapsedTime; 
+    private float elapsedTime;
     public float arcHeight; // Hauteur maximale de l'obus
     private Vector3 previousPosition;
     private bool aerialLaunch = false;
@@ -32,13 +32,15 @@ public class ObusScript : MonoBehaviour
         previousPosition = startPosition;
     }
 
-    public void SetDamage(float _damages){
+    public void SetDamage(float _damages)
+    {
         damages = _damages;
     }
 
     void Update()
     {
-        if(!aerialLaunch){
+        if (!aerialLaunch)
+        {
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= flightTime || transform.position.y < 0f)
             {
@@ -62,7 +64,8 @@ public class ObusScript : MonoBehaviour
             }
             previousPosition = newPosition;
         }
-        else{
+        else
+        {
             transform.position += Vector3.down * speed * Time.deltaTime;
             transform.rotation = Quaternion.Euler(90f, 0f, 0f);
             if (transform.position.y <= 2f)
@@ -72,56 +75,66 @@ public class ObusScript : MonoBehaviour
         }
     }
 
-    void Explode(){
+    void Explode()
+    {
         Collider[] colliders = Physics.OverlapSphere(transform.position, damagesRadius);
-        foreach(Collider collider in colliders){
-            if(collider.tag == "Classic Enemy" || collider.tag == "destructible"){
+        foreach (Collider collider in colliders)
+        {
+            if (collider.tag == "Classic Enemy" || collider.tag == "destructible")
+            {
                 Debug.Log("Zombie touché par l'explosion !");
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
                 float damageMultiplier = CalculateDamageMultiplier(distance);
                 float finalDamage = damages * damageMultiplier;
-            
+
                 Damage(collider.transform, finalDamage);
             }
         }
+        GameObject audioSource = GetComponent<AudioSource>().gameObject;
+        audioSource.GetComponent<AudioSource>().Play();
         GameObject effect = Instantiate(bulletImpact, transform.position, Quaternion.Euler(-90, 0, 0));
         Destroy(effect, 2f);
         Destroy(gameObject);
     }
 
     //Calcule les dégats en fonction de la distance de la cible 0%->75% du rayon dégat à 100% puis diminue petit a petit sur les 25% restant de rayon 
-    float CalculateDamageMultiplier(float distance){
+    float CalculateDamageMultiplier(float distance)
+    {
         if (distance <= damagesRadius * 0.75f)
         {
-            return 1f; 
+            return 1f;
         }
         else if (distance <= damagesRadius)
         {
             float normalizedDistance = (distance - (damagesRadius * 0.75f)) / (damagesRadius * 0.75f);
-            return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
+            return Mathf.Lerp(1f, 0.1f, normalizedDistance);
         }
-        
+
         return 0f;
     }
 
-    void Damage(Transform colliderTransform, float damagesTaken){
+    void Damage(Transform colliderTransform, float damagesTaken)
+    {
         EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
-            if(e != null){
-                e.TakeDamages(damagesTaken);
-                PlayerStats.DamagesGiven += damagesTaken;
-            }
+        if (e != null)
+        {
+            e.TakeDamages(damagesTaken);
+            PlayerStats.DamagesGiven += damagesTaken;
+        }
         DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
-            if (defense != null)
-            {
-                defense.TakeDamage(damagesTaken);
-            }
+        if (defense != null)
+        {
+            defense.TakeDamage(damagesTaken);
+        }
     }
 
-    public void SetAerialLaunch(bool _aerialLaunch){
+    public void SetAerialLaunch(bool _aerialLaunch)
+    {
         aerialLaunch = _aerialLaunch;
     }
 
-    public void SetSpeed(float _newSpeed){
+    public void SetSpeed(float _newSpeed)
+    {
         speed = _newSpeed;
     }
 }

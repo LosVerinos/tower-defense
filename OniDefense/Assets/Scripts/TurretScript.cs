@@ -23,11 +23,11 @@ public class TurretScript : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public GameObject muzzleFlash;
-    
+
     private Quaternion defaultRotationX;
     private Quaternion defaultRotationY;
     private bool active = false;
-    
+
     void Start()
     {
         defaultRotationX = movingPartX.rotation;
@@ -113,6 +113,8 @@ public class TurretScript : MonoBehaviour
 
         GameObject flash = Instantiate(muzzleFlash, firePoint.position, firePoint.rotation);
         Destroy(flash, 0.2f);
+        GameObject audio = GetComponent<AudioSource>().gameObject;
+        audio.GetComponent<AudioSource>().Play();
 
         GameObject bulletGameObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         BulletScript bulletScript = bulletGameObject.GetComponent<BulletScript>();

@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public static int Money;
-    public int startMoney = 400;
+    public int startMoney = 1000000;
     public int startLives = 1;
 
     public static int moneyMultiplier = 1;
@@ -23,7 +23,7 @@ public class PlayerStats : MonoBehaviour
 
     public static void ResetStats()
     {
-        Money = 400;
+        Money = 100000;
         Lives = 20;
         PassedWaves = 0;
         NbKilledEnemies = 0;
