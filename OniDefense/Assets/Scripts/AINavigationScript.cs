@@ -5,30 +5,34 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public class AINavigationScript : MonoBehaviour
+namespace Game
 {
-    public Transform objectivePoint;
-    public NavMeshAgent agent;
-
-    void Start()
+    public class AINavigationScript : MonoBehaviour
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.destination = objectivePoint.position;
-    }
+        public Transform objectivePoint;
+        public NavMeshAgent agent;
 
-    void Update()
-    {
-        // Vérifier si le zombie est arrivé à destination
-        if (Vector3.Distance(gameObject.transform.position, objectivePoint.position) <= 2)
+        void Start()
         {
-            OnReachedDestination();
+            agent = GetComponent<NavMeshAgent>();
+            agent.destination = objectivePoint.position;
+
+        }
+         void Update()
+        {
+            // Vérifier si le zombie est arrivé à destination
+            if (Vector3.Distance(gameObject.transform.position, objectivePoint.position) <= 2)
+            {
+                OnReachedDestination();
+            }
+        }
+
+        void OnReachedDestination()
+        {
+            PlayerStats.DecreaseLives(GetComponent<EnemyBase>().damage);
+            WaveSpawner.EnemyDied();
+            Destroy(gameObject);
         }
     }
-
-    void OnReachedDestination()
-    {
-        PlayerStats.DecreaseLives(GetComponent<EnemyBase>().damage);
-        WaveSpawner.EnemyDied();
-        Destroy(gameObject);
-    }
 }
+

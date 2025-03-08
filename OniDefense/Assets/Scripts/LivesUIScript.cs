@@ -4,18 +4,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LivesUIScript : MonoBehaviour
+namespace Game
 {
-    public TextMeshProUGUI livesText;
-    // Start is called before the first frame update
-    void Start()
+    public class LivesUIScript : MonoBehaviour
     {
-        livesText.text = " ❤ :" + PlayerStats.Lives.ToString();
+        public TextMeshProUGUI livesText;
+        // Start is called before the first frame update
+        void Start()
+        {
+            livesText.text = " ❤ :" + PlayerStats.Lives.ToString();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            livesText.text = " ❤ :" + PlayerStats.Lives.ToString();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        livesText.text = " ❤ :" + PlayerStats.Lives.ToString();
-    }
 }
+

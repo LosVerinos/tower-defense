@@ -1,18 +1,22 @@
 using UnityEngine;
 
-public abstract class Effect : MonoBehaviour
+namespace Game
 {
-    protected bool isActive = false;
-    protected NodeScript node;
-
-    public virtual void ApplyEffect(NodeScript _node)
+    public abstract class Effect : MonoBehaviour
     {
-        node = _node;
-        isActive = true;
-    }
+        protected bool isActive = false;
+        protected Node node;
 
-    public virtual void RemoveEffect()
-    {
-        isActive = false;
+        public virtual void ApplyEffect(Node _node)
+        {
+            node = _node;
+            isActive = true;
+        }
+
+        public virtual void RemoveEffect()
+        {
+            isActive = false;
+        }
     }
 }
+
