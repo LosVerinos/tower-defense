@@ -47,7 +47,7 @@ namespace Game
         public void Menu()
         {
             ui.SetActive(false);
-
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             mainMenuUI.SetActive(true);
 
             Time.timeScale = 0f;
