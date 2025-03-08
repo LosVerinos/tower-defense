@@ -1,33 +1,43 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
-    public abstract class Projectile
+    public abstract class Projectile : MonoBehaviour
     {
-        private GameObject prefab;
-        private Ennemy ennemy;
-        private float speed;
-        private int damage;
-        private GameObject bulletImpact;
+        protected Transform target;
+        public float speed = 70f;
+        public GameObject bulletImpact;
+        protected float damages;
 
-        public Projectile()
+        // Méthode pour définir la cible
+        public void Find(Transform _target)
         {
+            target = _target;
         }
 
-        public void SetTarget(Ennemy target)
+        // Méthode pour définir les dégâts
+        public void SetDamage(float _damages)
         {
-
+            damages = _damages;
         }
 
-        public void SetDamage(float damage)
-        {
+        // Méthode abstraite pour le comportement de mise à jour
+        protected abstract void Update();
 
-        }
-        public void HitTarget()
+        // Méthode pour infliger des dégâts à une cible
+        protected void Damage(Transform colliderTransform, float damagesTaken)
         {
-
+            EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
+            if (e != null)
+            {
+                e.TakeDamages(damagesTaken);
+                PlayerStats.DamagesGiven += damagesTaken;
+            }
+            DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
+            if (defense != null)
+            {
+                defense.TakeDamage(damagesTaken);
+            }
         }
     }
-
 }

@@ -47,7 +47,6 @@ class AirStrikeEffect {
 
 AirStrikeEffect --|> Effect
 
-
 class BonusShop {
     + int surplusCost = 50
     + int richZombieCost = 75
@@ -58,7 +57,6 @@ class BonusShop {
     + void BuyRichZombie()
     - IEnumerator ActivateRichZombie()
 }
-
 
 class BuildManager {
     - static BuildManager instance
@@ -76,7 +74,6 @@ class BuildManager {
     + void SelectDefenseToBuild(Defense _defense)
     + void BuildDefenseOn(Node node, bool activate, bool isUpgrade)
 }
-
 
 class CameraController {
     + float panSpeed = 30f
@@ -96,7 +93,6 @@ class CameraController {
     - float CalculateXMax(float cameraY)
 }
 
-
 class Defense {
     + string name
     + int upgradeLevel
@@ -112,7 +108,6 @@ class Defense {
     + Transform findTarget()
     + int GetSellAmount()
 }
-
 
 class Defense {
     - float currentHealth
@@ -131,7 +126,6 @@ class Defense {
     - IEnumerator FadeOutHealthBar()
 }
 
-
 class DefenseUpgradeState {
     + GameObject prefab
     + float maximumRange
@@ -144,7 +138,6 @@ class DefenseUpgradeState {
 
     + DefenseUpgradeState()
 }
-
 
 class Node {
     - Renderer rend
@@ -248,27 +241,42 @@ class MoneyUI {
     + Update() : void
 }
 
-class Obus {
-    - target : Transform
-    - speed : float
-    - bulletImpact : GameObject
-    - damagesRadius : float
-    - damages : float
-    - destination : Vector3
-    - startPosition : Vector3
-    - flightTime : float
-    - elapsedTime : float
-    - arcHeight : float
-    - previousPosition : Vector3
-    - aerialLaunch : bool
-    + Find(target : Transform) : void
-    + SetDamage(damages : float) : void
-    + Update() : void
-    - Explode() : void
-    - CalculateDamageMultiplier(distance : float) : float
-    - Damage(colliderTransform : Transform, damagesTaken : float) : void
-    + SetAerialLaunch(aerialLaunch : bool) : void
-    + SetSpeed(newSpeed : float) : void
+abstract class Projectile {
+    - Transform target
+    + float speed = 70f
+    + GameObject bulletImpact
+    - float damages
+
+    + void Find(Transform _target)
+    + void SetDamage(float _damages)
+    + void Damage(Transform colliderTransform, float damagesTaken)
+}
+
+class ObusScript {
+    + float damagesRadius
+    - Vector3 destination
+    - Vector3 startPosition
+    - float flightTime
+    - float elapsedTime
+    + float arcHeight
+    - Vector3 previousPosition
+    - bool aerialLaunch = false
+
+    + void Find(Transform _target)
+    + void SetDamage(float _damages)
+    + void Update()
+    - void Explode()
+    - float CalculateDamageMultiplier(distance : float)
+    - void Damage(Transform colliderTransform, float damagesTaken)
+    + void SetAerialLaunch(bool _aerialLaunch)
+    + void SetSpeed(float _newSpeed)
+}
+
+class BulletScript {
+    + void Find(Transform _target)
+    + void SetDamage(float _damages)
+    + void Update()
+    - void HitTarget()
 }
 
 class PauseMenu {
@@ -449,7 +457,8 @@ GameOverPanel --> PlayerStats
 MainMenu --> GameManager
 MoneyUI --> PlayerStats
 LivesUI --> PlayerStats
-Obus --> PlayerStats
+Projectile <|-- ObusScript
+Projectile <|-- BulletScript
 PauseMenu --> GameManager
 RankingSystem --> MainMenu
 SelectUI --> Node
@@ -462,8 +471,8 @@ SpecialWaveFactory --> WaveBuilder
 StandardWaveFactory --> WaveBuilder
 StatsUI --> PlayerStats
 Turret --> PlayerStats
-Turret --> Bullet
-Turret --> Obus
+Turret --> BulletScript
+Turret --> ObusScript
 WaveBuilder --> Wave
 WaveBuilder --> WaveFactory
 WaveFactory <|-- SpecialWaveFactory

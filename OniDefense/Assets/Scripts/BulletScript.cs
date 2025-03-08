@@ -4,34 +4,15 @@ using UnityEngine;
 
 namespace Game
 {
-
-    public class BulletScript : MonoBehaviour
+    public class BulletScript : Projectile
     {
-
-        private Transform target;
-        public float speed = 70f;
-        public GameObject bulletImpact;
-        private float damages;
-        // Start is called before the first frame update
-        public void Find(Transform _target)
-        {
-            target = _target;
-        }
-
-        public void SetDamage(float _damages)
-        {
-            damages = _damages;
-        }
-
-        // Update is called once per frame
-        void Update()
+        protected override void Update()
         {
             if (target == null)
             {
                 Destroy(gameObject);
                 return;
             }
-
 
             Vector3 direction = new Vector3(target.position.x, target.position.y + 2.5f, target.position.z) - transform.position;
             float distanceTravelledThisFrame = speed * Time.deltaTime;
@@ -58,5 +39,4 @@ namespace Game
             Destroy(gameObject);
         }
     }
-
 }
