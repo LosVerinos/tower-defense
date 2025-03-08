@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,19 +15,9 @@ public class SelectUIScript : MonoBehaviour
         transform.position = target.transform.position;
 
         ui.SetActive(true);
-        RawImage targetRawImage = target.GetComponentInChildren<RawImage>();
-        string current_name = targetRawImage.name;
         var next = Instantiate(target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].prefab);
-        string next_name = next.GetComponentInChildren<RawImage>().name;
-
-        if (current_name == next_name)
-        {
-            targetRawImage.GetComponent<RawImage>().texture = targetRawImage.texture;
-        }
-        else
-        {
-            targetRawImage.GetComponent<RawImage>().texture = next.GetComponentInChildren<RawImage>().texture;
-        }
+        // wait to get the AssetPreview of the next defense and set it to the RawImage
+        GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(next) as Texture;
         Destroy(next);
     }
 
