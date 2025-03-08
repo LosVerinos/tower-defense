@@ -1,112 +1,171 @@
 ﻿@startuml
 
 class PlayerStats {
-    - Money : int
-    - fireRateMultiplier : float
-    - moneyMultiplier : int
-    + DecreaseMoney(amount : int) : void
-    + DefenseBuilt() : void
+    + static int Money
+    + int startMoney = 400
+    + int startLives = 1
+    + static int moneyMultiplier = 1
+    + static float fireRateMultiplier = 1
+    + static int Lives
+    + static int PassedWaves = 0
+    + static int NbKilledEnemies = 0
+    + static int BuiltDefenses = 0
+    + static float DamagesGiven = 0f
+    + static int MoneySpent = 0
+
+    + void Start()
+    + static void ResetStats()
+    + static void DecreaseLives(int _lives)
+    + static void IncreaseLives(int _lives)
+    + static void DecreaseMoney(int _money)
+    + static void IncreaseMoney(int _money)
+    + static void EnemyKilled()
+    + static void WaveCompleted()
+    + static void DefenseBuilt()
+    + static void AddDamage(float damage)
 }
 
-class Effect {
-    - isActive : bool
-    - node : Node
-    + ApplyEffect(_node : Node) : void
-    + RemoveEffect() : void
+abstract class Effect {
+    - bool isActive = false
+    - Node node
+
+    + void ApplyEffect(Node _node)
+    + void RemoveEffect()
 }
 
 class AirStrikeEffect {
-    - obusPrefab : GameObject
-    - spawnHeight : float
-    - delayBeforeDrop : float
-    - targetObject : GameObject
-    - spawnRadius : float
-    + ApplyEffect(_node : Node) : void
-    - DropObus() : void
-    - ReleaseNode() : IEnumerator
+    + GameObject obusPrefab
+    + float spawnHeight = 20f
+    - float delayBeforeDrop = 5f
+    + GameObject targetObject
+    + float spawnRadius = 15f
+
+    + void ApplyEffect(Node _node)
+    - void DropObus()
+    - IEnumerator ReleaseNode()
 }
+
+AirStrikeEffect --|> Effect
+
 
 class BonusShopScript {
-    - surplusCost : int
-    - richZombieCost : int
-    - bonusDuration : float
-    + BuySurplusAmmo() : void
-    - ActivateSurplusAmmo() : IEnumerator
-    + BuyRichZombie() : void
-    - ActivateRichZombie() : IEnumerator
+    + int surplusCost = 50
+    + int richZombieCost = 75
+    + float bonusDuration = 10f
+
+    + void BuySurplusAmmo()
+    - IEnumerator ActivateSurplusAmmo()
+    + void BuyRichZombie()
+    - IEnumerator ActivateRichZombie()
 }
+
 
 class BuildManager {
-    - defenseToBuild : Defense
-    - selectedNode : Node
-    - selectUI : SelectUIScript
-    + GetInstance() : BuildManager
-    + GetDefenseToBuild() : Defense
-    + CanBuild() : bool
-    + SelectNode(node : Node) : void
-    + DeselectNode() : void
-    + SelectDefenseToBuild(_defense : Defense) : void
-    + BuildDefenseOn(node : Node, activate : bool, isUpgrade : bool) : void
+    - static BuildManager instance
+    - Defense defenseToBuild
+    - Node selectedNode
+    + SelectUIScript selectUI
+
+    + void Awake()
+    + void Start()
+    + BuildManager GetInstance()
+    + Defense GetDefenseToBuild()
+    + bool CanBuild
+    + void SelectNode(Node node)
+    + void DeselectNode()
+    + void SelectDefenseToBuild(Defense _defense)
+    + void BuildDefenseOn(Node node, bool activate, bool isUpgrade)
 }
+
 
 class CameraControllerScript {
-    - panSpeed : float
-    - panBorderThickness : float
-    - scrollSpeed : float
-    - yMin : float
-    - yMax : float
-    - zMin : float
-    - zMax : float
-    - xMin : float
-    - xMax : float
-    + Update() : void
-    - CalculateZMax(cameraY : float) : float
-    - CalculateXMin(cameraY : float) : float
-    - CalculateXMax(cameraY : float) : float
+    + float panSpeed = 30f
+    + float panBorderThickness = 10f
+    + float scrollSpeed = 5000f
+    - float yMin = 20f
+    - float yMax = 95f
+    - float zMin
+    - float zMax
+    - float xMin
+    - float xMax
+
+    + void Start()
+    + void Update()
+    - float CalculateZMax(float cameraY)
+    - float CalculateXMin(float cameraY)
+    - float CalculateXMax(float cameraY)
 }
+
 
 class Defense {
-    - upgradeStates : List<DefenseUpgradeState>
-    - upgradeLevel : int
+    + string name
+    + int upgradeLevel
+    + List<DefenseUpgradeState> upgradeStates
+    + Transform target
+    + LayerMask ennemyLayer
+    + Transform movingPartx
+    + Transform movingParty
+    + bool active
+
+    + Defense()
+    + void Shoot(Ennemy Target)
+    + Transform findTarget()
+    + int GetSellAmount()
 }
+
 
 class DefenseScript {
-    - currentHealth : float
-    - defenseData : Defense
-    - baseHealth : float
-    - healthBar : Image
-    - canvas : Canvas
-    - canvasGroup : CanvasGroup
-    - fadeCoroutine : Coroutine
-    - lastDamageTime : float
-    + Initialize(data : Defense) : void
-    + TakeDamage(amount : float) : void
-    - DestroyDefense() : void
-    - StartFadeDelay() : IEnumerator
-    - FadeOutHealthBar() : IEnumerator
+    - float currentHealth
+    - Defense defenseData
+    - float baseHealth
+    + Image healthBar
+    - Canvas canvas
+    - CanvasGroup canvasGroup
+    - Coroutine fadeCoroutine
+    - float lastDamageTime
+
+    + void Initialize(Defense data)
+    + void TakeDamage(float amount)
+    - void DestroyDefense()
+    - IEnumerator StartFadeDelay()
+    - IEnumerator FadeOutHealthBar()
 }
+
 
 class DefenseUpgradeState {
-    - prefab : GameObject
-    - maximumRange : float
-    - damages : float
-    - fireRate : float
-    - cost : int
-    - health : float
+    + GameObject prefab
+    + float maximumRange
+    + float minimumRange
+    + float damages
+    + float fireRate
+    + int cost
+    + float health
+    + float turningSpeed
+
+    + DefenseUpgradeState()
 }
+
 
 class Node {
-    - defense : GameObject
-    - defenseClass : Defense
-    - positionOffset : Vector3
-    - tempDefense : GameObject
-    + UpgradeDefense() : void
-    + SellDefense() : void
-}
+    - Renderer rend
+    + Material hoverMaterial
+    - Material defaultMaterial
+    + GameObject defense
+    + GameObject tempDefense
+    + Defense defenseClass
+    + Vector3 positionOffset
+    - BuildManager buildManager
+    + int currentUpgradeState = 0
+    + bool isUpgraded = false
 
-class NodeScript {
-    + SetHover(hover : bool) : void
-    + OnMouseDown() : void
+    + void Start()
+    + void OnMouseEnter()
+    + void OnMouseExit()
+    + void SetHover(bool state)
+    + void OnMouseDown()
+    - bool IsPointerOverUIElement()
+    + void UpgradeDefense()
+    + void SellDefense()
 }
 
 class EnemyBase {
