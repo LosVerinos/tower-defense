@@ -26,6 +26,7 @@ namespace Game
 
         public void Hide()
         {
+            Debug.Log("Deselect node");
             ui.SetActive(false);
         }
 
@@ -64,13 +65,27 @@ namespace Game
             {
                 int nextUpgradeCost = target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].cost;
                 upgradeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Améliorer (" + nextUpgradeCost + " $)";
-                upgradeButton.interactable = (PlayerStats.Money >= nextUpgradeCost);
+                upgradeButton.interactable = PlayerStats.Money >= nextUpgradeCost;
             }
             else
             {
                 upgradeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Niveau maximum";
                 upgradeButton.interactable = false;
             }
+
+            CheckButtonActivation();
+        }
+
+
+        private void CheckButtonActivation(){
+            Debug.Log("Level : " + target.defenseClass.upgradeLevel+1 + ", count : " + target.defenseClass.upgradeStates.Count);
+            if (
+                //PlayerStats.Money < target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].cost || 
+                target.defenseClass.upgradeLevel+1 == target.defenseClass.upgradeStates.Count)
+
+                upgradeButton.interactable = false;
+            else
+                upgradeButton.interactable = true;
         }
     }
 }

@@ -140,7 +140,7 @@ namespace Game
                 node.defenseClass = new Defense();
                 node.defenseClass.upgradeStates = defenseToBuild.upgradeStates;
                 node.defenseClass.upgradeLevel = 0;
-
+                node.defenseClass.name = defenseToBuild.name; //j'avais oublié ca, le nom était pas transféré
                 PlayerStats.DefenseBuilt();
             }
             

@@ -108,7 +108,8 @@ namespace Game
 
         public void UpgradeDefense()
         {
-            if (defenseClass.upgradeLevel + 1 >= defenseClass.upgradeStates.Count - 1)
+            if (defenseClass.upgradeLevel + 1 >= defenseClass.upgradeStates.Count)
+            // - 1 supprimé car ne pouvait pas passer au dernier niveau)
             {
                 Debug.Log("La défense est au niveau max");
                 return;
