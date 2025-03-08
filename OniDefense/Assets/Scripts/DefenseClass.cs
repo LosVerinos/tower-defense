@@ -14,7 +14,6 @@ public class DefenseUpgradeState
     public float fireRate;
     public int cost;
     public float health;
-    [SerializeField] public RawImage image;
 }
 
 [System.Serializable]

@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,7 @@ public class ShopScript : MonoBehaviour
     public Button shopButtonObject2;
     public Button shopButtonObject3;
     public Button shopButtonObject4;
+
 
     public void SelectObject1()
     {
@@ -82,9 +85,13 @@ public class ShopScript : MonoBehaviour
     void Start()
     {
         buildManager = BuildManager.instance;
+        shopButtonObject1.GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(object1.upgradeStates[0].prefab) as Texture;
+        shopButtonObject2.GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(object2.upgradeStates[0].prefab) as Texture;
+        shopButtonObject3.GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(object3.upgradeStates[0].prefab) as Texture;
     }
 
-    void Update(){
+    void Update()
+    {
         if (object1.upgradeStates != null && object1.upgradeStates.Count > 0 && PlayerStats.Money < object1.upgradeStates[0].cost)
         {
             DisableButton(shopButtonObject1);
@@ -106,12 +113,12 @@ public class ShopScript : MonoBehaviour
         }
         else
             EnableButton(shopButtonObject3);
-        
+
         if (object4.upgradeStates != null && object4.upgradeStates.Count > 0 && PlayerStats.Money < object4.upgradeStates[0].cost)
         {
             DisableButton(shopButtonObject4);
         }
         else
-            EnableButton(shopButtonObject4);   
+            EnableButton(shopButtonObject4);
     }
 }

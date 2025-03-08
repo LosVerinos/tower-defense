@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class ShopUIScript : MonoBehaviour
@@ -10,11 +12,12 @@ public class ShopUIScript : MonoBehaviour
     [SerializeField] private GameObject supportButton;
     [SerializeField] private GameObject bonusButton;
     [SerializeField] private GameObject closeButton;
-    
-    void Start(){
+
+    void Start()
+    {
         closeButton.SetActive(false);
     }
-    
+
 
     private GameObject currentPanel;
     private bool isPanelDeployed = false;

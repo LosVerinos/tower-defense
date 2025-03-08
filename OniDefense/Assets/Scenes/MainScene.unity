@@ -1077,56 +1077,48 @@ MonoBehaviour:
       fireRate: 2
       cost: 50
       health: 1000
-      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: dfed8afe0ff184c4bbc91fc7839e9009, type: 3}
       maximumRange: 18.8
       damages: 20
       fireRate: 2
       cost: 150
       health: 1200
-      image: {fileID: 0}
     - prefab: {fileID: 6077712319001752596, guid: a15f2744586e84415ac42808438f4c0b, type: 3}
       maximumRange: 23.4
       damages: 20
       fireRate: 5
       cost: 500
       health: 1400
-      image: {fileID: 0}
     - prefab: {fileID: 6077712319001752596, guid: a15f2744586e84415ac42808438f4c0b, type: 3}
       maximumRange: 23.4
       damages: 40
       fireRate: 5
       cost: 1000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 6077712319001752596, guid: a15f2744586e84415ac42808438f4c0b, type: 3}
       maximumRange: 29.3
       damages: 40
       fireRate: 5
       cost: 2000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
       maximumRange: 36.6
       damages: 40
       fireRate: 12.5
       cost: 5000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
       maximumRange: 36.6
       damages: 80
       fireRate: 12.5
       cost: 10000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
       maximumRange: 50
       damages: 150
       fireRate: 12.5
       cost: 15000
       health: 1500
-      image: {fileID: 0}
     upgradeLevel: 0
   object2:
     upgradeStates:
@@ -1136,56 +1128,48 @@ MonoBehaviour:
       fireRate: 0.2
       cost: 100
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
       maximumRange: 31.3
       damages: 60
       fireRate: 0.2
       cost: 300
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 39.1
       damages: 60
       fireRate: 0.5
       cost: 600
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 39.1
       damages: 120
       fireRate: 0.5
       cost: 1000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 48.8
       damages: 120
       fireRate: 0.5
       cost: 2000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 61
       damages: 120
       fireRate: 1.25
       cost: 5000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 61
       damages: 240
       fireRate: 1.25
       cost: 7000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 76.3
       damages: 240
       fireRate: 1.25
       cost: 10000
       health: 1500
-      image: {fileID: 0}
     upgradeLevel: 0
   object3:
     upgradeStates:
@@ -1195,35 +1179,30 @@ MonoBehaviour:
       fireRate: 0.1
       cost: 500
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: acecad27189e44f8885d86ca89a96bea, type: 3}
       maximumRange: 37.5
       damages: 100
       fireRate: 0.1
       cost: 1000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 46.9
       damages: 100
       fireRate: 0.25
       cost: 2000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 46.9
       damages: 200
       fireRate: 0.25
       cost: 5000
       health: 1500
-      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 58.6
       damages: 200
       fireRate: 0.25
       cost: 10000
       health: 1500
-      image: {fileID: 0}
     upgradeLevel: 0
   object4:
     upgradeStates: []
@@ -1520,6 +1499,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 139026470}
     m_Modifications:
+    - target: {fileID: 245705065496258240, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Color.g
+      value: 0.47058827
+      objectReference: {fileID: 0}
+    - target: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Color.r
+      value: 0.40000004
+      objectReference: {fileID: 0}
     - target: {fileID: 1206802969450421647, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
       value: Sniper
@@ -1603,6 +1602,10 @@ PrefabInstance:
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747645659391475704, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Name
+      value: Raw Image
       objectReference: {fileID: 0}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
@@ -1872,6 +1875,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2748004830529807357, guid: f5f303e80809346a5ba96cc47055b94e, type: 3}
   m_PrefabInstance: {fileID: 250289708}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &264383550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 264383551}
+  - component: {fileID: 264383553}
+  - component: {fileID: 264383552}
+  m_Layer: 5
+  m_Name: Raw Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &264383551
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264383550}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1083815827}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &264383552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264383550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &264383553
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264383550}
+  m_CullTransparentMesh: 1
 --- !u!1001 &271658800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4775,6 +4850,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 139026470}
     m_Modifications:
+    - target: {fileID: 168712148808001149, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 245705065496258240, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4854,6 +4937,10 @@ PrefabInstance:
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747645659391475704, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Name
+      value: Raw Image
       objectReference: {fileID: 0}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
@@ -7741,6 +7828,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 139026470}
     m_Modifications:
+    - target: {fileID: 168712148808001149, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 245705065496258240, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Color.b
+      value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Color.g
+      value: 0.47058827
+      objectReference: {fileID: 0}
+    - target: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Color.r
+      value: 0.40000004
+      objectReference: {fileID: 0}
     - target: {fileID: 1206802969450421647, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
       value: Mitrailleuse
@@ -7825,9 +7936,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2747645659391475704, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Name
+      value: RawImage
+      objectReference: {fileID: 0}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_mitrailleuse
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1203872188}
+    - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3581136228620980388, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -7849,9 +7980,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "Tirs / s : 2\nD\xE9gats : 10\nRange : 2.5 -15"
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 2747645659391475704, guid: afb974d35753a4518807119437470b36, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 264383551}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afb974d35753a4518807119437470b36, type: 3}
 --- !u!224 &1083815827 stripped
@@ -8207,6 +8343,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1500932422}
     m_Modifications:
+    - target: {fileID: 168712148808001149, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1206802969450421647, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
       value: "Barbel\xE9s"
@@ -8551,6 +8691,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2682e3ddbb1fb45caa9719e34e5a8062, type: 3}
+--- !u!114 &1203872188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 862728687316927044, guid: afb974d35753a4518807119437470b36, type: 3}
+  m_PrefabInstance: {fileID: 1083815826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1211971829
 GameObject:
   m_ObjectHideFlags: 0
@@ -10954,7 +11105,6 @@ MonoBehaviour:
       fireRate: 0
       cost: 200
       health: 1000
-      image: {fileID: 0}
     upgradeLevel: 0
   object2:
     upgradeStates:
@@ -10964,7 +11114,6 @@ MonoBehaviour:
       fireRate: 0
       cost: 100
       health: 500
-      image: {fileID: 0}
     upgradeLevel: 0
   object3:
     upgradeStates:
@@ -10974,7 +11123,6 @@ MonoBehaviour:
       fireRate: 0
       cost: 500
       health: 0
-      image: {fileID: 0}
     upgradeLevel: 0
   object4:
     upgradeStates: []
