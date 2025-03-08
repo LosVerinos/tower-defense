@@ -20,11 +20,8 @@ namespace Game
         public void SetTarget(Node _target)
         {
             target = _target;
-
-            transform.position = target.transform.position;
-            UpdateUI();
             Display();
-
+            UpdateUI();
         }
 
         public void Hide()
@@ -35,7 +32,6 @@ namespace Game
         public void Upgrade()
         {
             target.UpgradeDefense();
-            BuildManager.instance.DeselectNode();
             UpdateUI();
         }
 
