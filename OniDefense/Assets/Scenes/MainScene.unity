@@ -1077,48 +1077,56 @@ MonoBehaviour:
       fireRate: 2
       cost: 50
       health: 1000
+      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: dfed8afe0ff184c4bbc91fc7839e9009, type: 3}
       maximumRange: 18.8
       damages: 20
       fireRate: 2
       cost: 150
       health: 1200
+      image: {fileID: 0}
     - prefab: {fileID: 6077712319001752596, guid: a15f2744586e84415ac42808438f4c0b, type: 3}
       maximumRange: 23.4
       damages: 20
       fireRate: 5
-      cost: 200
+      cost: 500
       health: 1400
+      image: {fileID: 0}
     - prefab: {fileID: 6077712319001752596, guid: a15f2744586e84415ac42808438f4c0b, type: 3}
       maximumRange: 23.4
       damages: 40
       fireRate: 5
       cost: 1000
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 6077712319001752596, guid: a15f2744586e84415ac42808438f4c0b, type: 3}
       maximumRange: 29.3
       damages: 40
       fireRate: 5
-      cost: 200
+      cost: 2000
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
       maximumRange: 36.6
       damages: 40
       fireRate: 12.5
-      cost: 0
+      cost: 5000
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
       maximumRange: 36.6
       damages: 80
       fireRate: 12.5
-      cost: 0
+      cost: 10000
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
-      maximumRange: 45.8
-      damages: 80
+      maximumRange: 50
+      damages: 150
       fireRate: 12.5
-      cost: 0
+      cost: 15000
       health: 1500
+      image: {fileID: 0}
     upgradeLevel: 0
   object2:
     upgradeStates:
@@ -1126,50 +1134,58 @@ MonoBehaviour:
       maximumRange: 25
       damages: 60
       fireRate: 0.2
-      cost: 0
+      cost: 100
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
       maximumRange: 31.3
       damages: 60
       fireRate: 0.2
-      cost: 0
+      cost: 300
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 39.1
       damages: 60
       fireRate: 0.5
-      cost: 0
+      cost: 600
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 39.1
       damages: 120
       fireRate: 0.5
-      cost: 0
+      cost: 1000
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 48.8
       damages: 120
       fireRate: 0.5
-      cost: 0
+      cost: 2000
       health: 1500
-    - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
+      image: {fileID: 0}
+    - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 61
       damages: 120
       fireRate: 1.25
-      cost: 0
+      cost: 5000
       health: 1500
-    - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
+      image: {fileID: 0}
+    - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 61
       damages: 240
       fireRate: 1.25
-      cost: 0
+      cost: 7000
       health: 1500
-    - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
+      image: {fileID: 0}
+    - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 76.3
       damages: 240
       fireRate: 1.25
-      cost: 0
+      cost: 10000
       health: 1500
+      image: {fileID: 0}
     upgradeLevel: 0
   object3:
     upgradeStates:
@@ -1177,32 +1193,37 @@ MonoBehaviour:
       maximumRange: 30
       damages: 100
       fireRate: 0.1
-      cost: 0
+      cost: 500
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: acecad27189e44f8885d86ca89a96bea, type: 3}
       maximumRange: 37.5
       damages: 100
       fireRate: 0.1
-      cost: 0
+      cost: 1000
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 46.9
       damages: 100
       fireRate: 0.25
-      cost: 0
+      cost: 2000
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 46.9
       damages: 200
       fireRate: 0.25
-      cost: 0
+      cost: 5000
       health: 1500
+      image: {fileID: 0}
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 58.6
       damages: 200
       fireRate: 0.25
-      cost: 0
+      cost: 10000
       health: 1500
+      image: {fileID: 0}
     upgradeLevel: 0
   object4:
     upgradeStates: []
@@ -10933,6 +10954,7 @@ MonoBehaviour:
       fireRate: 0
       cost: 200
       health: 1000
+      image: {fileID: 0}
     upgradeLevel: 0
   object2:
     upgradeStates:
@@ -10942,6 +10964,7 @@ MonoBehaviour:
       fireRate: 0
       cost: 100
       health: 500
+      image: {fileID: 0}
     upgradeLevel: 0
   object3:
     upgradeStates:
@@ -10951,6 +10974,7 @@ MonoBehaviour:
       fireRate: 0
       cost: 500
       health: 0
+      image: {fileID: 0}
     upgradeLevel: 0
   object4:
     upgradeStates: []

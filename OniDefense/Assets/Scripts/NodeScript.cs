@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class NodeScript : MonoBehaviour
 {
@@ -13,10 +14,11 @@ public class NodeScript : MonoBehaviour
     [DoNotSerialize] public GameObject defense;
     [DoNotSerialize] public GameObject tempDefense;
     [DoNotSerialize] public DefenseClass defenseClass;
+
     public Vector3 positionOffset;
     BuildManager buildManager;
 
-    public int currentUpgradeState = 0; 
+    public int currentUpgradeState = 0;
     public bool isUpgraded = false;
 
     void Start()
@@ -27,11 +29,13 @@ public class NodeScript : MonoBehaviour
         buildManager = BuildManager.instance;
     }
 
-    void OnMouseEnter(){
+    void OnMouseEnter()
+    {
         SetHover(true);
     }
 
-    void OnMouseExit(){
+    void OnMouseExit()
+    {
         SetHover(false);
     }
 
@@ -54,7 +58,8 @@ public class NodeScript : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (IsPointerOverUIElement()){
+        if (IsPointerOverUIElement())
+        {
             return;
         }
 
@@ -71,9 +76,9 @@ public class NodeScript : MonoBehaviour
         buildManager.BuildDefenseOn(this, true, false);
         PlayerStats.BuiltDefenses++;
         DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
-        if(defenseScript != null)
+        if (defenseScript != null)
             defenseScript.Initialize(buildManager.GetDefenseToBuild());
-                
+
         buildManager.SelectDefenseToBuild(null);
         tempDefense = null;
     }
@@ -91,16 +96,16 @@ public class NodeScript : MonoBehaviour
             if (result.gameObject.layer == LayerMask.NameToLayer("UI"))
             {
                 //Debug.Log("Est pas sur de l'ui, TRUE");
-                return true; 
+                return true;
             }
         }
-        
+
         return false;
     }
 
     public void UpgradeDefense()
     {
-        if (defenseClass.upgradeLevel+1 >= defenseClass.upgradeStates.Count - 1)
+        if (defenseClass.upgradeLevel + 1 >= defenseClass.upgradeStates.Count - 1)
         {
             Debug.Log("La défense est au niveau max");
             return;
@@ -123,11 +128,11 @@ public class NodeScript : MonoBehaviour
 
         buildManager.SelectDefenseToBuild(defenseClass);
         buildManager.BuildDefenseOn(this, true, true);
-        
+
         //defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
         //defense.transform.parent = transform;
         DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
-        if(defenseScript != null)
+        if (defenseScript != null)
             defenseScript.Initialize(defenseClass);
 
         TurretScript turretScript = defense.GetComponent<TurretScript>();
