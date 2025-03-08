@@ -88,6 +88,7 @@ public class ShopScript : MonoBehaviour
         shopButtonObject1.GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(object1.upgradeStates[0].prefab) as Texture;
         shopButtonObject2.GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(object2.upgradeStates[0].prefab) as Texture;
         shopButtonObject3.GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(object3.upgradeStates[0].prefab) as Texture;
+        shopButtonObject4.GetComponentInChildren<RawImage>().texture = AssetPreview.GetAssetPreview(object4.upgradeStates[0].prefab) as Texture;
     }
 
     void Update()
