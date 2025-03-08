@@ -1,426 +1,442 @@
-﻿@startuml "TurretDefense"
+﻿@startuml
 
-package "System" {
-    class GameManager {
-        + waveNumber : int
-        + lives : int
-        + gold : int
-        + leaderboard : Leaderboard
-        + StartGame()
-        + EndGame()
-        + UpdateWave()
-        + AddGold(amount : int)
-        + LoseLife()
-    }
-
-    class Leaderboard {
-        + scores : List<Score>
-        + AddScore(playerName : string, waveNumber : int)
-        + GetTopScores() : List<Score>
-    }
-
-    class Score {
-        + playerName : string
-        + wave : int
-        + AddScore():void
-    }
-
-    GameManager --> Leaderboard
+class PlayerStats {
+    - Money : int
+    - fireRateMultiplier : float
+    - moneyMultiplier : int
+    + DecreaseMoney(amount : int) : void
+    + DefenseBuilt() : void
 }
 
-package "Current Code" {
-    class buildManager {
-        - defenseToBuild : DefenseClass
-        - selectedNode : NodeScript
-        + selectUI : SelectUIScript
-
-        + start(): void
-        + GetDefenseToBuild(): DefenseClass
-        + CanBuild(): bool
-        + SelectNode(NodeScript node): void
-        + DeselectNode() : void
-        + SelectDefenseToBuild(DefenseClass _defense) : void
-        + BuildDefenseOn(NodeScript node, bool activate, bool isUpgrade) : void 
-    }
-
-    class Bullet {
-        - target: Transform 
-        + speed : float 
-        + bulletImpact : GameObject 
-        - damages : float 
-
-        + Find(Transform _target) : void 
-        + SetDamage(float _damages) : void 
-        + Update() : void
-        + HitTarget() : void
-    }
-
-    class CameraController {
-        + panSpeed : float
-        + panBorderThickness : float
-        + scrollSpeed : float
-        + minY : float
-        + maxY : float
-        + minX : float
-        + maxX : float
-        + minZ : float
-        + maxZ : float
-
-        + Start() : void
-        + Update() : void
-        + CalculateZMax(float cameraY) : float 
-        + CalculateXMin(float cameraY) : float
-        + CalculateXMax(float cameraY) : float
-    }
-
-    class Defense {
-        + upgradeStates : List<DefenseUpgradeState>
-        + GetSellAmount() : int
-        - currentHealth : float 
-        - baseHealth : float 
-        + healthBar : Image
-        - canvas : Canvas 
-        - canvasGroup : CanvasGroup 
-        - fadeCoroutine : Coroutine 
-        - lastDamageTime : float
-
-        + TakeDamage(float amount) : void 
-        + DestroyDefense() : void 
-        + StartFadeDelay() : IEnumerator 
-        + FadeOutHealthBar() : IEnumerator 
-    }
-
-    class DefenseScript {
-        - defenseData : DefenseClass 
-        + Initialize(DefenseClass data) : void 
-    }
-
-    abstract class Effect {
-        # isActive : bool 
-        # node : NodeScript 
-
-        + {abstract} ApplyEffect(NodeScript _node) : void
-        + {abstract} RemoveEffect() : void
-    }
-
-    class EnemyBase {
-        - {static} PlayerStats : PlayerStats
-        # baseHealth : float
-        # reward : int
-        # health : float
-        + healthBar : UnityEngine.UI.Image
-        - canvas : Canvas
-        # agent : NavMeshAgent
-
-        # {abstract} Start() : void
-        + {abstract} TakeDamages(damages : float) : void
-        # {abstract} Die() : void
-    }
-
-    class ExplosiveZombie {
-        + explosionRadius : float = 10f
-        + explosionDamage : float = 2000f
-        + explosionEffect : GameObject
-
-        # Die() : void
-        - Explode() : void
-        - CalculateDamageMultiplier(distance : float) : float
-    }
-
-    class FlyingEnemyNavigationScript {
-        + target : Transform
-        + speed : float = 5f
-        - flightHeight : float = 10.5f
-        - smoothRotationSpeed : float = 5f
-        - velocity : Vector3 = Vector3.zero
-
-        - Start() : void
-        - Update() : void
-        - MoveTowardsTarget() : void
-    }
-
-    class MoneyUIScript {
-        + moneyText : TextMeshProUGUI
-
-        - Start() : void
-        - Update() : void
-    }
-    class NodeScript {
-        - rend : Renderer
-        + hoverMaterial : Material
-        - defaultMaterial : Material
-        + defense : GameObject
-        + tempDefense : GameObject
-        + defenseClass : DefenseClass
-        + positionOffset : Vector3
-        - buildManager : BuildManager
-        + currentUpgradeState : int = 0
-        + isUpgraded : bool = false
-
-        - Start() : void
-        - OnMouseEnter() : void
-        - OnMouseExit() : void
-        + SetHover(state : bool) : void
-        + OnMouseDown() : void
-        - IsPointerOverUIElement() : bool
-        + UpgradeDefense() : void
-        + SellDefense() : void
-    }
-
-    class ObusScript {
-        - target : Transform
-        + speed : float = 70f
-        + bulletImpact : GameObject
-        + damagesRadius : float
-        - damages : float
-        - destination : Vector3
-        - startPosition : Vector3
-        - flightTime : float
-        - elapsedTime : float
-        + arcHeight : float
-        - previousPosition : Vector3
-        - aerialLaunch : bool = false
-
-        + Find(_target : Transform) : void
-        + SetDamage(_damages : float) : void
-        - Update() : void
-        - Explode() : void
-        - CalculateDamageMultiplier(distance : float) : float
-        - Damage(colliderTransform : Transform, damagesTaken : float) : void
-        + SetAerialLaunch(_aerialLaunch : bool) : void
-        + SetSpeed(_newSpeed : float) : void
-    }
-
-    class PlayerStats {
-        + Money : int
-        + startMoney : int = 400
-        + moneyMultiplier : int = 1
-        + fireRateMultiplier : float = 1
-
-        - Start() : void
-        - Update() : void
-    }
-
-    class ShopScript {
-        +DefenseClass object1
-        +DefenseClass object2
-        +DefenseClass object3
-        +DefenseClass object4
-        -BuildManager buildManager
-        +Button shopButtonObject1
-        +Button shopButtonObject2
-        +Button shopButtonObject3
-        +Button shopButtonObject4
-
-        +void SelectObject1()
-        +void SelectObject2()
-        +void SelectObject3()
-        +void SelectObject4()
-        -void DisableButton(Button button)
-        -void EnableButton(Button button)
-        +void Start()
-        +void Update()
-    }
-
-    class SelectUIScript {
-        - target : NodeScript
-        + ui : GameObject
-
-        + SetTarget(_target : NodeScript) : void
-        + Hide() : void
-        + Upgrade() : void
-        + Sell() : void
-    }
-
-    class ShopUIScript {
-        -GameObject defensesButton
-        -GameObject supportButton
-        -GameObject bonusButton
-        -GameObject closeButton
-        -GameObject currentPanel
-        -bool isPanelDeployed
-        +void Start()
-        +void DeployPanel(GameObject panel)
-        -void ShrinkOtherPanels()
-        +void ShrinkAll()
-        -void MovePanels(GameObject[] panels, Vector3 movement)
-    }
-
-    class SlowEffect {
-        +void ApplyEffect(NodeScript _node)
-        -void OnTriggerEnter(Collider otherCollider)
-        -void OnTriggerExit(Collider otherCollider)
-        -void ApplyEffectSpeed(Transform collider, float speedMultiplier)
-    }
-
-    class TurretScript {
-        -Transform target
-        +float maximumRange
-        +float minimumRange
-        +float turningSpeed
-        +float damages
-        +float fireRate
-        -float fireCountdown
-        +LayerMask enemyLayer
-        +Transform movingPartY
-        +Transform movingPartX
-        +GameObject bulletPrefab
-        +Transform firePoint
-        +GameObject muzzleFlash
-        -Quaternion defaultRotationX
-        -Quaternion defaultRotationY
-        -bool active
-        +void Start()
-        +void Initialize()
-        -bool UpdateTarget()
-        +void Update()
-        -void Shoot()
-        +void SetActive(bool _active)
-    }
-
-    class WaveManagerScript {
-        +Transform spawnPoint
-        +Transform objectivePoint
-        +float timeBetweenWaves
-        -float countdown
-        -int waveIndex
-        -int nbEnemies
-        +GameObject[] zombiesList
-        +void Start()
-        +void Update()
-        -IEnumerator SpawnWave(int waveNumber)
-        -void SpawnEnemy()
-    }
+class Effect {
+    - isActive : bool
+    - node : Node
+    + ApplyEffect(_node : Node) : void
+    + RemoveEffect() : void
 }
 
-package "Building" {
-    package "AttackStrategies" {
-        interface IAttackStrategy {
-            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
-        }
-
-        class SingleTargetStrategy implements IAttackStrategy {
-            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
-        }
-
-        class AoeStrategy implements IAttackStrategy {
-            + ExecuteAttack(Turret : Turret, enemies : List<Enemy>)
-        }
-    }
-
-    
-
-    class DefenseUpgradeState{
-        + prefab : GameObject    
-        + maximumRange : float   
-        + damages : float
-        + fireRate : float     
-        + cost : int
-        + health : float
-    }
-
-    class Turret {
-        - target : Transform
-        + maximumRange : float
-        + minimumRange : float
-        + turningSpeed : float
-        + damage : float
-        + fireRate : float
-        + fireCountdown : float 
-
-        - prefab : GameObject
-
-        //TO DO
-        + level : int
-        + cost : int
-        + effect : EffectType
-        + attackStrategy : IAttackStrategy
-        + Upgrade()
-        + Shoot(enemies : List<Enemy>)
-    }
-
-    class Sniper extends Turret {
-        + Shoot(enemies : List<Enemy>)
-    }
-
-    class Mortier extends Turret {
-        + Shoot(enemies : List<Enemy>)
-    }
-
-    enum EffectType {
-        Ralenti,
-        Brulure
-    }
-
-    Turret --* AttackStrategies.IAttackStrategy : Strategy
+class AirStrikeEffect {
+    - obusPrefab : GameObject
+    - spawnHeight : float
+    - delayBeforeDrop : float
+    - targetObject : GameObject
+    - spawnRadius : float
+    + ApplyEffect(_node : Node) : void
+    - DropObus() : void
+    - ReleaseNode() : IEnumerator
 }
 
-package "Enemy" {
-    abstract class Enemy {
-        + health : float
-        + speed : float
-        + dammage : float
-        + type : EnemyType 
-        + position : Vector3
-        + TakeDamage(amount : float)
-        + ApplyEffect(effect : EffectType)
-        + Move()
-    }
-
-    class zombie extends Enemy {}
-
-
-    enum EnemyType {
-        Feu,
-        Glace
-    }
-
-    class EnemySpawner {
-        + waveCount : int
-        + SpawnWave(waveNumber : int) : List<Enemy>
-    }
+class BonusShopScript {
+    - surplusCost : int
+    - richZombieCost : int
+    - bonusDuration : float
+    + BuySurplusAmmo() : void
+    - ActivateSurplusAmmo() : IEnumerator
+    + BuyRichZombie() : void
+    - ActivateRichZombie() : IEnumerator
 }
 
-package "Map" {
-    class Map {
-        + Nodes : List<Node>
-        + GetPath(start : Vector3, end : Vector3) : List<Vector3>
-        + IsValidPosition(position : Vector3) : bool
-        + PlaceTurret(position : Vector3, Turret : Turret)
-    }
-
-    class Node {
-        + position : Vector3
-        + isWalkable : bool
-        + isOccupied : bool
-
-        - rend : Renderer 
-        + hoverMaterial : Material
-        - defaultMaterial : Material
-        + defense : GameObject 
-        + tempDefense : GameObject 
-        + buildManager : BuildManager
-    }
-
-    class BuildManager {
-        - DefenseTobuild : Turret
-
-        + GetDefenseToBuild() : GameObject
-        + SelectDefenseToBuild()
-    }
-
-    Map --> Node
+class BuildManager {
+    - defenseToBuild : Defense
+    - selectedNode : Node
+    - selectUI : SelectUIScript
+    + GetInstance() : BuildManager
+    + GetDefenseToBuild() : Defense
+    + CanBuild() : bool
+    + SelectNode(node : Node) : void
+    + DeselectNode() : void
+    + SelectDefenseToBuild(_defense : Defense) : void
+    + BuildDefenseOn(node : Node, activate : bool, isUpgrade : bool) : void
 }
 
-GameManager --> "1..*" Building.Turret
-GameManager --> "1..*" Enemy.Enemy
-GameManager --> "1" Map.Map
+class CameraControllerScript {
+    - panSpeed : float
+    - panBorderThickness : float
+    - scrollSpeed : float
+    - yMin : float
+    - yMax : float
+    - zMin : float
+    - zMax : float
+    - xMin : float
+    - xMax : float
+    + Update() : void
+    - CalculateZMax(cameraY : float) : float
+    - CalculateXMin(cameraY : float) : float
+    - CalculateXMax(cameraY : float) : float
+}
 
-Building.Turret --> Map.Map : Uses
-Enemy.Enemy --> Map.Map : Uses
-EnemySpawner --> Enemy.Enemy : Creates
+class Defense {
+    - upgradeStates : List<DefenseUpgradeState>
+    - upgradeLevel : int
+}
+
+class DefenseScript {
+    - currentHealth : float
+    - defenseData : Defense
+    - baseHealth : float
+    - healthBar : Image
+    - canvas : Canvas
+    - canvasGroup : CanvasGroup
+    - fadeCoroutine : Coroutine
+    - lastDamageTime : float
+    + Initialize(data : Defense) : void
+    + TakeDamage(amount : float) : void
+    - DestroyDefense() : void
+    - StartFadeDelay() : IEnumerator
+    - FadeOutHealthBar() : IEnumerator
+}
+
+class DefenseUpgradeState {
+    - prefab : GameObject
+    - maximumRange : float
+    - damages : float
+    - fireRate : float
+    - cost : int
+    - health : float
+}
+
+class Node {
+    - defense : GameObject
+    - defenseClass : Defense
+    - positionOffset : Vector3
+    - tempDefense : GameObject
+    + UpgradeDefense() : void
+    + SellDefense() : void
+}
+
+class NodeScript {
+    + SetHover(hover : bool) : void
+    + OnMouseDown() : void
+}
+
+class EnemyBase {
+    - baseHealth : float
+    - reward : int
+    - damage : int
+    - difficultyWeight : float
+    - isDead : bool
+    - health : float
+    - healthBar : Image
+    - canvas : Canvas
+    - agent : NavMeshAgent
+    + Start() : void
+    + Update() : void
+    + TakeDamages(damages : float) : void
+    + Die() : void
+}
+
+class ExplosiveZombie {
+    - explosionRadius : float
+    - explosionDamage : float
+    - explosionEffect : GameObject
+    + Die() : void
+    - Explode() : void
+    - CalculateDamageMultiplier(distance : float) : float
+}
+
+class FlyingEnemyNavigationScript {
+    - objectivePoint : Transform
+    - speed : float
+    - flightHeight : float
+    - smoothRotationSpeed : float
+    - velocity : Vector3
+    + Start() : void
+    + Update() : void
+    - OnReachedDestination() : void
+    - MoveTowardsTarget() : void
+}
+
+class GameManager {
+    - gameOverPanel : GameObject
+    + isRunning : bool
+    + Start() : void
+    + Update() : void
+    - EndGame() : void
+    + PauseGame() : void
+    + StartGame() : void
+}
+
+class GameOverPanelScript {
+    - stats : StatsUIScript
+    - mainMenuUI : GameObject
+    - rankingText : TextMeshProUGUI
+    + OnRestartButtonClick() : void
+    + Activate(activate : bool) : void
+    + Menu() : void
+    - UpdateRankingDisplay() : void
+}
+
+class LivesUIScript {
+    - livesText : TextMeshProUGUI
+    + Start() : void
+    + Update() : void
+}
+
+class MainMenu {
+    - ui : GameObject
+    - rankingText : TextMeshProUGUI
+    - playerNameInput : TMP_InputField
+    - playerName : string
+    + Start() : void
+    + StartButton() : void
+    + Quit() : void
+    - DisplayRanking() : void
+}
+
+class MoneyUIScript {
+    - moneyText : TextMeshProUGUI
+    + Start() : void
+    + Update() : void
+}
+
+class ObusScript {
+    - target : Transform
+    - speed : float
+    - bulletImpact : GameObject
+    - damagesRadius : float
+    - damages : float
+    - destination : Vector3
+    - startPosition : Vector3
+    - flightTime : float
+    - elapsedTime : float
+    - arcHeight : float
+    - previousPosition : Vector3
+    - aerialLaunch : bool
+    + Find(target : Transform) : void
+    + SetDamage(damages : float) : void
+    + Update() : void
+    - Explode() : void
+    - CalculateDamageMultiplier(distance : float) : float
+    - Damage(colliderTransform : Transform, damagesTaken : float) : void
+    + SetAerialLaunch(aerialLaunch : bool) : void
+    + SetSpeed(newSpeed : float) : void
+}
+
+class PauseMenu {
+    - ui : GameObject
+    - mainMenuUI : GameObject
+    + Update() : void
+    + Toggle() : void
+    + Retry() : void
+    + Menu() : void
+}
+
+class RankingSystem {
+    + LoadScores() : ScoreList
+    + SaveScores(scoreList : ScoreList) : void
+    + AddNewScore(playerName : string, newScore : int) : void
+}
+
+class SelectUIScript {
+    - target : Node
+    - ui : GameObject
+    + SetTarget(target : Node) : void
+    + Hide() : void
+    + Upgrade() : void
+    + Sell() : void
+}
+
+class ShopScript {
+    - object1 : Defense
+    - object2 : Defense
+    - object3 : Defense
+    - object4 : Defense
+    - buildManager : BuildManager
+    - shopButtonObject1 : Button
+    - shopButtonObject2 : Button
+    - shopButtonObject3 : Button
+    - shopButtonObject4 : Button
+    + SelectObject1() : void
+    + SelectObject2() : void
+    + SelectObject3() : void
+    + SelectObject4() : void
+    + Start() : void
+    + Update() : void
+}
+
+class ShopUIScript {
+    - defensesButton : GameObject
+    - supportButton : GameObject
+    - bonusButton : GameObject
+    - closeButton : GameObject
+    - currentPanel : GameObject
+    - isPanelDeployed : bool
+    + DeployPanel(panel : GameObject) : void
+    + ShrinkOtherPanels() : void
+    + ShrinkAll() : void
+    + MovePanels(panels : GameObject[], movement : Vector3) : void
+}
+
+class SlowEffect {
+    + ApplyEffect(_node : Node) : void
+    + OnTriggerEnter(otherCollider : Collider) : void
+    + OnTriggerExit(otherCollider : Collider) : void
+    + ApplyEffectSpeed(collider : Transform, speedMultiplier : float) : void
+}
+
+class SpecialWaveFactory {
+    + CreateWave(waveNumber : int) : Wave
+}
+
+class StandardWaveFactory {
+    + CreateWave(waveNumber : int) : Wave
+    + CalculateZombiesForWave(waveNumber : int) : int
+}
+
+class StatsUIScript {
+    - statsText : TextMeshProUGUI
+    + DisplayStats() : void
+}
+
+class TurretScript {
+    - target : Transform
+    - maximumRange : float
+    - minimumRange : float
+    - turningSpeed : float
+    - damages : float
+    - fireRate : float
+    - fireCountdown : float
+    - enemyLayer : LayerMask
+    - movingPartY : Transform
+    - movingPartX : Transform
+    - bulletPrefab : GameObject
+    - firePoint : Transform
+    - muzzleFlash : GameObject
+    - defaultRotationX : Quaternion
+    - defaultRotationY : Quaternion
+    - active : bool
+    + Start() : void
+    + Initialize() : void
+    + UpdateTarget() : bool
+    + Update() : void
+    + Shoot() : void
+    + SetActive(active : bool) : void
+}
+
+class Wave {
+    - count : int
+    - zombieRatios : Dictionary<int, float>
+    - isSpecialWave : bool
+    - specialWaveType : string
+    - bossCount : int
+}
+
+class WaveBuilder {
+    - wave : Wave
+    + WaveBuilder(waveNumber : int)
+    + DoubleWaveCount() : WaveBuilder
+    + AddZombieType(type : int, ratio : float) : WaveBuilder
+    + SetSpecialWave(type : string) : WaveBuilder
+    + SetBossCount(waveNumber : int) : WaveBuilder
+    + Build() : Wave
+    + CalculateZombiesForWave(waveNumber : int) : int
+}
+
+abstract class WaveFactory {
+    + CreateWave(waveNumber : int) : Wave
+}
+
+class WaveSpawner {
+    - Instance : WaveSpawner
+    - EnemiesAliveCount : int
+    - spawnPoint : Transform
+    - alternativeSpawnPoint : Transform
+    - altSpawnProbability : float
+    - generatedWaves : List<Wave>
+    - waveIndex : int
+    + Start() : void
+    + Update() : void
+    + SpawnWave() : IEnumerator
+    + EnemyDied() : void
+    + EnemySpawned() : void
+    + ResetEnemiesAliveCount() : void
+    + GenerateNextWave() : void
+    + CalculateZombiesForWave(waveNumber : int) : int
+    + ResetWaveSpawner() : void
+}
+
+class WaveUIScript {
+    - waveText : TextMeshProUGUI
+    - waveManager : WaveSpawner
+    + Start() : void
+    + Update() : void
+}
+
+class ZombieFactory {
+    - enemyHealthMultiplier : float
+    - enemySpeedMultiplier : float
+    - defaultObjectivePoint : Transform
+    - zombies : GameObject[]
+    + SpawnZombie(waveNumber : int, selectedZombie : int, spawnLocation : Transform) : void
+}
+
+EnemyBase <|-- ExplosiveZombie
+EnemyBase <-- FlyingEnemyNavigationScript
+DefenseScript --> Defense
+DefenseScript --> Image
+DefenseScript --> Canvas
+DefenseScript --> Coroutine
+DefenseScript --> CanvasGroup
+DefenseScript --> GameObject
+DefenseScript --> Effect
+Node --> Defense
+NodeScript --> Node
+NodeScript --> BuildManager
+EnemyBase --> PlayerStats
+EnemyBase --> WaveSpawner
+
+PlayerStats --> BuildManager
+BuildManager --> Defense
+BuildManager --> Node
+BuildManager --> SelectUIScript
+BuildManager --> DefenseUpgradeState
+AirStrikeEffect --> Node
+BonusShopScript --> PlayerStats
+GameManager --> GameOverPanelScript
+GameOverPanelScript --> StatsUIScript
+GameOverPanelScript --> PlayerStats
+MainMenu --> GameManager
+MainMenu --> RankingSystem
+MainMenu --> PlayerPrefs
+MoneyUIScript --> PlayerStats
+LivesUIScript --> PlayerStats
+ObusScript --> PlayerStats
+PauseMenu --> GameManager
+PauseMenu --> SceneManager
+RankingSystem --> MainMenu
+SelectUIScript --> Node
+SelectUIScript --> BuildManager
+ShopScript --> PlayerStats
+ShopScript --> BuildManager
+ShopScript --> Defense
+ShopUIScript --> GameObject
+ShopUIScript --> Vector3
+SlowEffect --> Effect
+SlowEffect --> Node
+SlowEffect --> NavMeshAgent
+SpecialWaveFactory --> WaveFactory
+SpecialWaveFactory --> WaveBuilder
+StandardWaveFactory --> WaveFactory
+StandardWaveFactory --> WaveBuilder
+StatsUIScript --> PlayerStats
+StatsUIScript --> TextMeshProUGUI
+TurretScript --> PlayerStats
+TurretScript --> GameObject
+TurretScript --> BulletScript
+TurretScript --> ObusScript
+WaveBuilder --> Wave
+WaveBuilder --> WaveFactory
+WaveFactory <|-- SpecialWaveFactory
+WaveFactory <|-- StandardWaveFactory
+WaveSpawner --> Wave
+WaveSpawner --> ZombieFactory
+WaveSpawner --> GameManager
+WaveSpawner --> PlayerStats
+WaveUIScript --> WaveSpawner
+WaveUIScript --> TextMeshProUGUI
+ZombieFactory --> WaveSpawner
+ZombieFactory --> GameObject
+ZombieFactory --> AINavigationScript
+ZombieFactory --> FlyingEnemyNavigationScript
 
 @enduml
-```
-Abstract factory pour le shop
-
