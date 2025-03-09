@@ -26,7 +26,7 @@ namespace Game
         public GameObject bulletPrefab;
         public Transform firePoint;
         public GameObject muzzleFlash;
-
+        private GameObject nearestEnemy = null;
         private Quaternion defaultRotationX;
         private Quaternion defaultRotationY;
         private bool active = false;
@@ -47,15 +47,24 @@ namespace Game
 
         bool UpdateTarget()
         {
+            
+            
             if (!active) return false;
+            if(nearestEnemy != null && Vector3.Distance(transform.position, nearestEnemy.transform.position) >= minimumRange && Vector3.Distance(transform.position, nearestEnemy.transform.position) <= maximumRange){
+                Debug.Log(Vector3.Distance(transform.position, nearestEnemy.transform.position) + " / "+ maximumRange);
+                target = nearestEnemy.transform;
+                return true;
+            }
+            else{
+                nearestEnemy = null;
+                target = null;
+            }
 
             Collider[] colliders = Physics.OverlapSphere(transform.position, maximumRange, enemyLayer);
-            GameObject nearestEnemy = null;
             float shortestDistance = Mathf.Infinity;
 
             foreach (Collider collider in colliders)
             {
-
                 float distanceToTarget = Vector3.Distance(transform.position, collider.transform.position);
                 if (distanceToTarget >= minimumRange && distanceToTarget < shortestDistance)
                 {
@@ -81,7 +90,7 @@ namespace Game
         {
             if (!active) return;
 
-            if (target == null && !UpdateTarget())
+            if (!UpdateTarget() && target == null)
             {
                 // Retour progressif à la position par défaut
                 Vector3 rotationX = Quaternion.Lerp(movingPartX.rotation, defaultRotationX, Time.deltaTime * turningSpeed).eulerAngles;
@@ -131,6 +140,9 @@ namespace Game
                 obusScript.SetDamage(damages);
                 obusScript.Find(target);
             }
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
         }
 
         public void SetActive(bool _active)

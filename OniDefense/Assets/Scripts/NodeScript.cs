@@ -52,7 +52,8 @@ namespace Game
                 rend.material = hoverMaterial;
                 if (defense == null && buildManager.CanBuild){
                     buildManager.BuildDefenseOn(this, false, false);
-                    rangeIndicator.ShowRange(tempDefense.GetComponent<TurretScript>().maximumRange, tempDefense.GetComponent<TurretScript>().minimumRange, gameObject.transform);
+                    if(tempDefense.GetComponent<TurretScript>() != null)
+                        rangeIndicator.ShowRange(tempDefense.GetComponent<TurretScript>().maximumRange, tempDefense.GetComponent<TurretScript>().minimumRange, gameObject.transform);
                 }
                 
             }
@@ -60,6 +61,7 @@ namespace Game
             {
                 if(rangeIndicator != null && tempDefense != null)
                     rangeIndicator.HideRange();
+
                 rend.material = defaultMaterial;
                 Destroy(tempDefense);
             }
@@ -122,15 +124,6 @@ namespace Game
                 Debug.Log("La défense est au niveau max");
                 return;
             }
-            /*
-            int upgradeCost = defenseClass.upgradeCosts[currentUpgradeState];
-            if (PlayerStats.Money < upgradeCost)
-            {
-                Debug.Log("Pas assez d'argent pour améliorer!");
-                return;
-
-
-            PlayerStats.Money -= upgradeCost;}*/
             defenseClass.upgradeLevel++;
 
             DefenseUpgradeState newState = defenseClass.upgradeStates[defenseClass.upgradeLevel];
@@ -141,8 +134,6 @@ namespace Game
             buildManager.SelectDefenseToBuild(defenseClass);
             buildManager.BuildDefenseOn(this, true, true);
 
-            //defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
-            //defense.transform.parent = transform;
             DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
             if (defenseScript != null)
                 defenseScript.Initialize(defenseClass);

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using TMPro;
 
@@ -9,9 +10,11 @@ namespace Game
         private Node target;
         public bool isDeployed = false;
         public GameObject ui;
+        public RawImage image;
         public TextMeshProUGUI defenseNameText;
         public TextMeshProUGUI levelText;
         public TextMeshProUGUI damageText;
+        public TextMeshProUGUI cibleText;
         public TextMeshProUGUI rangeText;
         public TextMeshProUGUI fireRateText;
         public Button upgradeButton;
@@ -68,11 +71,12 @@ namespace Game
             if (target == null || target.defenseClass == null) return;
 
             DefenseUpgradeState state = target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel];
-
-            defenseNameText.text = "Nom : " + target.defenseClass.name;
+            image.texture = AssetPreview.GetAssetPreview(state.prefab);
+            defenseNameText.text = target.defenseClass.name;
             Debug.Log(target.defenseClass.name);
             levelText.text = "Niveau : " + (target.defenseClass.upgradeLevel + 1);
             damageText.text = "Dégâts : " + state.damages;
+            cibleText.text = CalculateStringCible(state);
             rangeText.text = "Portée : " + state.maximumRange;
             fireRateText.text = "Cadence : " + state.fireRate;
             sellButton.GetComponentInChildren<TextMeshProUGUI>().text = "Vendre (" + target.defenseClass.GetSellAmount() + " $)";
@@ -102,6 +106,29 @@ namespace Game
                 upgradeButton.interactable = false;
             else
                 upgradeButton.interactable = true;
+        }
+
+        private string CalculateStringCible(DefenseUpgradeState state){
+            string cible = "Cible :";
+
+            LayerMask enemyLayer = state.prefab.GetComponent<TurretScript>().enemyLayer;
+            
+            // Vérifier si l'ennemi ciblé inclut les ennemis au sol
+            if ((enemyLayer & (1 << LayerMask.NameToLayer("EnemyGround"))) != 0)
+            {
+                cible += " Sol";
+            }
+
+            // Vérifier si l'ennemi ciblé inclut les ennemis volants
+            if ((enemyLayer & (1 << LayerMask.NameToLayer("EnemyFlying"))) != 0)
+            {
+                if(cible != "Cible(s) :")
+                    cible += "/Air";
+                else
+                    cible += "Air";
+            }
+
+            return cible;
         }
 
     }
