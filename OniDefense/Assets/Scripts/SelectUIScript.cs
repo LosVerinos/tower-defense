@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using TMPro;
 
@@ -9,6 +10,7 @@ namespace Game
         private Node target;
         public bool isDeployed = false;
         public GameObject ui;
+        public RawImage image;
         public TextMeshProUGUI defenseNameText;
         public TextMeshProUGUI levelText;
         public TextMeshProUGUI damageText;
@@ -69,7 +71,7 @@ namespace Game
             if (target == null || target.defenseClass == null) return;
 
             DefenseUpgradeState state = target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel];
-
+            image.texture = AssetPreview.GetAssetPreview(state.prefab);
             defenseNameText.text = target.defenseClass.name;
             Debug.Log(target.defenseClass.name);
             levelText.text = "Niveau : " + (target.defenseClass.upgradeLevel + 1);

@@ -3728,6 +3728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDeployed: 0
   ui: {fileID: 241975128}
+  image: {fileID: 1160599157}
   defenseNameText: {fileID: 1769320392}
   levelText: {fileID: 452404141}
   damageText: {fileID: 1214943202}
