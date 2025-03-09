@@ -7,7 +7,7 @@ namespace Game
     public class SelectUIScript : MonoBehaviour
     {
         private Node target;
-
+        public bool isDeployed = false;
         public GameObject ui;
         public TextMeshProUGUI defenseNameText;
         public TextMeshProUGUI levelText;
@@ -33,11 +33,14 @@ namespace Game
 
         public void Hide()
         {
-            Debug.Log("Deselect node");
-            ui.SetActive(false);
-            if (target != null)
-            {
-                target.GetComponent<RangeIndicator>().HideRange();
+            if(isDeployed){
+                Debug.Log("Deselect node");
+                ui.SetActive(false);
+                if (target != null)
+                {
+                    target.GetComponent<RangeIndicator>().HideRange();
+                }
+                isDeployed = false;
             }
         }
 
@@ -56,6 +59,7 @@ namespace Game
         public void Display()
         {
             ui.SetActive(true);
+            isDeployed = true;
             generalUI.GetComponent<ShopUIScript>().ShrinkAll();
         }
 

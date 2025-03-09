@@ -13,17 +13,14 @@ namespace Game
         [SerializeField] private GameObject supportButton;
         [SerializeField] private GameObject bonusButton;
         [SerializeField] private GameObject closeButton;
+        private GameObject currentPanel;
+        private bool isPanelDeployed = false;
+        public GameObject selectUI;
 
         void Start()
         {
             closeButton.SetActive(false);
         }
-
-
-        private GameObject currentPanel;
-        private bool isPanelDeployed = false;
-
-
 
         public void DeployPanel(GameObject panel)
         {
@@ -36,6 +33,8 @@ namespace Game
             closeButton.SetActive(true);
             currentPanel = panel;
             isPanelDeployed = true;
+
+            selectUI.GetComponent<SelectUIScript>().Hide();
         }
 
         void ShrinkOtherPanels()

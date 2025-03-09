@@ -84,7 +84,7 @@ namespace Game
             defenseLevel = node.defenseClass.upgradeLevel;
             //Debug.Log("Defense Level upgraded : " + defenseLevel);
             defenseState = node.defenseClass.upgradeStates[defenseLevel];
-            GameObject effect = Instantiate(upgradeEffect, node.transform.position, node.transform.rotation);
+            GameObject effect = Instantiate(upgradeEffect, node.transform.position, Quaternion.Euler(-90, 0, 0));
             Destroy(effect, 2f);
         }
         else{
