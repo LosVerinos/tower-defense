@@ -10,6 +10,9 @@ namespace Game
         public float explosionDamage = 2000f;
         public GameObject explosionEffect;
 
+
+        new public int index = 4;
+
         public override void Die()
         {
             Explode();
