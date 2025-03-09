@@ -16,6 +16,7 @@ namespace Game
 
         void OnTriggerEnter(Collider otherCollider)
         {
+            
             if (isActive && otherCollider.CompareTag("Classic Enemy"))
                 //Debug.Log("Zombie entre dans les barbelés");
                 ApplyEffectSpeed(otherCollider.transform, 0.5f);
@@ -24,13 +25,14 @@ namespace Game
         void OnTriggerExit(Collider otherCollider)
         {
             if (isActive && otherCollider.CompareTag("Classic Enemy"))
-                //Debug.Log("Zombie sort des barbelés");
+                Debug.Log("Zombie sort des barbelés");
                 ApplyEffectSpeed(otherCollider.transform, 2f);
         }
 
         void ApplyEffectSpeed(Transform collider, float speedMultiplier)
         {
             NavMeshAgent meshAgent = collider.GetComponent<NavMeshAgent>();
+
             if (meshAgent != null)
             {
                 meshAgent.speed *= speedMultiplier;

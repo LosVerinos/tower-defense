@@ -51,7 +51,6 @@ namespace Game
             
             if (!active) return false;
             if(nearestEnemy != null && Vector3.Distance(transform.position, nearestEnemy.transform.position) >= minimumRange && Vector3.Distance(transform.position, nearestEnemy.transform.position) <= maximumRange){
-                Debug.Log(Vector3.Distance(transform.position, nearestEnemy.transform.position) + " / "+ maximumRange);
                 target = nearestEnemy.transform;
                 return true;
             }
