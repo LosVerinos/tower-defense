@@ -34,6 +34,8 @@ namespace Game
                 flyingScript.speed *= Mathf.Pow(enemySpeedMultiplier, waveNumber);
             }
             spawnedZombie.GetComponent<EnemyBase>().health *= Mathf.Pow(enemyHealthMultiplier, waveNumber);
+
+            ZombieAlertManager.Instance.ShowAlert(spawnLocation);
         }
 
     }
