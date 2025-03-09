@@ -164,6 +164,7 @@ class Node {
 class EnemyBase {
     - baseHealth : float
     + index : int
+    + strategyNavigation : Navigation
     - reward : int
     - damage : int
     - difficultyWeight : float
@@ -216,17 +217,31 @@ class FlyingEnemyNavigation {
     -float flightHeight = 10.5f
     -float smoothRotationSpeed = 5f
     -Vector3 velocity = Vector3.zero
-    +void Start()
-    +void Update()
     -void OnReachedDestination()
     -void MoveTowardsTarget()
 }
 
+class AINavigation{
+        + Transform objectivePoint;
+        + NavMeshAgent agent;
+        + OnReachedDestination() : void 
+}
+
+class Navigation{
+        + Transform objectivePoint;
+        + float speed;
+        + OnReachedDestination() : void 
+}
+
+Interface INavigation {
+    + void OnReachedDestination()
+}   
+
 class GameManager {
     -GameObject gameOverPanel
     +static bool isRunning = false
-    +void Start()
-    +void Update()
+    
+    
     -void EndGame()
     +static void PauseGame()
     +static void StartGame()
@@ -244,8 +259,8 @@ class GameOverPanel {
 
 class LivesUI {
     +TextMeshProUGUI livesText
-    +void Start()
-    +void Update()
+    
+    
 }
 
 class MainMenu {
@@ -253,7 +268,7 @@ class MainMenu {
     +TextMeshProUGUI rankingText
     +TMP_InputField playerNameInput
     -string playerName = "Player"
-    +void Start()
+    
     +void StartButton()
     +void Quit()
     -void DisplayRanking()
@@ -261,8 +276,8 @@ class MainMenu {
 
 class MoneyUI {
     +TextMeshProUGUI moneyText
-    +void Start()
-    +void Update()
+    
+    
 }
 
 abstract class Projectile {
@@ -301,7 +316,7 @@ class Bullet {
 class PauseMenu {
     +GameObject ui
     +GameObject mainMenuUI
-    +void Update()
+    
     +void Toggle()
     +void Retry()
     +void Menu()
@@ -359,8 +374,8 @@ class Shop {
     +void SelectObject4()
     -void DisableButton(Button button)
     -void EnableButton(Button button)
-    +void Start()
-    +void Update()
+    
+    
 }
 
 class ShopUI {
@@ -371,7 +386,7 @@ class ShopUI {
     -GameObject currentPanel
     -bool isPanelDeployed = false
     +GameObject selectUI
-    +void Start()
+    
     +void DeployPanel(GameObject panel)
     -void ShrinkOtherPanels()
     +void ShrinkAll()
@@ -416,10 +431,10 @@ class Turret {
         -Quaternion defaultRotationX
         -Quaternion defaultRotationY
         -bool active = false
-        +void Start()
+        
         +void Initialize()
         -bool UpdateTarget()
-        +void Update()
+        
         -void Shoot()
         +void SetActive(bool _active)
     }
@@ -456,8 +471,8 @@ class Turret {
         -List<Wave> generatedWaves
         +static int waveIndex = 0
         -void Awake()
-        +void Start()
-        +void Update()
+        
+        
         -IEnumerator SpawnWave()
         +static void EnemyDied()
         +static void EnemySpawned()
@@ -470,8 +485,8 @@ class Turret {
     class WaveUI {
         +TextMeshProUGUI waveText
         +WaveSpawner waveManager
-        +void Start()
-        +void Update()
+        
+        
     }
 
     class ZombieFactory {
@@ -527,6 +542,7 @@ WaveSpawner --> PlayerStats
 WaveUI --> WaveSpawner
 ZombieFactory --> WaveSpawner
 ZombieFactory --> FlyingEnemyNavigation
+ZombieFactory --> AINavigation
 FlyingZombie --|> EnemyBase
 Zombie --|> EnemyBase
 ExplosiveZombie --|> Zombie
@@ -535,5 +551,9 @@ CrowZombie --|> FlyingZombie
 FastZombie --|> Zombie
 HeavyZombie --|> Zombie
 ScoreList --> RankingSystem
+Navigation --|> INavigation
+AINavigation --|> Navigation
+FlyingEnemyNavigation --|> Navigation
+
 
 @enduml

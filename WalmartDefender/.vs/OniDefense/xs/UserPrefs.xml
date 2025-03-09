@@ -1,0 +1,65 @@
+﻿<Properties StartupConfiguration="{F5CD1A3A-18C6-75AE-94C5-0350582BDEC5}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="9aaeb2c7-80d1-41d4-b99c-964cfc6a03e5" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ZombieFactory.cs">
+    <Files>
+      <File FileName="Assets/object/ExplosiveZombie.cs" Line="16" Column="72" />
+      <File FileName="Assets/object/ClassicZombie.cs" Line="10" Column="72" />
+      <File FileName="Assets/object/FastZombie.cs" Line="10" Column="72" />
+      <File FileName="Assets/object/HeavyZombie.cs" Line="10" Column="48" />
+      <File FileName="Assets/object/CrowZombie.cs" Line="17" Column="1" />
+      <File FileName="Assets/Scripts/Wave.cs" Line="16" Column="1" />
+      <File FileName="Assets/Scripts/StandartWaveFactory.cs" Line="37" Column="1" />
+      <File FileName="Assets/Scripts/SpecialWaveFactory.cs" Line="40" Column="1" />
+      <File FileName="Assets/Scripts/WaveSpawner.cs" Line="45" Column="39" />
+      <File FileName="Assets/Scripts/WaveFactory.cs" Line="14" Column="1" />
+      <File FileName="Assets/Scripts/WaveBuilder.cs" Line="67" Column="1" />
+      <File FileName="Assets/Scripts/WaveUIScript.cs" Line="29" Column="1" />
+      <File FileName="Assets/Scripts/GameOverPanelScript.cs" Line="27" Column="14" />
+      <File FileName="Assets/Scripts/LivesUIScript.cs" Line="25" Column="1" />
+      <File FileName="Assets/Scripts/MainMenu.cs" Line="35" Column="42" />
+      <File FileName="Assets/Scripts/MoneyUIScript.cs" Line="27" Column="1" />
+      <File FileName="Assets/object/Projectile.cs" Line="27" Column="35" />
+      <File FileName="Assets/Scripts/ObusScript.cs" Line="28" Column="30" />
+      <File FileName="Assets/Scripts/BulletScript.cs" Line="18" Column="58" />
+      <File FileName="Assets/Scripts/PauseMenu.cs" Line="29" Column="1" />
+      <File FileName="Assets/Scripts/RankingSystem.cs" Line="36" Column="36" />
+      <File FileName="Assets/Scripts/SelectUIScript.cs" Line="25" Column="10" />
+      <File FileName="Assets/Scripts/ShopScript.cs" Line="42" Column="10" />
+      <File FileName="Assets/Scripts/ShopUIScript.cs" Line="41" Column="10" />
+      <File FileName="Assets/Scripts/SlowEffect.cs" Line="39" Column="1" />
+      <File FileName="Assets/Scripts/StatsUIScript.cs" Line="20" Column="1" />
+      <File FileName="Assets/Scripts/TurretScript.cs" Line="38" Column="43" />
+      <File FileName="Assets/Scripts/ZombieFactory.cs" Line="24" Column="14" />
+      <File FileName="Assets/Scripts/RangeIndicator.cs" Line="29" Column="10" />
+      <File FileName="Assets/Scripts/AINavigationScript.cs" Line="30" Column="36" />
+      <File FileName="Assets/Scripts/EnemyScript.cs" Line="19" Column="9" />
+      <File FileName="Assets/object/NewClass.cs" Line="6" Column="50" />
+      <File FileName="Assets/object/NewInterface.cs" Line="5" Column="22" />
+      <File FileName="Assets/Scripts/FlyingEnemyNavigationScript.cs" Line="68" Column="10" />
+      <File FileName="Assets/object/FlyingZombie.cs" Line="7" Column="8" />
+      <File FileName="Assets/object/Zombie.cs" Line="1" Column="1" />
+      <File FileName="Assets/object/SinglertargetStrategy.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="OniDefense">
+            <Node name="Assets" expanded="True">
+              <Node name="object" expanded="True" />
+              <Node name="Scripts" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
