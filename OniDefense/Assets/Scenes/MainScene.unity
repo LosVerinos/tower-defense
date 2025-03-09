@@ -2129,7 +2129,7 @@ MonoBehaviour:
   supportButton: {fileID: 555831980}
   bonusButton: {fileID: 2127129634}
   closeButton: {fileID: 1743004284}
-  selectUI: {fileID: 0}
+  selectUI: {fileID: 483642059}
 --- !u!1001 &295159294
 PrefabInstance:
   m_ObjectHideFlags: 0
