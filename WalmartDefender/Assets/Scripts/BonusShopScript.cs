@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,23 @@ namespace Game
 
     public class BonusShopScript : MonoBehaviour
     {
-
-        public int surplusCost = 50;
-        public int richZombieCost = 75;
+        public Button buttonRichZombies;
+        public Button buttonSurplus;
+        public int surplusCost;
+        public int richZombieCost;
         public float bonusDuration = 10f;
+
+    void Update(){
+        if (PlayerStats.Money < richZombieCost)
+            buttonRichZombies.interactable = false;
+        else
+            buttonRichZombies.interactable = true;
+
+        if (PlayerStats.Money < surplusCost)
+            buttonSurplus.interactable = false;
+        else
+            buttonSurplus.interactable = true;
+    }
 
     public void BuySurplusAmmo()
     {

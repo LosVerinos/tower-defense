@@ -21,6 +21,9 @@ namespace Game
         public Button sellButton;
         public GameObject generalUI;
 
+        void Update(){
+            CheckButtonActivation();
+        }
         public void SetTarget(Node _target)
         {
             target = _target;
