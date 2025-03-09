@@ -12,13 +12,14 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            livesText.text = " ❤ :" + PlayerStats.Lives.ToString();
+            livesText.text = " <3 :" + PlayerStats.Lives.ToString();
+            
         }
 
         // Update is called once per frame
         void Update()
         {
-            livesText.text = " ❤ :" + PlayerStats.Lives.ToString();
+            livesText.text = " <3 :" + PlayerStats.Lives.ToString();
         }
     }
 

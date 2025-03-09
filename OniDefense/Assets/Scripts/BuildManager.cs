@@ -23,8 +23,8 @@ namespace Game
 
         private Defense defenseToBuild;
         private Node selectedNode;
-
         public SelectUIScript selectUI;
+        public GameObject upgradeEffect;
 
 
         void Start()
@@ -84,6 +84,8 @@ namespace Game
             defenseLevel = node.defenseClass.upgradeLevel;
             //Debug.Log("Defense Level upgraded : " + defenseLevel);
             defenseState = node.defenseClass.upgradeStates[defenseLevel];
+            GameObject effect = Instantiate(upgradeEffect, node.transform.position, node.transform.rotation);
+            Destroy(effect, 2f);
         }
         else{
             defenseState = defenseToBuild.upgradeStates[defenseLevel];
@@ -140,7 +142,7 @@ namespace Game
                 node.defenseClass = new Defense();
                 node.defenseClass.upgradeStates = defenseToBuild.upgradeStates;
                 node.defenseClass.upgradeLevel = 0;
-
+                node.defenseClass.name = defenseToBuild.name; //j'avais oublié ca, le nom était pas transféré
                 PlayerStats.DefenseBuilt();
             }
             
