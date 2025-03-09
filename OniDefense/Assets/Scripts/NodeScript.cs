@@ -52,7 +52,8 @@ namespace Game
                 rend.material = hoverMaterial;
                 if (defense == null && buildManager.CanBuild){
                     buildManager.BuildDefenseOn(this, false, false);
-                    rangeIndicator.ShowRange(tempDefense.GetComponent<TurretScript>().maximumRange, tempDefense.GetComponent<TurretScript>().minimumRange, gameObject.transform);
+                    if(tempDefense.GetComponent<TurretScript>() != null)
+                        rangeIndicator.ShowRange(tempDefense.GetComponent<TurretScript>().maximumRange, tempDefense.GetComponent<TurretScript>().minimumRange, gameObject.transform);
                 }
                 
             }
@@ -60,6 +61,7 @@ namespace Game
             {
                 if(rangeIndicator != null && tempDefense != null)
                     rangeIndicator.HideRange();
+
                 rend.material = defaultMaterial;
                 Destroy(tempDefense);
             }
