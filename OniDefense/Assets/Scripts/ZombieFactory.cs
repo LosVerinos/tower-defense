@@ -35,7 +35,7 @@ namespace Game
             }
             spawnedZombie.GetComponent<EnemyBase>().health *= Mathf.Pow(enemyHealthMultiplier, waveNumber);
 
-            ZombieAlertManager.Instance.ShowAlert(spawnedZombie.transform.position);
+            ZombieAlertManager.Instance.ShowAlert(spawnLocation);
         }
 
     }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Game;
 using UnityEngine;
 
 public class ZombieAlertManager : MonoBehaviour
@@ -15,23 +16,20 @@ public class ZombieAlertManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void ShowAlert(Vector3 position)
+    public void ShowAlert(Transform zombieSpawnLocation)
     {
-        GameObject alert = Instantiate(alertPrefab, alertParent);
-        alert.transform.position = Camera.main.WorldToScreenPoint(position);
-
-        Animator animator = alert.GetComponent<Animator>();
-        if (animator != null)
+        if (alertPrefab == null || alertParent == null)
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Alert_Show")) // ✅ Empêche de rejouer l'animation
-            {
-                animator.SetTrigger("Show");
-                StartCoroutine(HideAfterDelay(animator, alert));
-            }
+            return;
         }
+        GameObject alert = Instantiate(alertPrefab, alertParent);
 
-        
+        alert.GetComponent<RectTransform>().anchoredPosition = new Vector2(zombieSpawnLocation.position.x*10, 490);
+        Animator animator = alert.GetComponent<Animator>();
+
+        Destroy(alert, 2f);
     }
+
 
     private IEnumerator HideAfterDelay(Animator animator, GameObject alert)
     {
