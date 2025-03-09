@@ -163,6 +163,7 @@ class Node {
 
 class EnemyBase {
     - baseHealth : float
+    + index : int
     - reward : int
     - damage : int
     - difficultyWeight : float
@@ -187,6 +188,13 @@ class ExplosiveZombie {
 }
 
 class ClassicZombie {
+    + Die() : void
+}
+class FastZombie {
+    + Die() : void
+}
+
+class HeavyZombie {
     + Die() : void
 }
 
@@ -503,5 +511,7 @@ Zombie --|> EnemyBase
 ExplosiveZombie --|> Zombie
 ClassicZombie --|> Zombie
 CrowZombie --|> FlyingZombie
+FastZombie --|> Zombie
+HeavyZombie --|> Zombie
 
 @enduml
