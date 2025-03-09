@@ -13,6 +13,8 @@ namespace Game
 
         new public int index = 4;
 
+        new public MonoBehaviour navigation = new AINavigationScript();
+
         public override void Die()
         {
             Explode();

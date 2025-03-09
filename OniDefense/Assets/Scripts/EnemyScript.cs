@@ -15,6 +15,9 @@ namespace Game
         [SerializeField] public int reward;
         [SerializeField] public int damage;
         [SerializeField] public float difficultyWeight;
+
+        public MonoBehaviour navigation; 
+
         private bool isDead = false;
         public float health;
         public UnityEngine.UI.Image healthBar;

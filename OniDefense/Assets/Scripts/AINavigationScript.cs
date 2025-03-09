@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace Game
 {
-    public class AINavigationScript : MonoBehaviour
+    public class AINavigationScript : MonoBehaviour, INavigation
     {
         public Transform objectivePoint;
         public NavMeshAgent agent;
@@ -32,6 +32,11 @@ namespace Game
             PlayerStats.DecreaseLives(GetComponent<EnemyBase>().damage);
             WaveSpawner.EnemyDied();
             Destroy(gameObject);
+        }
+
+        void INavigation.OnReachedDestination()
+        {
+            OnReachedDestination();
         }
     }
 }

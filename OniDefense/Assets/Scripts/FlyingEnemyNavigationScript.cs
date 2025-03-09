@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class FlyingEnemyNavigationScript : MonoBehaviour
+    public class FlyingEnemyNavigationScript : MonoBehaviour, INavigation
     {
         public Transform objectivePoint;
         public float speed = 5f;
@@ -60,6 +60,11 @@ namespace Game
                 Quaternion lookRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * smoothRotationSpeed);
             }
+        }
+
+        void INavigation.OnReachedDestination()
+        {
+            OnReachedDestination();
         }
     }
 }
