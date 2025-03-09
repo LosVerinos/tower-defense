@@ -50,11 +50,7 @@ namespace Game
 
         public void SelectNode(Node node)
         {
-            if (selectedNode == node)
-            {
-                DeselectNode();
-                return;
-            }
+            DeselectNode();
             selectedNode = node;
             Debug.Log("Defense sélectionnée ");
             defenseToBuild = null;

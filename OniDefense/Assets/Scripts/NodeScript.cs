@@ -124,15 +124,6 @@ namespace Game
                 Debug.Log("La défense est au niveau max");
                 return;
             }
-            /*
-            int upgradeCost = defenseClass.upgradeCosts[currentUpgradeState];
-            if (PlayerStats.Money < upgradeCost)
-            {
-                Debug.Log("Pas assez d'argent pour améliorer!");
-                return;
-
-
-            PlayerStats.Money -= upgradeCost;}*/
             defenseClass.upgradeLevel++;
 
             DefenseUpgradeState newState = defenseClass.upgradeStates[defenseClass.upgradeLevel];
@@ -143,8 +134,6 @@ namespace Game
             buildManager.SelectDefenseToBuild(defenseClass);
             buildManager.BuildDefenseOn(this, true, true);
 
-            //defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
-            //defense.transform.parent = transform;
             DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
             if (defenseScript != null)
                 defenseScript.Initialize(defenseClass);
