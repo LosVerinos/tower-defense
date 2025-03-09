@@ -26,7 +26,7 @@ namespace Game
             target = _target;
             Display();
             UpdateUI();
-            if (_target.defenseClass != null)
+            if (_target.defenseClass != null && _target.defenseClass.upgradeStates.Count >1)
             {
                 float maxRange = _target.defenseClass.upgradeStates[_target.defenseClass.upgradeLevel].maximumRange;
                 float minRange = _target.defenseClass.upgradeStates[_target.defenseClass.upgradeLevel].prefab.GetComponent<TurretScript>().minimumRange;
@@ -99,6 +99,13 @@ namespace Game
 
         private void CheckButtonActivation(){
             Debug.Log("Level : " + target.defenseClass.upgradeLevel+1 + ", count : " + target.defenseClass.upgradeStates.Count);
+
+            if(target.defenseClass.upgradeStates.Count <= 1)
+            {
+                upgradeButton.interactable = false;
+                return;
+            }
+
             if (
                 PlayerStats.Money < target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].cost || 
                 target.defenseClass.upgradeLevel+1 == target.defenseClass.upgradeStates.Count)
@@ -111,21 +118,25 @@ namespace Game
         private string CalculateStringCible(DefenseUpgradeState state){
             string cible = "Cible :";
 
-            LayerMask enemyLayer = state.prefab.GetComponent<TurretScript>().enemyLayer;
-            
-            // Vérifier si l'ennemi ciblé inclut les ennemis au sol
-            if ((enemyLayer & (1 << LayerMask.NameToLayer("EnemyGround"))) != 0)
-            {
-                cible += " Sol";
-            }
+            TurretScript ts = state.prefab.GetComponent<TurretScript>();
 
-            // Vérifier si l'ennemi ciblé inclut les ennemis volants
-            if ((enemyLayer & (1 << LayerMask.NameToLayer("EnemyFlying"))) != 0)
+            if(ts != null)
             {
-                if(cible != "Cible(s) :")
-                    cible += "/Air";
-                else
-                    cible += "Air";
+                LayerMask enemyLayer = ts.enemyLayer;
+                // Vérifier si l'ennemi ciblé inclut les ennemis au sol
+                if ((enemyLayer & (1 << LayerMask.NameToLayer("EnemyGround"))) != 0)
+                {
+                    cible += " Sol";
+                }
+
+                // Vérifier si l'ennemi ciblé inclut les ennemis volants
+                if ((enemyLayer & (1 << LayerMask.NameToLayer("EnemyFlying"))) != 0)
+                {
+                    if (cible != "Cible(s) :")
+                        cible += "/Air";
+                    else
+                        cible += "Air";
+                }
             }
 
             return cible;
