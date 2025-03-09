@@ -21,9 +21,7 @@ namespace Game
         public Button sellButton;
         public GameObject generalUI;
 
-        void Update(){
-            CheckButtonActivation();
-        }
+     
         public void SetTarget(Node _target)
         {
             target = _target;
@@ -58,8 +56,12 @@ namespace Game
 
         public void Sell()
         {
-            target.SellDefense();
-            BuildManager.instance.DeselectNode();
+            if(target != null)
+            {
+                target.SellDefense();
+                BuildManager.instance.DeselectNode();
+            }
+            
         }
 
         public void Display()
@@ -96,26 +98,30 @@ namespace Game
                 upgradeButton.interactable = false;
             }
 
+
             CheckButtonActivation();
         }
 
 
         private void CheckButtonActivation(){
-            Debug.Log("Level : " + target.defenseClass.upgradeLevel+1 + ", count : " + target.defenseClass.upgradeStates.Count);
+            //Debug.Log("Level : " + target.defenseClass.upgradeLevel + 1 + ", count : " + target.defenseClass.upgradeStates.Count);
 
-            if(target.defenseClass.upgradeStates.Count <= 1)
+         
+            if (target.defenseClass.upgradeStates.Count <= 1)
             {
                 upgradeButton.interactable = false;
                 return;
             }
 
             if (
-                PlayerStats.Money < target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].cost || 
-                target.defenseClass.upgradeLevel+1 == target.defenseClass.upgradeStates.Count)
+                PlayerStats.Money < target.defenseClass.upgradeStates[target.defenseClass.upgradeLevel + 1].cost ||
+                target.defenseClass.upgradeLevel + 1 == target.defenseClass.upgradeStates.Count)
 
                 upgradeButton.interactable = false;
             else
                 upgradeButton.interactable = true;
+            
+       
         }
 
         private string CalculateStringCible(DefenseUpgradeState state){
