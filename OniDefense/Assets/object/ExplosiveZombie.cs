@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace Game
 {
-    public class ExplosiveZombie : EnemyBase
+    public class ExplosiveZombie : Zombie
     {
         public float explosionRadius = 10f;
         public float explosionDamage = 2000f;
         public GameObject explosionEffect;
 
-        protected override void Die()
+
+        new public int index = 4;
+
+        public override void Die()
         {
             Explode();
             base.Die();

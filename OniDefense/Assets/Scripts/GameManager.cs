@@ -43,6 +43,9 @@ namespace Game
             isRunning = true;
             Time.timeScale = 1f;
         }
+
+        
+        
     }
 
 }

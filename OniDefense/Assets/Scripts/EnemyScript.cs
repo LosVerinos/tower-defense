@@ -20,6 +20,7 @@ namespace Game
         public UnityEngine.UI.Image healthBar;
         private Canvas canvas;
         public NavMeshAgent agent;
+        public int index;
 
             protected virtual void Start()
             {
@@ -44,7 +45,7 @@ namespace Game
                 Die();
         }
 
-        protected virtual void Die()
+        public virtual void Die()
         {
             if (isDead) return;
             isDead = true;

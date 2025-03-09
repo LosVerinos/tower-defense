@@ -1,0 +1,110 @@
+@startuml
+
+actor Joueur as J
+actor "Système de Jeu" as S
+actor "Interface Utilisateur" as UI
+
+usecase "Démarrer une Partie" as UC1
+usecase "Sélectionner le Mode de Jeu" as UC1_1
+usecase "Initialiser la Carte" as UC1_2
+
+usecase "Construire une Tour" as UC2
+usecase "Sélectionner l'Emplacement" as UC2_1
+usecase "Choisir le Type de Tour" as UC2_2
+usecase "Vérifier les Ressources" as UC2_3
+usecase "Placer la Tour" as UC2_4
+
+usecase "Améliorer une Tour" as UC3
+usecase "Sélectionner la Tour à Améliorer" as UC3_1
+usecase "Vérifier les Ressources pour Amélioration" as UC3_2
+usecase "Appliquer l'Amélioration" as UC3_3
+
+usecase "Défendre contre les Vagues d'Ennemis" as UC4
+usecase "Générer une Vague d'Ennemis" as UC4_1
+usecase "Déplacer les Ennemis" as UC4_2
+usecase "Attaquer avec les Tours" as UC4_3
+usecase "Appliquer les Effets Spéciaux" as UC4_4
+
+usecase "Collecter de la Monnaie" as UC5
+usecase "Éliminer un Ennemi" as UC5_1
+usecase "Attribuer la Monnaie" as UC5_2
+
+usecase "Perdre une Vie" as UC6
+usecase "Ennemi Atteint la Sortie" as UC6_1
+usecase "Réduire les Vies du Joueur" as UC6_2
+
+usecase "Afficher le Classement" as UC7
+usecase "Calculer le Score" as UC7_1
+usecase "Afficher le Classement" as UC7_2
+
+usecase "Accéder au Menu" as UC8
+usecase "Ouvrir le Menu" as UC8_1
+usecase "Relancer la Partie" as UC8_2
+usecase "Quitter le Jeu" as UC8_3
+
+usecase "Terminer la Partie" as UC9
+usecase "Vérifier les Vies Restantes" as UC9_1
+usecase "Afficher l'Écran de Fin de Partie" as UC9_2
+
+J --> UC1
+J --> UC2
+J --> UC3
+J --> UC8
+
+S --> UC4
+S --> UC5
+S --> UC6
+S --> UC7
+S --> UC9
+
+UI --> UC1_1
+UI --> UC1_2
+UI --> UC2_1
+UI --> UC2_2
+UI --> UC2_3
+UI --> UC2_4
+UI --> UC3_1
+UI --> UC3_2
+UI --> UC3_3
+UI --> UC4_1
+UI --> UC4_2
+UI --> UC4_3
+UI --> UC4_4
+UI --> UC5_1
+UI --> UC5_2
+UI --> UC6_1
+UI --> UC6_2
+UI --> UC7_1
+UI --> UC7_2
+UI --> UC8_1
+UI --> UC8_2
+UI --> UC8_3
+UI --> UC9_1
+UI --> UC9_2
+
+UC1 <-- UC1_1
+UC1 <-- UC1_2
+UC2 <-- UC2_1
+UC2 <-- UC2_2
+UC2 <-- UC2_3
+UC2 <-- UC2_4
+UC3 <-- UC3_1
+UC3 <-- UC3_2
+UC3 <-- UC3_3
+UC4 <-- UC4_1
+UC4 <-- UC4_2
+UC4 <-- UC4_3
+UC4 <-- UC4_4
+UC5 <-- UC5_1
+UC5 <-- UC5_2
+UC6 <-- UC6_1
+UC6 <-- UC6_2
+UC7 <-- UC7_1
+UC7 <-- UC7_2
+UC8 <-- UC8_1
+UC8 <-- UC8_2
+UC8 <-- UC8_3
+UC9 <-- UC9_1
+UC9 <-- UC9_2
+
+@enduml

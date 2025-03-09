@@ -5,13 +5,9 @@ using UnityEngine;
 
 namespace Game
 {
-    public class ObusScript : MonoBehaviour
+    public class ObusScript : Projectile
     {
-        private Transform target;
-        public float speed = 70f;
-        public GameObject bulletImpact;
         public float damagesRadius;
-        private float damages;
         private Vector3 destination;
         private Vector3 startPosition;
         private float flightTime;
@@ -20,9 +16,9 @@ namespace Game
         private Vector3 previousPosition;
         private bool aerialLaunch = false;
 
-        public void Find(Transform _target)
+        public new void Find(Transform _target)
         {
-            target = _target;
+            base.Find(_target);
 
             destination = new Vector3(target.position.x, 0, target.position.z);
             startPosition = transform.position;
@@ -34,12 +30,7 @@ namespace Game
             previousPosition = startPosition;
         }
 
-        public void SetDamage(float _damages)
-        {
-            damages = _damages;
-        }
-
-        void Update()
+        protected override void Update()
         {
             if (!aerialLaunch)
             {
@@ -101,32 +92,19 @@ namespace Game
             Destroy(gameObject);
         }
 
-    //Calcule les dégats en fonction de la distance de la cible 0%->75% du rayon dégat à 100% puis diminue petit a petit sur les 25% restant de rayon 
-    float CalculateDamageMultiplier(float distance){
-        if (distance <= damagesRadius * 0.75f)
+        float CalculateDamageMultiplier(float distance)
         {
-            return 1f; 
-        }
-        else if (distance <= damagesRadius)
-        {
-            float normalizedDistance = (distance - (damagesRadius * 0.75f)) / (damagesRadius * 0.75f);
-            return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
-        }
-        
-        return 0f;
-    }
-
-    void Damage(Transform colliderTransform, float damagesTaken){
-        EnemyBase e = colliderTransform.GetComponent<EnemyBase>();
-            if(e != null){
-                e.TakeDamages(damagesTaken);
-                PlayerStats.DamagesGiven += damagesTaken;
-            }
-            DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
-            if (defense != null)
+            if (distance <= damagesRadius * 0.75f)
             {
-                defense.TakeDamage(damagesTaken);
+                return 1f;
             }
+            else if (distance <= damagesRadius)
+            {
+                float normalizedDistance = (distance - (damagesRadius * 0.75f)) / (damagesRadius * 0.75f);
+                return Mathf.Lerp(1f, 0.1f, normalizedDistance);
+            }
+
+            return 0f;
         }
 
         public void SetAerialLaunch(bool _aerialLaunch)
@@ -139,5 +117,4 @@ namespace Game
             speed = _newSpeed;
         }
     }
-
 }
