@@ -3,91 +3,103 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ObusScript : MonoBehaviour
+namespace Game
 {
-    private Transform target;
-    public float speed = 70f;
-    public GameObject bulletImpact;
-    public float damagesRadius;
-    private float damages;
-    private Vector3 destination;
-    private Vector3 startPosition;
-    private float flightTime;
-    private float elapsedTime; 
-    public float arcHeight; // Hauteur maximale de l'obus
-    private Vector3 previousPosition;
-    private bool aerialLaunch = false;
-
-    public void Find(Transform _target)
+    public class ObusScript : MonoBehaviour
     {
-        target = _target;
+        private Transform target;
+        public float speed = 70f;
+        public GameObject bulletImpact;
+        public float damagesRadius;
+        private float damages;
+        private Vector3 destination;
+        private Vector3 startPosition;
+        private float flightTime;
+        private float elapsedTime;
+        public float arcHeight; // Hauteur maximale de l'obus
+        private Vector3 previousPosition;
+        private bool aerialLaunch = false;
 
-        destination = new Vector3(target.position.x, 0, target.position.z);
-        startPosition = transform.position;
-        float distance = Vector3.Distance(startPosition, destination);
-        flightTime = distance / speed;
+        public void Find(Transform _target)
+        {
+            target = _target;
 
-        elapsedTime = 0f;
+            destination = new Vector3(target.position.x, 0, target.position.z);
+            startPosition = transform.position;
+            float distance = Vector3.Distance(startPosition, destination);
+            flightTime = distance / speed;
 
-        previousPosition = startPosition;
-    }
+            elapsedTime = 0f;
 
-    public void SetDamage(float _damages){
-        damages = _damages;
-    }
-
-    void Update()
-    {
-        if(!aerialLaunch){
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= flightTime || transform.position.y < 0f)
-            {
-                Explode();
-                return;
-            }
-
-            float progress = elapsedTime / flightTime;
-            Vector3 horizontalPosition = Vector3.Lerp(startPosition, destination, progress);
-
-            float verticalOffset = Mathf.Sin(progress * Mathf.PI) * arcHeight;
-
-            Vector3 newPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + verticalOffset, horizontalPosition.z);
-            transform.position = newPosition;
-
-            Vector3 direction = (newPosition - previousPosition).normalized;
-
-            if (direction != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(direction);
-            }
-            previousPosition = newPosition;
+            previousPosition = startPosition;
         }
-        else{
-            transform.position += Vector3.down * speed * Time.deltaTime;
-            transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-            if (transform.position.y <= 2f)
-            {
-                Explode();
-            }
-        }
-    }
 
-    void Explode(){
-        Collider[] colliders = Physics.OverlapSphere(transform.position, damagesRadius);
-        foreach(Collider collider in colliders){
-            if(collider.tag == "Classic Enemy" || collider.tag == "destructible"){
-                Debug.Log("Zombie touché par l'explosion !");
-                float distance = Vector3.Distance(transform.position, collider.transform.position);
-                float damageMultiplier = CalculateDamageMultiplier(distance);
-                float finalDamage = damages * damageMultiplier;
-            
-                Damage(collider.transform, finalDamage);
+        public void SetDamage(float _damages)
+        {
+            damages = _damages;
+        }
+
+        void Update()
+        {
+            if (!aerialLaunch)
+            {
+                elapsedTime += Time.deltaTime;
+                if (elapsedTime >= flightTime || transform.position.y < 0f)
+                {
+                    Explode();
+                    return;
+                }
+
+                float progress = elapsedTime / flightTime;
+                Vector3 horizontalPosition = Vector3.Lerp(startPosition, destination, progress);
+
+                float verticalOffset = Mathf.Sin(progress * Mathf.PI) * arcHeight;
+
+                Vector3 newPosition = new Vector3(horizontalPosition.x, horizontalPosition.y + verticalOffset, horizontalPosition.z);
+                transform.position = newPosition;
+
+                Vector3 direction = (newPosition - previousPosition).normalized;
+
+                if (direction != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.LookRotation(direction);
+                }
+                previousPosition = newPosition;
+            }
+            else
+            {
+                transform.position += Vector3.down * speed * Time.deltaTime;
+                transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+                if (transform.position.y <= 2f)
+                {
+                    
+                    Explode();
+                }
             }
         }
-        GameObject effect = Instantiate(bulletImpact, transform.position, Quaternion.Euler(-90, 0, 0));
-        Destroy(effect, 2f);
-        Destroy(gameObject);
-    }
+
+        void Explode()
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, damagesRadius);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.tag == "Classic Enemy" || collider.tag == "destructible")
+                {
+                    Debug.Log("Zombie touché par l'explosion !");
+                    float distance = Vector3.Distance(transform.position, collider.transform.position);
+                    float damageMultiplier = CalculateDamageMultiplier(distance);
+                    float finalDamage = damages * damageMultiplier;
+
+                    Damage(collider.transform, finalDamage);
+                }
+            }
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
+            GameObject effect = Instantiate(bulletImpact, transform.position, Quaternion.Euler(-90, 0, 0));
+            Destroy(effect, 2f);
+            Destroy(gameObject);
+        }
 
     //Calcule les dégats en fonction de la distance de la cible 0%->75% du rayon dégat à 100% puis diminue petit a petit sur les 25% restant de rayon 
     float CalculateDamageMultiplier(float distance){
@@ -110,18 +122,22 @@ public class ObusScript : MonoBehaviour
                 e.TakeDamages(damagesTaken);
                 PlayerStats.DamagesGiven += damagesTaken;
             }
-        DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
+            DefenseScript defense = colliderTransform.GetComponent<DefenseScript>();
             if (defense != null)
             {
                 defense.TakeDamage(damagesTaken);
             }
+        }
+
+        public void SetAerialLaunch(bool _aerialLaunch)
+        {
+            aerialLaunch = _aerialLaunch;
+        }
+
+        public void SetSpeed(float _newSpeed)
+        {
+            speed = _newSpeed;
+        }
     }
 
-    public void SetAerialLaunch(bool _aerialLaunch){
-        aerialLaunch = _aerialLaunch;
-    }
-
-    public void SetSpeed(float _newSpeed){
-        speed = _newSpeed;
-    }
 }

@@ -5,154 +5,163 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NodeScript : MonoBehaviour
+
+namespace Game
 {
-    private Renderer rend;
-    public Material hoverMaterial;
-    private Material defaultMaterial;
-    [DoNotSerialize] public GameObject defense;
-    [DoNotSerialize] public GameObject tempDefense;
-    [DoNotSerialize] public DefenseClass defenseClass;
-    public Vector3 positionOffset;
-    BuildManager buildManager;
-
-    public int currentUpgradeState = 0; 
-    public bool isUpgraded = false;
-
-    void Start()
+    public class Node : MonoBehaviour
     {
-        rend = GetComponent<Renderer>();
-        defaultMaterial = rend.material;
 
-        buildManager = BuildManager.instance;
-    }
+        private Renderer rend;
+        public Material hoverMaterial;
+        private Material defaultMaterial;
+        [DoNotSerialize] public GameObject defense;
+        [DoNotSerialize] public GameObject tempDefense;
+        [DoNotSerialize] public Defense defenseClass;
+        public Vector3 positionOffset;
+        BuildManager buildManager;
+        private GameObject maxRangeIndicator;
+        private GameObject minRangeIndicator;
+        private RangeIndicator rangeIndicator;
+        public int currentUpgradeState = 0;
+        public bool isUpgraded = false;
 
-    void OnMouseEnter(){
-        SetHover(true);
-    }
-
-    void OnMouseExit(){
-        SetHover(false);
-    }
-
-    public void SetHover(bool state)
-    {
-        if (IsPointerOverUIElement()) state = false;
-
-        if (state)
+        void Start()
         {
-            rend.material = hoverMaterial;
-            if (defense == null && buildManager.CanBuild)
-                buildManager.BuildDefenseOn(this, false, false);
-        }
-        else
-        {
-            rend.material = defaultMaterial;
-            Destroy(tempDefense);
-        }
-    }
-
-    public void OnMouseDown()
-    {
-        if (IsPointerOverUIElement()){
-            return;
+            rend = GetComponent<Renderer>();
+            defaultMaterial = rend.material;
+            rangeIndicator = gameObject.AddComponent<RangeIndicator>();
+            buildManager = BuildManager.instance;
         }
 
-        if (defense != null)
+        void OnMouseEnter()
         {
-            buildManager.SelectNode(this);
-            return;
+            SetHover(true);
         }
 
-        if (!buildManager.CanBuild)
-            return;
-
-        Destroy(tempDefense);
-        buildManager.BuildDefenseOn(this, true, false);
-        PlayerStats.BuiltDefenses++;
-        DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
-        if(defenseScript != null)
-            defenseScript.Initialize(buildManager.GetDefenseToBuild());
-                
-        buildManager.SelectDefenseToBuild(null);
-        tempDefense = null;
-    }
-
-    bool IsPointerOverUIElement()
-    {
-        PointerEventData eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Input.mousePosition;
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, results);
-
-        foreach (RaycastResult result in results)
+        void OnMouseExit()
         {
-            if (result.gameObject.layer == LayerMask.NameToLayer("UI"))
+            SetHover(false);
+        }
+
+        public void SetHover(bool state)
+        {
+            if (IsPointerOverUIElement()) state = false;
+
+            if (state)
             {
-                //Debug.Log("Est pas sur de l'ui, TRUE");
-                return true; 
+                rend.material = hoverMaterial;
+                if (defense == null && buildManager.CanBuild){
+                    buildManager.BuildDefenseOn(this, false, false);
+                    if(tempDefense.GetComponent<TurretScript>() != null)
+                        rangeIndicator.ShowRange(tempDefense.GetComponent<TurretScript>().maximumRange, tempDefense.GetComponent<TurretScript>().minimumRange, gameObject.transform);
+                }
+                
+            }
+            else
+            {
+                if(rangeIndicator != null && tempDefense != null)
+                    rangeIndicator.HideRange();
+
+                rend.material = defaultMaterial;
+                Destroy(tempDefense);
             }
         }
-        
-        return false;
-    }
 
-    public void UpgradeDefense()
-    {
-        if (defenseClass.upgradeLevel+1 >= defenseClass.upgradeStates.Count - 1)
+        public void OnMouseDown()
         {
-            Debug.Log("La défense est au niveau max");
-            return;
+            if (IsPointerOverUIElement())
+            {
+                return;
+            }
+
+            if (defense != null)
+            {
+                // Replace this with a node object
+                buildManager.SelectNode(this);
+                return;
+            }
+
+            if (!buildManager.CanBuild)
+                return;
+            if(rangeIndicator != null && tempDefense != null)
+                        rangeIndicator.HideRange();
+            Destroy(tempDefense);
+            buildManager.BuildDefenseOn(this, true, false);
+            PlayerStats.BuiltDefenses++;
+            DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
+            if(defenseScript != null)
+                defenseScript.Initialize(buildManager.GetDefenseToBuild());
+                    
+            buildManager.SelectDefenseToBuild(null);
+            tempDefense = null;
         }
-        /*
-        int upgradeCost = defenseClass.upgradeCosts[currentUpgradeState];
-        if (PlayerStats.Money < upgradeCost)
+
+        bool IsPointerOverUIElement()
         {
-            Debug.Log("Pas assez d'argent pour améliorer!");
-            return;
-        
+            PointerEventData eventData = new PointerEventData(EventSystem.current);
+            eventData.position = Input.mousePosition;
 
-        PlayerStats.Money -= upgradeCost;}*/
-        defenseClass.upgradeLevel++;
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
 
-        DefenseUpgradeState newState = defenseClass.upgradeStates[defenseClass.upgradeLevel];
+            foreach (RaycastResult result in results)
+            {
+                if (result.gameObject.layer == LayerMask.NameToLayer("UI"))
+                {
+                    //Debug.Log("Est pas sur de l'ui, TRUE");
+                    return true;
+                }
+            }
 
-        if (defense != null)
+            return false;
+        }
+
+        public void UpgradeDefense()
+        {
+            if (defenseClass.upgradeLevel + 1 >= defenseClass.upgradeStates.Count)
+            // - 1 supprimé car ne pouvait pas passer au dernier niveau)
+            {
+                Debug.Log("La défense est au niveau max");
+                return;
+            }
+            defenseClass.upgradeLevel++;
+
+            DefenseUpgradeState newState = defenseClass.upgradeStates[defenseClass.upgradeLevel];
+
+            if (defense != null)
+                Destroy(defense);
+
+            buildManager.SelectDefenseToBuild(defenseClass);
+            buildManager.BuildDefenseOn(this, true, true);
+
+            DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
+            if (defenseScript != null)
+                defenseScript.Initialize(defenseClass);
+
+            TurretScript turretScript = defense.GetComponent<TurretScript>();
+            if (turretScript != null)
+            {
+                turretScript.damages = newState.damages;
+                turretScript.maximumRange = newState.maximumRange;
+                turretScript.fireRate = newState.fireRate;
+                //turretScript.SetActive(true);
+                turretScript.Initialize();
+            }
+
+            buildManager.SelectDefenseToBuild(null);
+            tempDefense = null;
+
+            isUpgraded = true;
+            Debug.Log($"Defense améliorée au niveau {defenseClass.upgradeLevel}!");
+        }
+
+        public void SellDefense()
+        {
+            PlayerStats.Money += defenseClass.GetSellAmount();
+
             Destroy(defense);
-
-        buildManager.SelectDefenseToBuild(defenseClass);
-        buildManager.BuildDefenseOn(this, true, true);
-        
-        //defense = Instantiate(newState.prefab, transform.position + positionOffset, Quaternion.identity);
-        //defense.transform.parent = transform;
-        DefenseScript defenseScript = defense.GetComponent<DefenseScript>();
-        if(defenseScript != null)
-            defenseScript.Initialize(defenseClass);
-
-        TurretScript turretScript = defense.GetComponent<TurretScript>();
-        if (turretScript != null)
-        {
-            turretScript.damages = newState.damages;
-            turretScript.maximumRange = newState.maximumRange;
-            turretScript.fireRate = newState.fireRate;
-            //turretScript.SetActive(true);
-            turretScript.Initialize();
+            defenseClass = null;
         }
-
-        buildManager.SelectDefenseToBuild(null);
-        tempDefense = null;
-
-        isUpgraded = true;
-        Debug.Log($"Defense améliorée au niveau {defenseClass.upgradeLevel}!");
-    }
-
-    public void SellDefense()
-    {
-        PlayerStats.Money += defenseClass.GetSellAmount();
-
-        Destroy(defense);
-        defenseClass = null;
     }
 
 }

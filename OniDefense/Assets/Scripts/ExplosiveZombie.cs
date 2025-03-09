@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosiveZombie : EnemyBase
+namespace Game
 {
-    public float explosionRadius = 10f;
-    public float explosionDamage = 2000f;
-    public GameObject explosionEffect;
-
-    protected override void Die()
+    public class ExplosiveZombie : EnemyBase
     {
-        Explode();
-        base.Die();
-    }
+        public float explosionRadius = 10f;
+        public float explosionDamage = 2000f;
+        public GameObject explosionEffect;
+
+        protected override void Die()
+        {
+            Explode();
+            base.Die();
+        }
 
     void Explode()
     {
@@ -47,17 +49,18 @@ public class ExplosiveZombie : EnemyBase
     }
 
 
-    float CalculateDamageMultiplier(float distance){
-        if (distance <= explosionRadius * 0.75f)
-        {
-            return 1f; 
-        }
-        else if (distance <= explosionRadius)
-        {
-            float normalizedDistance = (distance - (explosionRadius * 0.75f)) / (explosionRadius * 0.75f);
-            return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
-        }
+        float CalculateDamageMultiplier(float distance){
+            if (distance <= explosionRadius * 0.75f)
+            {
+                return 1f; 
+            }
+            else if (distance <= explosionRadius)
+            {
+                float normalizedDistance = (distance - (explosionRadius * 0.75f)) / (explosionRadius * 0.75f);
+                return Mathf.Lerp(1f, 0.1f, normalizedDistance); 
+            }
         
-        return 0f;
+            return 0f;
+        }
     }
 }
