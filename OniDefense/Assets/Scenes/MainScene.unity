@@ -147,6 +147,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -227,6 +235,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b40a73ffe9432499dba983b58307e9f1, type: 3}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_frappe
@@ -249,12 +261,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
-      value: (Effet)
+      value: 1000 $
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSize
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -1113,7 +1133,7 @@ MonoBehaviour:
       maximumRange: 23.4
       damages: 20
       fireRate: 5
-      cost: 200
+      cost: 500
       health: 1400
     - prefab: {fileID: 6077712319001752596, guid: a15f2744586e84415ac42808438f4c0b, type: 3}
       maximumRange: 23.4
@@ -1125,25 +1145,25 @@ MonoBehaviour:
       maximumRange: 29.3
       damages: 40
       fireRate: 5
-      cost: 200
+      cost: 2000
       health: 1500
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
       maximumRange: 36.6
       damages: 40
       fireRate: 12.5
-      cost: 0
+      cost: 5000
       health: 1500
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
       maximumRange: 36.6
       damages: 80
       fireRate: 12.5
-      cost: 0
+      cost: 10000
       health: 1500
     - prefab: {fileID: 7773757521000308494, guid: d8f713601262644069af750fa3284e2f, type: 3}
       maximumRange: 45.8
       damages: 80
       fireRate: 12.5
-      cost: 0
+      cost: 15000
       health: 1500
     target: {fileID: 0}
     ennemyLayer:
@@ -1160,49 +1180,49 @@ MonoBehaviour:
       maximumRange: 25
       damages: 60
       fireRate: 0.2
-      cost: 0
+      cost: 100
       health: 1500
     - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
       maximumRange: 31.3
       damages: 60
       fireRate: 0.2
-      cost: 0
+      cost: 300
       health: 1500
-    - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
+    - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
       maximumRange: 39.1
       damages: 60
       fireRate: 0.5
-      cost: 0
+      cost: 600
       health: 1500
-    - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
+    - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
       maximumRange: 39.1
       damages: 120
       fireRate: 0.5
-      cost: 0
+      cost: 1000
       health: 1500
     - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 48.8
       damages: 120
       fireRate: 0.5
-      cost: 0
+      cost: 2000
       health: 1500
-    - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
+    - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 61
       damages: 120
       fireRate: 1.25
-      cost: 0
+      cost: 5000
       health: 1500
-    - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
+    - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 61
       damages: 240
       fireRate: 1.25
-      cost: 0
+      cost: 7000
       health: 1500
-    - prefab: {fileID: 2123286276941265380, guid: 3393d1b227cd44d8e950b26e8be5871e, type: 3}
+    - prefab: {fileID: 6035909341898722335, guid: ebb6bd103e0b440ad91d3fb100ed925b, type: 3}
       maximumRange: 76.3
       damages: 240
       fireRate: 1.25
-      cost: 0
+      cost: 10000
       health: 1500
     target: {fileID: 0}
     ennemyLayer:
@@ -1219,31 +1239,31 @@ MonoBehaviour:
       maximumRange: 30
       damages: 100
       fireRate: 0.1
-      cost: 0
+      cost: 500
       health: 1500
     - prefab: {fileID: 3186223316820800590, guid: acecad27189e44f8885d86ca89a96bea, type: 3}
       maximumRange: 37.5
       damages: 100
       fireRate: 0.1
-      cost: 0
+      cost: 1000
       health: 1500
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 46.9
       damages: 100
       fireRate: 0.25
-      cost: 0
+      cost: 2000
       health: 1500
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 46.9
       damages: 200
       fireRate: 0.25
-      cost: 0
+      cost: 5000
       health: 1500
     - prefab: {fileID: 3186223316820800590, guid: 0a79ba9d065fc4a05bedc8ac57eedecd, type: 3}
       maximumRange: 58.6
       damages: 200
       fireRate: 0.25
-      cost: 0
+      cost: 10000
       health: 1500
     target: {fileID: 0}
     ennemyLayer:
@@ -1571,6 +1591,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1651,6 +1679,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 099021be1d0dc4dddbfc910877aedef6, type: 3}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_sniper
@@ -1673,12 +1705,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
-      value: "Tirs / s : 0.2\nD\xE9gats : 30\nRange : 5 - 25"
+      value: 100 $
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSize
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -5491,6 +5531,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5571,6 +5619,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d57a4be03d9744aa89dcffd9444f695c, type: 3}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_mortier
@@ -5592,9 +5644,21 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_text
+      value: 500 $
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -8501,6 +8565,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8581,6 +8653,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2e9bf8aa32acc43b790b925e8395a96f, type: 3}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_mitrailleuse
@@ -8603,12 +8679,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
-      value: "Tirs / s : 2\nD\xE9gats : 10\nRange : 2.5 -15"
+      value: 50 $
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSize
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -8991,6 +9075,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9071,6 +9163,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ab6a887ca4d514b89964befd069146d8, type: 3}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_barbeles
@@ -9093,12 +9189,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
-      value: (Effet)
+      value: 200 $
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSize
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -10123,6 +10227,26 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10203,6 +10327,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 66f9543a1aae7425c8a307bb1322ee71, type: 3}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_Money
@@ -10225,12 +10353,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
-      value: (Bonus)
+      value: 500 $
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSize
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -12237,7 +12377,7 @@ MonoBehaviour:
       maximumRange: 0
       damages: 0
       fireRate: 0
-      cost: 200
+      cost: 500
       health: 1000
     target: {fileID: 0}
     ennemyLayer:
@@ -12254,7 +12394,7 @@ MonoBehaviour:
       maximumRange: 0
       damages: 0
       fireRate: 0
-      cost: 100
+      cost: 200
       health: 500
     target: {fileID: 0}
     ennemyLayer:
@@ -12271,7 +12411,7 @@ MonoBehaviour:
       maximumRange: 0
       damages: 0
       fireRate: 0
-      cost: 500
+      cost: 1000
       health: 0
     target: {fileID: 0}
     ennemyLayer:
@@ -12831,6 +12971,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -12911,6 +13059,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c5462a0f514e44b208d23ac2bd09c2cd, type: 3}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_barricade
@@ -12933,12 +13085,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
-      value: (Effet)
+      value: 500 $
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSize
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -13178,6 +13338,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381659780314485421, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509056379276695980, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -13258,6 +13426,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2554976720649594035, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 95d8260ab3304401d8edd1e5d79f72ff, type: 3}
     - target: {fileID: 3080023474870641972, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_Name
       value: Button_Munitions
@@ -13280,12 +13452,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_text
-      value: (Bonus)
+      value: 500 $
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSize
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 3847698086832728017, guid: afb974d35753a4518807119437470b36, type: 3}
       propertyPath: m_sharedMaterial
       value: 
