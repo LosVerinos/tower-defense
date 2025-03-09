@@ -140,6 +140,9 @@ namespace Game
                 obusScript.SetDamage(damages);
                 obusScript.Find(target);
             }
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
         }
 
         public void SetActive(bool _active)

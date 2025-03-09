@@ -72,6 +72,7 @@ namespace Game
                 transform.rotation = Quaternion.Euler(90f, 0f, 0f);
                 if (transform.position.y <= 2f)
                 {
+                    
                     Explode();
                 }
             }
@@ -92,6 +93,9 @@ namespace Game
                     Damage(collider.transform, finalDamage);
                 }
             }
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
             GameObject effect = Instantiate(bulletImpact, transform.position, Quaternion.Euler(-90, 0, 0));
             Destroy(effect, 2f);
             Destroy(gameObject);
