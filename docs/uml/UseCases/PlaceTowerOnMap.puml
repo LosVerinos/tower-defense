@@ -1,0 +1,38 @@
+@startuml PlaceTowerOnMap
+left to right direction
+skinparam packageStyle rectangle
+
+actor Joueur as J
+
+rectangle "Système de jeu" {
+    usecase "Ouvrir le menu de construction" as UC1
+    usecase "Sélectionner une tour" as UC2
+    usecase "Prévisualiser le placement" as UC3
+    usecase "Valider le placement" as UC4
+    usecase "Vérifier les ressources" as UC5
+    usecase "Construire la tour" as UC6
+    usecase "Commencer l'attaque" as UC7
+}
+
+J --> UC1
+J --> UC2
+J --> UC3
+J --> UC4
+UC4 --> UC5 : Vérification
+UC5 --> UC6 : Si ressources suffisantes
+UC6 --> UC7
+
+
+note right of UC4
+    Si zone invalide :
+    - Refuser le placement
+    Si joueur n'a pas assez d'or :
+    - Message d'erreur
+end note
+
+note right of UC7
+    La tour attaque automatiquement 
+    les ennemis à portée
+end note
+
+@enduml
