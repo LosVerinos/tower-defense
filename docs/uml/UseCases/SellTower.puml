@@ -1,0 +1,30 @@
+@startuml SellTower
+left to right direction
+skinparam packageStyle rectangle
+
+actor Joueur as J
+
+rectangle "Système de jeu" {
+    usecase "Sélectionner une tour" as UC1
+    usecase "Afficher l'option de vente" as UC2
+    usecase "Supprimer la tour de la map" as UC3
+    usecase "Mettre à jour l'argent" as UC4
+}
+
+
+J --> UC1
+UC1 --> UC2
+J --> UC2
+UC2 --> UC3
+UC3 --> UC4
+
+note right of UC3
+    Si le joueur clique sur "Vendre" :
+    - La tour est vendue
+end note
+
+note right of UC4
+    Mettre à jour :
+    - L'argent du joueur
+end note
+@enduml
