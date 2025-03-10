@@ -1,0 +1,40 @@
+@startuml EndOfgame
+left to right direction
+skinparam packageStyle rectangle
+
+actor Joueur as J
+
+rectangle "Système de jeu" {
+    usecase "Detecter la fin de la partie" as UC1
+    usecase "Afficher le menu de fin de partie" as UC2
+    usecase "Afficher le score" as UC3
+    usecase "Rejouer" as UC4
+    usecase "Quitter" as UC5
+}
+
+UC1 --> UC2
+UC2 --> UC3
+
+UC3 --> UC4
+UC3 --> UC5
+
+J --> UC4
+J --> UC5
+
+note right of UC3
+    Afficher le score :
+    - Nombre de vagues
+    - Nombre de tours
+    - Nombre d'ennemis tués
+end note
+
+note right of UC4
+    Rejouer :
+    - Recharger la scène
+end note
+
+note right of UC5
+    Quitter :
+    - Fermer le jeu
+end note
+@enduml
