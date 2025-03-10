@@ -1,0 +1,29 @@
+@startuml StartMenuOnLaunch
+left to right direction
+
+actor "Joueur" as Joueur
+rectangle "Système de jeu" {
+    usecase "Afficher le menu de lancement" as UC1
+    usecase "Saisir le pseudo" as UC2
+    usecase "Enregistrer le pseudo" as UC3
+    usecase "Lancer la partie" as UC4
+}
+
+Joueur --> UC1
+Joueur --> UC2
+UC2 --> UC3
+UC3 --> UC4
+
+note right of UC3
+    Si le joueur clique sur "Valider" :
+    - Enregistrer le pseudo
+end note
+
+note right of UC4
+    Lancer la partie :
+    - Charger la map
+    - Charger les tours
+    - Charger les ennemis
+end note
+
+@enduml
