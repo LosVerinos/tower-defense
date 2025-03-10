@@ -1,0 +1,39 @@
+@startuml UpgradeTower
+left to right direction
+skinparam packageStyle rectangle
+
+actor Joueur as J
+
+rectangle "Système de jeu" {
+    usecase "Sélectionner une tour" as UC1
+    usecase "Afficher les options d'amélioration" as UC2
+    usecase "Vérifier le coût" as UC3
+    usecase "Améliorer la tour" as UC4
+    usecase "Mettre à jour les statistiques" as UC5
+}
+
+
+J --> UC1
+UC1 --> UC2
+J --> UC2
+UC2 --> UC3
+UC3 --> UC4 : Si coût validé
+UC4 --> UC5
+
+note right of UC3
+    Si le joueur n'a pas assez d'or :
+    - Impossible de cliquer sur le bouton
+end note
+
+note right of UC4
+    Si la tour est au niveau max :
+    - Impossible de cliquer sur le bouton
+end note
+
+note right of UC5
+    Mettre à jour :
+    - Dégâts
+    - Portée
+    - Vitesse de tir
+end note
+@enduml
